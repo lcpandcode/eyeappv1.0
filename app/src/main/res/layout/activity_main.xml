@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/tabhost"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#FFFFFFFF"
+        android:orientation="vertical" >
+
+        <FrameLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1" >  <!--这里的layout_weight="1"不可省略，代表Framelayout占用剩余的所有空间-->
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent" >
+
+                <fragment
+                    android:id="@+id/fragment_main"
+                    android:name="com.bysj.eyeapp.demo1.MainFragment"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" />
+
+                <fragment
+                    android:id="@+id/fragment_mycenter"
+                    android:name="com.bysj.eyeapp.demo1.MyCenterFragment"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" />
+
+                <fragment
+                    android:id="@+id/fragment_search"
+                    android:name="com.bysj.eyeapp.demo1.SearchFragment"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" />
+            </FrameLayout>
+        </FrameLayout>
+
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.0"
+            android:visibility="gone" />
+
+        <!-- 我只是一条线 -->
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="3dp"
+            android:background="@drawable/footer_line" >
+        </LinearLayout>
+
+        <RadioGroup
+            android:id="@+id/radiogroup"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@drawable/footer_background"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!-- android:background="@drawable/bk_footer" -->
+
+            <RadioButton
+                android:id="@+id/radio_search"
+                style="@style/main_tab_bottom"
+                android:layout_weight="1"
+                android:button="@null"
+                android:gravity="center"
+                android:drawableTop="@drawable/footer_btn_test_selector"
+                android:textColor="@drawable/footer_btn_font"
+                android:text="视力测试" />
+
+            <RadioButton
+                android:id="@+id/radio_main"
+                style="@style/main_tab_bottom"
+                android:layout_weight="1"
+                android:button="@null"
+                android:checked="true"
+                android:drawableTop="@drawable/footer_btn_person_selector"
+                android:gravity="center"
+                android:textColor="@drawable/footer_btn_font"
+                android:text="个人中心" />
+
+            <RadioButton
+                android:id="@+id/radio_mycenter"
+                style="@style/main_tab_bottom"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/footer_btn_knowledge_selector"
+                android:gravity="center"
+                android:textColor="@drawable/footer_btn_font"
+                android:text="知识库" />
+            <RadioButton
+                android:id="@+id/radio_blurayfilt"
+                style="@style/main_tab_bottom"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/footer_btn_blurayfilt_selector"
+                android:gravity="center"
+                android:textColor="@drawable/footer_btn_font"
+                android:text="蓝光过滤" />
+
+            <RadioButton
+                android:id="@+id/radio_eyedata"
+                style="@style/main_tab_bottom"
+                android:layout_weight="1"
+                android:button="@null"
+                android:drawableTop="@drawable/footer_btn_eyedata_selector"
+                android:gravity="center"
+                android:textColor="@drawable/footer_btn_font"
+                android:text="用眼数据" />
+        </RadioGroup>
+    </LinearLayout>
+
+</TabHost>

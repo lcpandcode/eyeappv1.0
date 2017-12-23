@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--定义颜色的总配置文件，这里定义颜色变量之后统一引用，方便统一修改-->
+<resources>
+    <!--底部栏（footer)背景颜色-->
+    <drawable name="footer_background">#F2F2F2</drawable>
+    <!--底部栏按钮被选中变成的颜色-->
+    <drawable name="footer_btn_selected">#38ADFF</drawable>
+    <drawable name="footer_btn_font">#617D8A</drawable>
+
+    <drawable name="footer_line">#BEBEBE</drawable>
+    <drawable name="bg_center">#f0f0f0</drawable>
+    <drawable name="mycenter_item_n">#ffffff</drawable>
+    <drawable name="mycenter_item_p">#cecece</drawable>
+</resources>
