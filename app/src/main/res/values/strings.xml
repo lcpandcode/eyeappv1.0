@@ -1,8 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">TabMenu</string>
+    <string name="app_name">eyeapp</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <!--title-->
+    <string name="title_test">视力测试</string>
+    <string name="title_person">个人中心</string>
+    <string name="title_knowledge">知识库</string>
+    <string name="title_blurayfilt">蓝光过滤</string>
+    <string name="title_eyedata">用眼数据</string>
+
+    <!--footer_btn（底部栏按钮）文字-->
+    <string name="footer_btn_test">视力测试</string>
+    <string name="footer_btn_person">个人中心</string>
+    <string name="footer_btn_knowledge">知识库</string>
+    <string name="footer_btn_blurayfilt">蓝光过滤</string>
+    <string name="footer_btn_eyedata">用眼数据</string>
 
 </resources>

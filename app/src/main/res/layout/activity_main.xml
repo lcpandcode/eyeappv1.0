@@ -21,20 +21,30 @@
                 android:layout_height="fill_parent" >
 
                 <fragment
-                    android:id="@+id/fragment_main"
-                    android:name="com.bysj.eyeapp.demo1.MainFragment"
+                    android:id="@+id/fragment_test"
+                    android:name="com.bysj.eyeapp.demo1.FragmentTest"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent" />
 
                 <fragment
-                    android:id="@+id/fragment_mycenter"
-                    android:name="com.bysj.eyeapp.demo1.MyCenterFragment"
+                    android:id="@+id/fragment_person"
+                    android:name="com.bysj.eyeapp.demo1.FragmentPerson"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent" />
 
                 <fragment
-                    android:id="@+id/fragment_search"
-                    android:name="com.bysj.eyeapp.demo1.SearchFragment"
+                    android:id="@+id/fragment_knowledge"
+                    android:name="com.bysj.eyeapp.demo1.FragmentKnowledge"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" />
+                <fragment
+                    android:id="@+id/fragment_blurayfilt"
+                    android:name="com.bysj.eyeapp.demo1.FragmentBlurayfilt"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent" />
+                <fragment
+                    android:id="@+id/fragment_eyedata"
+                    android:name="com.bysj.eyeapp.demo1.FragmentEyedata"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent" />
             </FrameLayout>
@@ -66,17 +76,17 @@
             <!-- android:background="@drawable/bk_footer" -->
 
             <RadioButton
-                android:id="@+id/radio_search"
+                android:id="@+id/radio_test"
                 style="@style/main_tab_bottom"
                 android:layout_weight="1"
                 android:button="@null"
                 android:gravity="center"
                 android:drawableTop="@drawable/footer_btn_test_selector"
                 android:textColor="@drawable/footer_btn_font"
-                android:text="视力测试" />
+                android:text="@string/footer_btn_test" />
 
             <RadioButton
-                android:id="@+id/radio_main"
+                android:id="@+id/radio_person"
                 style="@style/main_tab_bottom"
                 android:layout_weight="1"
                 android:button="@null"
@@ -84,17 +94,17 @@
                 android:drawableTop="@drawable/footer_btn_person_selector"
                 android:gravity="center"
                 android:textColor="@drawable/footer_btn_font"
-                android:text="个人中心" />
+                android:text="@string/footer_btn_person" />
 
             <RadioButton
-                android:id="@+id/radio_mycenter"
+                android:id="@+id/radio_knowledge"
                 style="@style/main_tab_bottom"
                 android:layout_weight="1"
                 android:button="@null"
                 android:drawableTop="@drawable/footer_btn_knowledge_selector"
                 android:gravity="center"
                 android:textColor="@drawable/footer_btn_font"
-                android:text="知识库" />
+                android:text="@string/footer_btn_knowledge" />
             <RadioButton
                 android:id="@+id/radio_blurayfilt"
                 style="@style/main_tab_bottom"
@@ -103,7 +113,7 @@
                 android:drawableTop="@drawable/footer_btn_blurayfilt_selector"
                 android:gravity="center"
                 android:textColor="@drawable/footer_btn_font"
-                android:text="蓝光过滤" />
+                android:text="@string/footer_btn_blurayfilt" />
 
             <RadioButton
                 android:id="@+id/radio_eyedata"
@@ -113,7 +123,7 @@
                 android:drawableTop="@drawable/footer_btn_eyedata_selector"
                 android:gravity="center"
                 android:textColor="@drawable/footer_btn_font"
-                android:text="用眼数据" />
+                android:text="@string/footer_btn_eyedata" />
         </RadioGroup>
     </LinearLayout>
 

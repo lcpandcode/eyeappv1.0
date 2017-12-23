@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class MainFragment extends Fragment {
+public class FragmentKnowledge extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -15,7 +15,7 @@ public class MainFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View view= inflater.inflate(R.layout.fragment_main, null);
+		View view= inflater.inflate(R.layout.fragment_knowledge, null);
 		return view;
 	}
 }
