@@ -1,6 +1,5 @@
 package com.bysj.eyeapp.demo1;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,27 +9,41 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TabHost;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
+	//字符串常量
+	final static String tabSpaceTabTest = "test";
+	final static String tabSpaceTabPerson = "person";
+	final static String tabSpaceTabKnowledge = "knowledge";
+	final static String tabSpaceTabBlurayfilt = "blurayfilt";
+	final static String tabSpaceTabEyedata = "eyedata";
+
 	// tab用参数
 	private TabHost tabHost;
 	private RadioGroup radiogroup;
 	private int menuid;
 
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		//设置自定义标题
+		setupViews();
 		//默认首页是视力测试
-		getSupportActionBar().setTitle(R.string.title_test);
+		//getSupportActionBar().setTitle(R.string.title_test);
 		radiogroup = (RadioGroup) findViewById(R.id.radiogroup);
 		tabHost = (TabHost) findViewById(android.R.id.tabhost);
 		tabHost.setup();
-		tabHost.addTab(tabHost.newTabSpec("test").setIndicator("test")
-				.setContent(R.layout.fragment_test));
-		tabHost.addTab(tabHost.newTabSpec("mycenter").setIndicator("mycenter")
-				.setContent(R.layout.fragment_person));
-		tabHost.addTab(tabHost.newTabSpec("search").setIndicator("search")
-				.setContent(R.layout.fragment_knowledge));
+		tabHost.addTab(tabHost.newTabSpec(tabSpaceTabTest).setIndicator(tabSpaceTabTest)
+				.setContent(R.id.fragment_test));
+		tabHost.addTab(tabHost.newTabSpec(tabSpaceTabPerson).setIndicator(tabSpaceTabPerson)
+				.setContent(R.id.fragment_person));
+		tabHost.addTab(tabHost.newTabSpec(tabSpaceTabKnowledge).setIndicator(tabSpaceTabKnowledge)
+				.setContent(R.id.fragment_knowledge));
+		tabHost.addTab(tabHost.newTabSpec(tabSpaceTabBlurayfilt).setIndicator(tabSpaceTabBlurayfilt)
+				.setContent(R.id.fragment_blurayfilt));
+		tabHost.addTab(tabHost.newTabSpec(tabSpaceTabEyedata).setIndicator(tabSpaceTabEyedata)
+				.setContent(R.id.fragment_eyedata));
 		radiogroup.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 
 			@Override
@@ -39,20 +52,37 @@ public class MainActivity extends AppCompatActivity {
 				int currentTab = tabHost.getCurrentTab();
 				switch (checkedId) {
 					case R.id.radio_test:
-						tabHost.setCurrentTabByTag("main");
+						tabHost.setCurrentTabByTag(tabSpaceTabTest);
 						//如果需要动画效果就使用
-						//setCurrentTabWithAnim(currentTab, 0, "main");
-						getSupportActionBar().setTitle(R.string.title_test);
+						//setCurrentTabWithAnim(currentTab, 0, tabSpaceTabTest);
+						setTitle(R.string.title_test);
+						showBackwardView(R.string.title_btn_return,true);
+						showForwardView(R.string.title_btn_confirm,true);
 						break;
 					case R.id.radio_person:
-						//tabHost.setCurrentTabByTag("mycenter");
-						setCurrentTabWithAnim(currentTab, 1, "mycenter");
-						getSupportActionBar().setTitle(R.string.title_person);
-
+						tabHost.setCurrentTabByTag(tabSpaceTabPerson);
+						setTitle(R.string.title_person);
+						showBackwardView(-1,false);
+						showForwardView(-1,false);
 						break;
 					case R.id.radio_knowledge:
-						tabHost.setCurrentTabByTag("search");
-						getSupportActionBar().setTitle(R.string.title_knowledge);
+						tabHost.setCurrentTabByTag(tabSpaceTabKnowledge);
+						setTitle(R.string.title_knowledge);
+						showBackwardView(R.string.title_btn_return,true);
+						showForwardView(R.string.title_btn_confirm,true);
+						break;
+					case R.id.radio_blurayfilt:
+						tabHost.setCurrentTabByTag(tabSpaceTabBlurayfilt);
+						setTitle(R.string.title_blurayfilt);
+						showBackwardView(R.string.title_btn_return,true);
+						showForwardView(-1,false);
+						break;
+					case R.id.radio_eyedata:
+						tabHost.setCurrentTabByTag(tabSpaceTabEyedata);
+						setTitle(R.string.title_eyedata);
+						showBackwardView(-1,false);
+						showForwardView(R.string.title_btn_confirm,true);
+
 				}
 				// 刷新actionbar的menu
 				getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
@@ -60,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
 		});
 
 	}
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -103,4 +134,6 @@ public class MainActivity extends AppCompatActivity {
 			tabHost.getCurrentView().startAnimation(AnimationUtils.loadAnimation(this, R.anim.push_left_in));
 		}
 	}
+
+
 }

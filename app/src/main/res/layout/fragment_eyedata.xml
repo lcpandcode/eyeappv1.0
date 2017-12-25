@@ -9,6 +9,6 @@
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="测试数据界面" />
+        android:text="用眼数据" />
 
 </LinearLayout>

@@ -19,4 +19,8 @@
     <string name="footer_btn_blurayfilt">蓝光过滤</string>
     <string name="footer_btn_eyedata">用眼数据</string>
 
+    <!--上面标题栏按钮的文字-->
+    <string name="title_btn_return">返回</string>
+    <string name="title_btn_confirm">确认</string>
+
 </resources>
