@@ -19,19 +19,17 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     protected FrameLayout mContentLayout;
 
     /**
-     * 默认初始化方法
+     * 默认初始化方法,子类需要根据自己需要，重写该方法，该方法主要用于初始化标题栏相关的参数
+     * 在该方法中必需标题栏相关参数，如果标题栏没有按钮，则可以把按钮设置为null
+     * @param mTitleTextView:标题栏的标题文字；
+     * @param mBackwardbButton:标题栏的返回按钮
+     * @param mForwardButton:标题栏的提交（确认）按钮
      */
-    protected void setupViews() {
-        //super.setContentView(R.layout.titlebar);
-        mTitleTextView = (TextView) findViewById(R.id.text_title);
-        mBackwardbButton = (Button) findViewById(R.id.button_backward);
-        mForwardButton = (Button) findViewById(R.id.button_forward);
-        //显示标题的返回按钮，如果需要隐藏，调用showBackwardView，其中show传false布尔值即可，确认按钮类似
-        showBackwardView(R.string.title_btn_return,true);
-        //显示标题的确认按钮
-        showForwardView(R.string.title_btn_confirm,true);
+    protected void setupViews(TextView mTitleTextView,Button mBackwardbButton ,Button mForwardButton) {
+        this.mTitleTextView = mTitleTextView;
+        this.mBackwardbButton = mBackwardbButton;
+        this.mForwardButton = mForwardButton;
     }
-
     /**
      * 是否显示返回按钮
      * @param backwardResid  文字
@@ -109,9 +107,10 @@ public class BaseActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    /*
-     * @see android.view.View.OnClickListener#onClick(android.view.View)
-     * 按钮点击调用的方法
+    /**
+     *
+     * 按钮点击调用的方法，当需要用到按钮时，不同页面重写该方法即可
+     * @view 当前的按钮元素
      */
     @Override
     public void onClick(View v) {
