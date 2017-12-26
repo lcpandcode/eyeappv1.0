@@ -1,9 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.bysj.eyeapp.view.RegisterActivity">
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:orientation="vertical"
+    android:layout_height="fill_parent">
 
-</android.support.constraint.ConstraintLayout>
+    <!--自定义的标题栏-->
+    <LinearLayout
+        android:id="@+id/layout_titlebar"
+        style="@style/title">
+        <Button
+            android:id="@+id/button_backward"
+            style="@style/title_btn"
+            android:visibility="invisible"
+            android:text="@string/title_btn_return"/>
+
+        <TextView
+            android:id="@+id/text_title"
+            style="@style/title_title"
+            android:text="@string/title_register"
+            android:textColor="@color/title_title" />
+
+        <Button
+            android:id="@+id/button_forward"
+            android:visibility="invisible"
+            style="@style/title_btn"
+            android:text="@string/title_btn_confirm"/>
+
+    </LinearLayout>
+    <!--注册页面的布局和登录界面的布局一样，所以直接引用登录界面的style-->
+    <LinearLayout style="@style/login_inputBar"
+        android:layout_marginTop="20dp">
+
+        <TextView
+            style="@style/login_label"
+            android:text="昵称" />
+
+        <EditText
+            android:id="@+id/register_nickName"
+            style="@style/login_textEdit"
+            android:hint="请输入昵称" />
+    </LinearLayout>
+    <View style="@style/global_line"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="30dp"/>
+    <LinearLayout style="@style/login_inputBar">
+
+        <TextView
+            style="@style/login_label"
+            android:text="手机" />
+        <EditText
+            android:id="@+id/register_phone"
+            style="@style/login_textEdit"
+            android:hint="请输入手机号" />
+    </LinearLayout>
+    <View style="@style/global_line"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="30dp"/>
+    <LinearLayout style="@style/login_inputBar">
+
+        <TextView
+            style="@style/login_label"
+            android:text="密码" />
+        <EditText
+            android:id="@+id/register_pwd"
+            android:inputType="textPassword"
+            style="@style/login_textEdit"
+            android:hint="请输入密码" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:drawableRight="@mipmap/login_pwd_show"
+            android:layout_height="match_parent"
+            android:onClick="showPwd"/>
+    </LinearLayout>
+    <View style="@style/global_line"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+    <LinearLayout style="@style/login_inputBar">
+
+        <TextView
+            style="@style/login_label"
+            android:layout_weight="2"
+            android:text="验证码" />
+        <EditText
+            android:id="@+id/register_checkCode"
+            style="@style/login_textEdit"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:hint="请输入验证码" />
+        <Button
+            style="@style/global_btn"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_height="wrap_content"
+            android:text="获取验证码"
+            android:layout_gravity="right"
+            android:onClick="getCheckCode"/>
+
+    </LinearLayout>
+    <View style="@style/global_line"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+    <LinearLayout style="@style/login_inputBar">
+
+        <TextView
+            style="@style/login_label"
+            android:text="性别" />
+        <RadioGroup
+            android:id="@+id/register_sex"
+            style="@style/login_textEdit"
+            android:orientation="horizontal"
+            android:onClick="setSex"
+            android:gravity="left">
+           <RadioButton
+               android:id="@+id/register_rbtn_man"
+               style="@style/global_rbtn"
+               android:text="男"/>
+            <RadioButton
+                android:id="@+id/register_rbtn_woman"
+                style="@style/global_rbtn"
+                android:layout_marginLeft="30dp"
+                android:text="女"/>
+
+        </RadioGroup>
+
+    </LinearLayout>
+    <View style="@style/global_line"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+    <LinearLayout style="@style/login_inputBar">
+        <Button
+            android:id="@+id/login_btn"
+            style="@style/global_btn"
+            android:text="同意服务条款并注册"
+            android:onClick="register"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="50dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        style="@style/login_inputBar">
+        <TextView
+            android:id="@+id/service_rule"
+            android:onClick="serviceRule"
+            android:text="《服务条款》"
+            style="@style/global_href"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:textColor="@color/global_label"
+            android:layout_marginLeft="30dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

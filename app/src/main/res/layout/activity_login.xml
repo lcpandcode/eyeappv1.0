@@ -29,7 +29,7 @@
         <Button
             android:id="@+id/button_forward"
             style="@style/title_btn"
-            android:visibility="visible"
+            android:layout_width="wrap_content"
             android:textColor="@color/title_btn" />
 
     </LinearLayout>
@@ -45,7 +45,7 @@
             <EditText
                 android:id="@+id/login_userName"
                 style="@style/login_textEdit"
-                android:hint="请输入账号" />
+                android:hint="@string/login_userNameEditText_hint" />
     </LinearLayout>
     <View style="@style/global_line"
         android:layout_marginTop="10dp"
@@ -60,7 +60,7 @@
             android:id="@+id/login_pwd"
             android:inputType="textPassword"
             style="@style/login_textEdit"
-            android:hint="请输入密码" />
+            android:hint="@string/login_pwdEditText_hint" />
         <TextView
             android:layout_width="wrap_content"
             android:drawableRight="@mipmap/login_pwd_show"
