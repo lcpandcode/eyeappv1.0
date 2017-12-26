@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.bysj.eyeapp.demo1">
+    package="com.bysj.eyeapp.view">
 
     <application
         android:allowBackup="true"
@@ -11,10 +11,19 @@
         android:theme="@style/CustomTheme">
         <activity
             android:theme="@style/CustomTheme"
-            android:name="com.bysj.eyeapp.demo1.MainActivity">
+            android:name="com.bysj.eyeapp.view.MainActivity">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+
+        <activity
+            android:theme="@style/CustomTheme"
+            android:name="com.bysj.eyeapp.view.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

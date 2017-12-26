@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:orientation="vertical"
+    android:layout_height="fill_parent">
+
+    <!--自定义的标题栏-->
+    <LinearLayout
+        android:id="@+id/layout_titlebar"
+        style="@style/title">
+        <Button
+            android:id="@+id/button_backward"
+            style="@style/title_btn" />
+
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:ellipsize="marquee"
+            android:gravity="center_horizontal|center"
+            android:singleLine="true"
+            android:background="@color/title_background"
+            android:text="用户登录"
+            android:textColor="@color/title_title" />
+
+        <Button
+            android:id="@+id/button_forward"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/title_btn_selector"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:onClick="onClick"
+            android:singleLine="true"
+            android:text="提交"
+            android:textColor="@color/title_btn" />
+
+    </LinearLayout>
+
+
+    <LinearLayout style="@style/login_inputBar"
+        android:layout_marginTop="80dp">
+
+            <TextView
+                style="@style/login_label"
+                android:text="账号" />
+
+            <EditText
+                android:id="@+id/login_userName"
+                style="@style/login_textEdit"
+                android:hint="请输入账号" />
+    </LinearLayout>
+    <View style="@style/global_line"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="30dp"/>
+    <LinearLayout style="@style/login_inputBar">
+
+        <TextView
+            style="@style/login_label"
+            android:text="密码" />
+        <EditText
+            android:id="@+id/login_pwd"
+            android:inputType="textPassword"
+            style="@style/login_textEdit"
+            android:hint="请输入密码" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:drawableRight="@mipmap/login_pwd_show"
+            android:layout_height="match_parent"
+            android:onClick="showPwd"/>
+
+    </LinearLayout>
+    <View style="@style/global_line"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"/>
+    <LinearLayout style="@style/login_inputBar">
+        <Button
+            android:id="@+id/login_btn"
+            style="@style/global_btn"
+            android:text="登录"
+            android:onClick="login"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="50dp"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        style="@style/login_inputBar">
+        <TextView
+            android:id="@+id/login_forget_password_btn"
+            android:onClick="register"
+            android:text="注册"
+            style="@style/global_href"
+            android:layout_width="0pt"
+            android:layout_weight="1"
+            android:layout_marginLeft="30dp"/>
+        <TextView
+            android:id="@+id/login_register"
+            style="@style/global_href"
+            android:text="忘记密码"
+            android:textColor="@color/global_href_font"
+            android:layout_width="0pt"
+            android:layout_weight="1"
+            android:layout_marginRight="30dp"
+            android:gravity="right"
+            android:onClick="findPwd"/>
+
+    </LinearLayout>
+
+</LinearLayout>

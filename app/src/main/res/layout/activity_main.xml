@@ -66,29 +66,29 @@
 
                     <fragment
                         android:id="@+id/fragment_test"
-                        android:name="com.bysj.eyeapp.demo1.TestFragment"
+                        android:name="com.bysj.eyeapp.view.TestFragment"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent"/>
 
                     <fragment
                         android:id="@+id/fragment_person"
-                        android:name="com.bysj.eyeapp.demo1.PersonFragment"
+                        android:name="com.bysj.eyeapp.view.PersonFragment"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent" />
 
                     <fragment
                         android:id="@+id/fragment_knowledge"
-                        android:name="com.bysj.eyeapp.demo1.KnowledgeFragment"
+                        android:name="com.bysj.eyeapp.view.KnowledgeFragment"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent" />
                     <fragment
                         android:id="@+id/fragment_blurayfilt"
-                        android:name="com.bysj.eyeapp.demo1.BlurayfiltFragment"
+                        android:name="com.bysj.eyeapp.view.BlurayfiltFragment"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent" />
                     <fragment
                         android:id="@+id/fragment_eyedata"
-                        android:name="com.bysj.eyeapp.demo1.EyedataFragment"
+                        android:name="com.bysj.eyeapp.view.EyedataFragment"
                         android:layout_width="fill_parent"
                         android:layout_height="fill_parent" />
                 </FrameLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--全局按钮的背景设置：包括圆角，按钮填充的颜色-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/global_btn" />
+    <corners android:topLeftRadius="10dp"
+        android:topRightRadius="10dp"
+        android:bottomRightRadius="10dp"
+        android:bottomLeftRadius="10dp"/>
+</shape>

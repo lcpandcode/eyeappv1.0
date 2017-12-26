@@ -1,4 +1,4 @@
-package com.bysj.eyeapp.demo1;
+package com.bysj.eyeapp.view;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

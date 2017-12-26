@@ -1,4 +1,4 @@
-package com.bysj.eyeapp.demo1;
+package com.bysj.eyeapp.view;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

@@ -29,6 +29,59 @@
     </style>
 
 
+    <!--全局样式定义处，包括全局的label大小，按钮大小，输入框等大小-->
+    <!--全局按钮-->
+    <style name="global_btn">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@drawable/global_btn_background</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/global_btn_font</item>
+        <item name="android:radius">5dip</item>
+    </style>
+    <!--全局连接-->
+    <style name="global_href">
+        <item name="android:textColor">@color/global_href_font</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <!--全局线条定义-->
+    <style name="global_line">
+        <item name="android:layout_height">0.5dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:background">@color/global_line</item>
+    </style>
+
+
+
+    <!--登录页面相关样式-->
+    <style name="login_inputBar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <!--<item name="android:gravity">center</item>-->
+        <item name="android:orientation">horizontal</item>
+        <!--<item name="android:layout_marginTop">30dp</item>-->
+    </style>
+    <style name="login_label">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textColor">@color/global_label</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginLeft">30dp</item>
+    </style>
+    <style name="login_textEdit">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">6</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textColor">@color/global_label</item>
+        <item name="android:layout_marginLeft">3dp</item>
+        <item name="android:gravity">left</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:background">@null</item>
+    </style>
+
+
+
     <!--顶部标题栏样式-->
     <style name="title">
         <item name="android:layout_width">match_parent</item>

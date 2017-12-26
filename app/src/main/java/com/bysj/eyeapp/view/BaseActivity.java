@@ -1,4 +1,4 @@
-package com.bysj.eyeapp.demo1;
+package com.bysj.eyeapp.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;

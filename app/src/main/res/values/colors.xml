@@ -3,6 +3,14 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    
+    <!--全局统一颜色属性值定义-->
+    <color name="global_label">#555555</color><!--全局label颜色，用于普通的文本显示-->
+    <color name="global_btn">#4A5691</color> <!--全局按钮颜色-->
+    <color name="global_btn_font">#FCFCFC</color> <!--全局按钮文字的颜色-->
+    <color name="global_href_font">#4A5691</color><!--全局连接相关的颜色，例如登录界面的忘记密码，注册等连接字体，为蓝色-->
+    <color name="global_line">#666666</color><!--全局线条颜色-->
+
     <!--主界面的颜色：白色-->
     <color name="main_background">#FCFCFC</color>
     <color name="title_background">#F2F2F2</color>
@@ -14,9 +22,13 @@
     <!--底部栏按钮被选中变成的颜色-->
     <color name="footer_btn_selected">#38ADFF</color>
     <color name="footer_btn_font">#617D8A</color>
-
     <color name="footer_line">#BEBEBE</color>
     <color name="bg_center">#f0f0f0</color>
     <color name="mycenter_item_n">#ffffff</color>
     <color name="mycenter_item_p">#cecece</color>
+    
+    
+    <!--登录界面颜色-->
+    <color name="login_btn_register"></color><!--登录界面的注册、忘记密码按钮的字体颜色-->
+    
 </resources>
