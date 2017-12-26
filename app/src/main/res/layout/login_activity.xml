@@ -11,10 +11,11 @@
         style="@style/title">
         <Button
             android:id="@+id/button_backward"
+            android:visibility="visible"
             style="@style/title_btn" />
 
         <TextView
-            android:id="@+id/text_title"
+            android:id="@+id/login_title"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
@@ -27,16 +28,8 @@
 
         <Button
             android:id="@+id/button_forward"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/title_btn_selector"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:onClick="onClick"
-            android:singleLine="true"
-            android:text="提交"
+            style="@style/title_btn"
+            android:visibility="visible"
             android:textColor="@color/title_btn" />
 
     </LinearLayout>

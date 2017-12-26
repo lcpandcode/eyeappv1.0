@@ -98,6 +98,26 @@
         <item name="android:onClick">onClick</item>
         <item name="android:textColor">@color/title_btn</item>
     </style>
+    <!--顶部标题栏标题样式-->
+
+    <!--android:layout_width="0dp"-->
+    <!--android:layout_weight="1"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_alignParentRight="true"-->
+    <!--android:background="@drawable/title_btn_selector"-->
+    <!--android:ellipsize="end"-->
+    <!--android:gravity="center"-->
+    <!--android:onClick="onClick"-->
+    <!--android:singleLine="true"-->
+    <style name="title_title">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:gravity">center_horizontal|center</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:background">@color/title_background</item>
+    </style>
 
 
     <!--底部导航的按钮样式-->

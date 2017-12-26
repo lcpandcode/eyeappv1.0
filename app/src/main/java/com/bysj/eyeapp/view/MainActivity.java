@@ -8,6 +8,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TabHost;
+import android.widget.TextView;
 
 public class MainActivity extends BaseActivity {
 	//字符串常量
@@ -27,8 +28,8 @@ public class MainActivity extends BaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		//设置自定义标题
-		setupViews();
+		//初始化自定义标题
+		setupViews((TextView) findViewById(R.id.text_title),null,null);
 		//默认首页是视力测试
 		//getSupportActionBar().setTitle(R.string.title_test);
 		radiogroup = (RadioGroup) findViewById(R.id.radiogroup);
