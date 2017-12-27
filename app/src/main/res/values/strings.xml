@@ -28,4 +28,12 @@
     <string name="login_pwdEditText_hint">请输入密码</string>
     <string name="login_title">用户登录</string>
     <string name="title_register">用户注册</string>
+
+    <!--个人中心页面文字-->
+    <string name="person_centre_info">个人资料</string>
+    <string name="person_centre_eye">用眼情况</string>
+    <string name="person_centre_train">眼部训练记录</string>
+    <string name="person_centre_communicate">专家交流记录</string>
+    <string name="person_centre_message">消息中心</string>
+
 </resources>
