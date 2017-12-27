@@ -49,6 +49,7 @@
 
         <TextView
             style="@style/login_label"
+            android:inputType="phone"
             android:text="手机" />
         <EditText
             android:id="@+id/register_phone"
@@ -114,7 +115,6 @@
             android:id="@+id/register_sex"
             style="@style/login_textEdit"
             android:orientation="horizontal"
-            android:onClick="setSex"
             android:gravity="left">
            <RadioButton
                android:id="@+id/register_rbtn_man"
