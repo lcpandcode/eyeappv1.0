@@ -34,4 +34,12 @@
     <string name="test_astigmatism">散光检测</string>
     <string name="test_vision">明视测试</string>
     <string name="test_sensitivity">敏感度测试</string>
+
+    <!--个人中心页面文字-->
+    <string name="person_centre_info">个人资料</string>
+    <string name="person_centre_eye">用眼情况</string>
+    <string name="person_centre_train">眼部训练记录</string>
+    <string name="person_centre_communicate">专家交流记录</string>
+    <string name="person_centre_message">消息中心</string>
+
 </resources>
