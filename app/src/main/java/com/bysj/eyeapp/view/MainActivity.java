@@ -1,5 +1,7 @@
 package com.bysj.eyeapp.view;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,10 +32,11 @@ public class MainActivity extends BaseActivity {
 		setContentView(R.layout.activity_main);
 		//初始化自定义标题
 		setupViews((TextView) findViewById(R.id.text_title),null,null);
-		//默认首页是视力测试
-		//getSupportActionBar().setTitle(R.string.title_test);
 		radiogroup = (RadioGroup) findViewById(R.id.radiogroup);
 		tabHost = (TabHost) findViewById(android.R.id.tabhost);
+		//默认是视力测试，加载视力测试的页面（色盲测试）
+		//showTestFragment();
+
 		tabHost.setup();
 		tabHost.addTab(tabHost.newTabSpec(tabSpaceTabTest).setIndicator(tabSpaceTabTest)
 				.setContent(R.id.fragment_test));
@@ -93,6 +96,19 @@ public class MainActivity extends BaseActivity {
 	}
 
 
+	/**
+	 *
+	 * 显示默认的Fragment
+	 */
+	private void showTestFragment(){
+		TestFragment f = new TestFragment();
+		FragmentManager fm = getFragmentManager();
+		FragmentTransaction ft = fm.beginTransaction();
+		ft.replace(R.id.activity_main,f);
+		ft.commit();
+	}
+
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -135,6 +151,8 @@ public class MainActivity extends BaseActivity {
 			tabHost.getCurrentView().startAnimation(AnimationUtils.loadAnimation(this, R.anim.push_left_in));
 		}
 	}
+
+
 
 
 }

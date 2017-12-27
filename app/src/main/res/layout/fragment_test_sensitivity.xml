@@ -1,0 +1,48 @@
+﻿<!--该Fragment也有四个Fragment-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RadioGroup
+        android:id="@+id/radiogroup"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/test_menu_background"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <!-- android:background="@drawable/bk_footer" -->
+        <RadioButton
+            android:id="@+id/radio_test_colorbind"
+            style="@style/test_menu_btn"
+            android:checked="true"
+            android:drawableTop="@mipmap/test_btn_colorbind"
+            android:text="@string/test_colorbind" />
+
+        <RadioButton
+            android:id="@+id/radio_test"
+            style="@style/test_menu_btn"
+            android:drawableTop="@mipmap/test_btn_astigmatism"
+            android:text="@string/test_astigmatism" />
+
+        <RadioButton
+            android:id="@+id/radio_knowledge"
+            style="@style/test_menu_btn"
+            android:drawableTop="@mipmap/test_btn_vision"
+            android:text="@string/test_vision" />
+        <RadioButton
+            android:id="@+id/radio_blurayfilt"
+            style="@style/test_menu_btn"
+            android:drawableTop="@mipmap/test_btn_sensitivity"
+            android:text="@string/test_sensitivity" />
+
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="敏感度检测"/>
+
+</LinearLayout>

@@ -42,40 +42,9 @@
 
     </RadioGroup>
 
-    <FrameLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1" >  <!--这里的layout_weight="1"不可省略，代表Framelayout占用剩余的所有空间-->
-
-        <FrameLayout
-            android:id="@android:id/tabcontent"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent" >
-
-            <fragment
-                android:id="@+id/fragment_test_colorbind"
-                android:name="com.bysj.eyeapp.view.TestColorbindFragment"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"/>
-
-            <fragment
-                android:id="@+id/fragment_test_astigmatism"
-                android:name="com.bysj.eyeapp.view.TestAstigmatismFragment"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-
-            <fragment
-                android:id="@+id/fragment_knowledge"
-                android:name="com.bysj.eyeapp.view.KnowledgeFragment"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-            <fragment
-                android:id="@+id/fragment_blurayfilt"
-                android:name="com.bysj.eyeapp.view.BlurayfiltFragment"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-
-        </FrameLayout>
-    </FrameLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="明视检测"/>
 
 </LinearLayout>
