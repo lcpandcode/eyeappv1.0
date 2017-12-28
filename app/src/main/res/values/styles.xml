@@ -102,20 +102,22 @@
     <style name="title_btn">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@null</item>
         <item name="android:onClick">onClick</item>
         <item name="android:textColor">@color/title_btn</item>
+
     </style>
     <!--顶部标题栏标题样式-->
     <style name="title_title">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
         <item name="android:ellipsize">marquee</item>
         <item name="android:gravity">center_horizontal|center</item>
         <item name="android:singleLine">true</item>
         <item name="android:background">@color/title_background</item>
+        <item name="android:textColor">@color/title_title</item>
     </style>
 
 
@@ -154,6 +156,52 @@
         <item name="android:singleLine">true</item>
         <item name="android:drawablePadding">2dp</item>
         <item name="android:layout_weight">1.0</item>
+    </style>
+    <!--测试部分答题区域布局样式-->
+    <style name="test_question">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    <!--测试答题部分的图片布局样式-->
+    <style name="test_question_img">
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">150dp</item>
+    </style>
+    <!--测试答题部分的题目问题布局样式-->
+    <style name="test_question_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/global_label</item>
+        <item name="android:layout_marginTop">20dp</item>
+    </style>
+    <!--测试答题部分选项的布局样式-->
+    <style name="test_question_option">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="test_question_option_rbtn">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/test_question_option_label</item>
+        <item name="android:button">@null</item>
+        <item name="android:background">@color/test_question_option_background</item>
+        <item name="android:layout_marginLeft">50dp</item>
+        <item name="android:layout_marginRight">50dp</item>
+        <item name="android:layout_marginTop">15dp</item>
+    </style>
+    <style name="test_question_btn_next" parent="global_btn">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginLeft">120dp</item>
+        <item name="android:layout_marginRight">120dp</item>
+        <item name="android:text">下一题</item>
+
     </style>
 
 

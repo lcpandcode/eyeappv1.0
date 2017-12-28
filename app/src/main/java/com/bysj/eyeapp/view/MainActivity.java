@@ -1,8 +1,9 @@
 package com.bysj.eyeapp.view;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+
+import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -32,10 +33,11 @@ public class MainActivity extends BaseActivity {
 		setContentView(R.layout.activity_main);
 		//初始化自定义标题
 		setupViews((TextView) findViewById(R.id.text_title),null,null);
-		radiogroup = (RadioGroup) findViewById(R.id.radiogroup);
+		radiogroup = (RadioGroup) findViewById(R.id.footer_rbtns);
 		tabHost = (TabHost) findViewById(android.R.id.tabhost);
 		//默认是视力测试，加载视力测试的页面（色盲测试）
 		//showTestFragment();
+		//showPersonFragment();
 
 		tabHost.setup();
 		tabHost.addTab(tabHost.newTabSpec(tabSpaceTabTest).setIndicator(tabSpaceTabTest)
@@ -52,57 +54,78 @@ public class MainActivity extends BaseActivity {
 
 			@Override
 			public void onCheckedChanged(RadioGroup group, int checkedId) {
-				menuid = checkedId;
-				int currentTab = tabHost.getCurrentTab();
-				switch (checkedId) {
-					case R.id.radio_test:
-						tabHost.setCurrentTabByTag(tabSpaceTabTest);
-						//如果需要动画效果就使用
-						//setCurrentTabWithAnim(currentTab, 0, tabSpaceTabTest);
-						setTitle(R.string.title_test);
-						showBackwardView(R.string.title_btn_return,true);
-						showForwardView(R.string.title_btn_confirm,true);
-						break;
-					case R.id.radio_person:
-						tabHost.setCurrentTabByTag(tabSpaceTabPerson);
-						setTitle(R.string.title_person);
-						showBackwardView(-1,false);
-						showForwardView(-1,false);
-						break;
-					case R.id.radio_knowledge:
-						tabHost.setCurrentTabByTag(tabSpaceTabKnowledge);
-						setTitle(R.string.title_knowledge);
-						showBackwardView(R.string.title_btn_return,true);
-						showForwardView(R.string.title_btn_confirm,true);
-						break;
-					case R.id.radio_blurayfilt:
-						tabHost.setCurrentTabByTag(tabSpaceTabBlurayfilt);
-						setTitle(R.string.title_blurayfilt);
-						showBackwardView(R.string.title_btn_return,true);
-						showForwardView(-1,false);
-						break;
-					case R.id.radio_eyedata:
-						tabHost.setCurrentTabByTag(tabSpaceTabEyedata);
-						setTitle(R.string.title_eyedata);
-						showBackwardView(-1,false);
-						showForwardView(R.string.title_btn_confirm,true);
-
-				}
-				// 刷新actionbar的menu
-				getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
+				footerMenuChange(checkedId);
 			}
+
 		});
 
+	}
+
+	/**
+	 * 底部功能按钮切换方法
+	 */
+
+	private void footerMenuChange(int checkedId){
+		menuid = checkedId;
+		int currentTab = tabHost.getCurrentTab();
+		switch (checkedId) {
+			case R.id.radio_test:
+				tabHost.setCurrentTabByTag(tabSpaceTabTest);
+				//如果需要动画效果就使用
+				//setCurrentTabWithAnim(currentTab, 0, tabSpaceTabTest);
+				setTitle(R.string.title_test);
+				showBackwardView(R.string.title_btn_return,true);
+				showForwardView(R.string.title_btn_confirm,true);
+				break;
+			case R.id.radio_person:
+				tabHost.setCurrentTabByTag(tabSpaceTabPerson);
+				setTitle(R.string.title_person);
+				showBackwardView(-1,false);
+				showForwardView(-1,false);
+				break;
+			case R.id.radio_knowledge:
+				tabHost.setCurrentTabByTag(tabSpaceTabKnowledge);
+				setTitle(R.string.title_knowledge);
+				showBackwardView(R.string.title_btn_return,true);
+				showForwardView(R.string.title_btn_confirm,true);
+				break;
+			case R.id.radio_blurayfilt:
+				tabHost.setCurrentTabByTag(tabSpaceTabBlurayfilt);
+				setTitle(R.string.title_blurayfilt);
+				showBackwardView(R.string.title_btn_return,true);
+				showForwardView(-1,false);
+				break;
+			case R.id.radio_eyedata:
+				tabHost.setCurrentTabByTag(tabSpaceTabEyedata);
+				setTitle(R.string.title_eyedata);
+				showBackwardView(-1,false);
+				showForwardView(R.string.title_btn_confirm,true);
+
+		}
+		// 刷新actionbar的menu
+		getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
 	}
 
 
 	/**
 	 *
-	 * 显示默认的Fragment
+	 * 显示测试的Fragment
 	 */
 	private void showTestFragment(){
 		TestFragment f = new TestFragment();
-		FragmentManager fm = getFragmentManager();
+		FragmentManager fm = getSupportFragmentManager();
+		FragmentTransaction ft = fm.beginTransaction();
+		ft.replace(R.id.main_container,f);
+		ft.commit();
+	}
+
+	/**
+	 *
+	 * 显示个人中心的Fragment
+	 */
+	private void showPersonFragment(){
+		PersonFragment f = new PersonFragment();
+		FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		ft.replace(R.id.activity_main,f);
 		ft.commit();

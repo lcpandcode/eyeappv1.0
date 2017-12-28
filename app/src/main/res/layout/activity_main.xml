@@ -10,7 +10,7 @@
     <LinearLayout
         android:id="@+id/layout_titlebar"
         style="@style/title">
-        <Button
+        <TextView
             android:id="@+id/button_backward"
             style="@style/title_btn"
             android:visibility="invisible"
@@ -22,7 +22,7 @@
             android:text="@string/title_test"
             android:textColor="@color/title_title" />
 
-        <Button
+        <TextView
             android:id="@+id/button_forward"
             android:visibility="invisible"
             style="@style/title_btn"
@@ -44,6 +44,7 @@
             android:orientation="vertical" >
 
             <FrameLayout
+                android:id="@+id/main_container"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1" >  <!--这里的layout_weight="1"不可省略，代表Framelayout占用剩余的所有空间-->
@@ -91,14 +92,11 @@
                 android:visibility="gone" />
 
             <!-- 我只是一条线 -->
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="3dp"
-                android:background="@color/footer_line" >
-            </LinearLayout>
+            <View style="@style/global_line" />
 
             <RadioGroup
-                android:id="@+id/radiogroup"
+                android:id="@+id/footer_rbtns"
+
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"

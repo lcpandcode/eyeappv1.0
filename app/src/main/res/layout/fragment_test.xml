@@ -1,13 +1,11 @@
 ﻿<!--该Fragment也有四个Fragment-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
     <RadioGroup
-        android:id="@+id/radiogroup"
+        android:id="@+id/test_menu"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -19,23 +17,22 @@
         <RadioButton
             android:id="@+id/radio_test_colorbind"
             style="@style/test_menu_btn"
-            android:checked="true"
             android:drawableTop="@mipmap/test_btn_colorbind"
             android:text="@string/test_colorbind" />
 
         <RadioButton
-            android:id="@+id/radio_test"
+            android:id="@+id/radio_test_astigmatism"
             style="@style/test_menu_btn"
             android:drawableTop="@mipmap/test_btn_astigmatism"
             android:text="@string/test_astigmatism" />
 
         <RadioButton
-            android:id="@+id/radio_knowledge"
+            android:id="@+id/radio_test_vision"
             style="@style/test_menu_btn"
             android:drawableTop="@mipmap/test_btn_vision"
             android:text="@string/test_vision" />
         <RadioButton
-            android:id="@+id/radio_blurayfilt"
+            android:id="@+id/radio_test_sensitivity"
             style="@style/test_menu_btn"
             android:drawableTop="@mipmap/test_btn_sensitivity"
             android:text="@string/test_sensitivity" />
@@ -48,33 +45,32 @@
         android:layout_weight="1" >  <!--这里的layout_weight="1"不可省略，代表Framelayout占用剩余的所有空间-->
 
         <FrameLayout
-            android:id="@android:id/tabcontent"
+            android:id="@+id/test_container"
             android:layout_width="match_parent"
             android:layout_height="fill_parent" >
 
-            <fragment
-                android:id="@+id/fragment_test_colorbind"
-                android:name="com.bysj.eyeapp.view.TestColorbindFragment"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"/>
+            <!--<fragment-->
+                <!--android:id="@+id/fragment_test_colorbind"-->
+                <!--android:name="com.bysj.eyeapp.view.TestColorbindFragment"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="fill_parent"/>-->
 
-            <fragment
-                android:id="@+id/fragment_test_astigmatism"
-                android:name="com.bysj.eyeapp.view.TestAstigmatismFragment"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
+            <!--<fragment-->
+                <!--android:id="@+id/fragment_test_astigmatism"-->
+                <!--android:name="com.bysj.eyeapp.view.TestAstigmatismFragment"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="fill_parent" />-->
 
-            <fragment
-                android:id="@+id/fragment_knowledge"
-                android:name="com.bysj.eyeapp.view.KnowledgeFragment"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-            <fragment
-                android:id="@+id/fragment_blurayfilt"
-                android:name="com.bysj.eyeapp.view.BlurayfiltFragment"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent" />
-
+            <!--<fragment-->
+                <!--android:id="@+id/fragment_test_vision"-->
+                <!--android:name="com.bysj.eyeapp.view.TestVisionFragment"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="fill_parent" />-->
+            <!--<fragment-->
+                <!--android:id="@+id/fragment_test_sensitivity"-->
+                <!--android:name="com.bysj.eyeapp.view.TestSensitivityFragment"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="fill_parent" />-->
         </FrameLayout>
     </FrameLayout>
 

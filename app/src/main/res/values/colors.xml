@@ -10,12 +10,13 @@
     <color name="global_btn_font">#FCFCFC</color> <!--全局按钮文字的颜色-->
     <color name="global_href_font">#4A5691</color><!--全局连接相关的颜色，例如登录界面的忘记密码，注册等连接字体，为蓝色-->
     <color name="global_line">#666666</color><!--全局线条颜色-->
+    <color name="global_background">#F5F5F5</color>
 
     <!--主界面的颜色：白色-->
     <color name="main_background">#FCFCFC</color>
     <color name="title_background">#F2F2F2</color>
     <color name="title_btn">#38ADFF</color>
-    <color name="title_title">#617D8A</color>
+    <color name="title_title">@color/global_label</color>
 
     <!--底部栏（footer)背景颜色-->
     <color name="footer_background">#F2F2F2</color>
@@ -34,5 +35,7 @@
 
     <!--测试界面功能栏的背景颜色-->
     <color name="test_menu_background">#FFFFFF</color>
-    
+    <color name="test_question_option_label">@color/global_label</color><!--测试选项的文字颜色，默认全局label颜色-->
+    <color name="test_question_option_background">#ED93B3</color><!--答题选项背景颜色-->
+    <color name="test_question_option_selected">#8BC34A</color><!--答题选项被选中时背景颜色-->
 </resources>
