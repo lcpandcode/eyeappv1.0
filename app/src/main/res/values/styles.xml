@@ -112,7 +112,8 @@
     <style name="title_title">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">20dp</item>
+        <item name="android:textSize">10dp</item>
         <item name="android:ellipsize">marquee</item>
         <item name="android:gravity">center_horizontal|center</item>
         <item name="android:singleLine">true</item>
@@ -184,20 +185,21 @@
     </style>
     <style name="test_question_option_rbtn">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">20dp</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/test_question_option_label</item>
         <item name="android:button">@null</item>
-        <item name="android:background">@color/test_question_option_background</item>
+        <item name="android:background">@drawable/test_question_option_background</item>
         <item name="android:layout_marginLeft">50dp</item>
         <item name="android:layout_marginRight">50dp</item>
         <item name="android:layout_marginTop">15dp</item>
+        <item name="android:textSize">10dp</item>
     </style>
     <style name="test_question_btn_next" parent="global_btn">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">30dp</item>
         <item name="android:textSize">15dp</item>
-        <item name="android:layout_marginTop">15dp</item>
+        <item name="android:layout_marginTop">12dp</item>
         <item name="android:layout_marginLeft">120dp</item>
         <item name="android:layout_marginRight">120dp</item>
         <item name="android:text">下一题</item>

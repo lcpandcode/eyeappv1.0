@@ -8,15 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import java.util.List;
 
 public class TestFragment extends Fragment {
 	//相关组件定义
 	private RadioGroup radioGroup;
+	private FragmentManager fm;
+	BaseActivity activity ;
 
-//	//字符串常量定义处
+	//字符串常量定义处
 	private static final String FRAGMENT_TAB_COLORBIND = "色盲检测";
 	private static final String FRAGMENT_TAB_ASTIGMATISM = "散光检测";
 	private static final String FRAGMENT_TAB_VISION = "明视检测";
@@ -26,17 +27,12 @@ public class TestFragment extends Fragment {
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		//默认创建加载的是色盲测试Fragment（貌似系统直接选择第一个Fragment加载了，所以下面代码可注释掉）
-		//showColorbindFragment();
-
 	}
-
-
-
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View view= inflater.inflate(R.layout.fragment_test, null);
+		activity = (BaseActivity) getActivity();
 		//初始化
 		init(view);
 		return view;
@@ -49,6 +45,7 @@ public class TestFragment extends Fragment {
 	 * @param view:当前的view。该方法在onCreateView中调用
 	 */
 	private void init(View view){
+		fm = getFragmentManager();
 		//默认加载色盲测试
 		showColorbindFragment();
 		radioGroup = (RadioGroup) view.findViewById(R.id.test_menu);
@@ -60,15 +57,19 @@ public class TestFragment extends Fragment {
 			switch (checkedId) {
 				case R.id.radio_test_colorbind:
 					showColorbindFragment();
+					activity.setTitle(R.string.test_colorbind);
 					break;
 				case R.id.radio_test_astigmatism:
 					showAstigmatismFragment();
+					activity.setTitle(R.string.test_astigmatism);
 					break;
 				case R.id.radio_test_vision:
 					showVisionFragment();
+					activity.setTitle(R.string.test_vision);
 					break;
 				case R.id.radio_test_sensitivity:
 					showSensitivityFragment();
+					activity.setTitle(R.string.test_sensitivity);
 					break;
 
 			}
@@ -81,7 +82,6 @@ public class TestFragment extends Fragment {
 	 * 显示色盲测试界面
 	 */
 	private void showColorbindFragment(){
-		FragmentManager fm = getFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		//如果Fragment没有被添加，添加Fragment
 		Fragment f = fm.findFragmentByTag(FRAGMENT_TAB_COLORBIND);
@@ -99,7 +99,6 @@ public class TestFragment extends Fragment {
 	 * 显示散光测试界面
 	 */
 	private void showAstigmatismFragment(){
-		FragmentManager fm = getFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		//如果Fragment没有被添加，添加Fragment
 		Fragment f = fm.findFragmentByTag(FRAGMENT_TAB_ASTIGMATISM);
@@ -116,7 +115,6 @@ public class TestFragment extends Fragment {
 	 * 显示明视测试界面
 	 */
 	private void showVisionFragment(){
-		FragmentManager fm = getFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		//如果Fragment没有被添加，添加Fragment
 		Fragment f = fm.findFragmentByTag(FRAGMENT_TAB_VISION);
@@ -133,7 +131,6 @@ public class TestFragment extends Fragment {
 	 * 显示敏感度测试界面
 	 */
 	private void showSensitivityFragment(){
-		FragmentManager fm = getFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
 		//如果Fragment没有被添加，添加Fragment
 		Fragment f = fm.findFragmentByTag(FRAGMENT_TAB_SENSITIVITY);
@@ -148,25 +145,15 @@ public class TestFragment extends Fragment {
 	}
 
 	/**
-	 * 隐藏当前的Fragment
+	 * 隐藏当前的所有Fragment（除了测试的主页面，否则将会导致页面空白）
 	 */
 	private void hideCurrentFragment(FragmentManager fm,FragmentTransaction ft){
-		Fragment f = getCurrentFragment(fm);
-		if(f==null){
-			return ;
-		}
-		ft.hide(f);
-	}
-	/**
-	 * 获取当前显示的Fragment
-	 */
-	private Fragment getCurrentFragment(FragmentManager fm){
 		List<Fragment> fs = fm.getFragments();
 		for(Fragment f : fs){
-			if(f.isVisible()){
-				return f;
+			if(f.isVisible() && f!=null && f.getId()!=R.id.fragment_test){
+				ft.hide(f);
 			}
 		}
-		return null;
 	}
+
 }
