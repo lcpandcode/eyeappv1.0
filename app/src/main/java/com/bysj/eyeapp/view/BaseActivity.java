@@ -1,6 +1,6 @@
 package com.bysj.eyeapp.view;
 
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -10,7 +10,7 @@ import android.widget.Toast;
 /**
  * 主界面的父类，用于需要自定义标题栏的类，直接继承即可，具体的用法可参考MainActivity
  */
-public class BaseActivity extends AppCompatActivity implements View.OnClickListener {
+public class BaseActivity extends FragmentActivity implements View.OnClickListener {
 
     //自定义标题栏相关变量
     protected TextView mTitleTextView;
