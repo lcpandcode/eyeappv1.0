@@ -35,9 +35,6 @@ public class MainActivity extends BaseActivity {
 		setupViews((TextView) findViewById(R.id.text_title),null,null);
 		radiogroup = (RadioGroup) findViewById(R.id.footer_rbtns);
 		tabHost = (TabHost) findViewById(android.R.id.tabhost);
-		//默认是视力测试，加载视力测试的页面（色盲测试）
-		//showTestFragment();
-		//showPersonFragment();
 
 		tabHost.setup();
 		tabHost.addTab(tabHost.newTabSpec(tabSpaceTabTest).setIndicator(tabSpaceTabTest)

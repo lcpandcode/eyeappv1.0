@@ -1,17 +1,88 @@
-﻿<!--该Fragment也有四个Fragment-->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+﻿<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/global_label"
-        android:text="明视检测"/>
+    <LinearLayout
+        style="@style/test_question">
+
+        <LinearLayout
+            style="@style/test_question_img"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/test_btn_vision" />
+        </LinearLayout>
+        <TextView
+            style="@style/test_question_title"
+            android:text="在平放好手机后，点击选择您要测试的眼睛"/>
+        <TextView
+            style="@style/test_question_title"
+            android:text="当提示您调整完毕时，您便可以进行测试操作！"/>
+        <RadioGroup
+            android:id="@+id/test_vision_eye"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:gravity="center">
+            <RadioButton
+                android:id="@+id/test_vision_eye_left"
+                style="@style/global_rbtn"
+                android:text="左眼"/>
+            <RadioButton
+                android:id="@+id/test_vision_eye_right"
+                style="@style/global_rbtn"
+                android:layout_marginLeft="30dp"
+                android:text="右眼"/>
+
+        </RadioGroup>
+        <!--此处注意，RadioGroup无法嵌套LaierLayout布局！所以，需要在java代码里面自定义实现单选功能！-->
+        <RadioGroup
+            android:id="@+id/test_vision_options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout style="@style/test_vision_question_option" >
+
+                <RadioButton
+                    android:id="@+id/test_vision_option1"
+                    style="@style/test_vision_question_option_rbtn"
+                    android:background="@drawable/test_vision_option_up_selector"
+                    android:layout_marginRight="30dp"/>
+
+                <RadioButton
+                    android:id="@+id/test_vision_option2"
+                    style="@style/test_vision_question_option_rbtn"
+                    android:background="@drawable/test_vision_option_down_selector"
+                    android:layout_marginLeft="30dp" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/test_vision_question_option" >
+
+                <RadioButton
+                    android:id="@+id/test_vision_option3"
+                    style="@style/test_vision_question_option_rbtn"
+                    android:background="@drawable/test_vision_option_left_selector"
+                    android:layout_marginRight="30dp"/>
+
+                <RadioButton
+                    android:id="@+id/test_vision_option4"
+                    style="@style/test_vision_question_option_rbtn"
+                    android:background="@drawable/test_vision_option_right_selector"
+                    android:layout_marginLeft="30dp"/>
+            </LinearLayout>
+        </RadioGroup>
+
+        <Button
+            style="@style/test_question_btn_next"/>
+
+    </LinearLayout>
 
 </LinearLayout>

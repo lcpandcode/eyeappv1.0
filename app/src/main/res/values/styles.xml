@@ -176,7 +176,6 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/global_label</item>
-        <item name="android:layout_marginTop">20dp</item>
     </style>
     <!--测试答题部分选项的布局样式-->
     <style name="test_question_option">
@@ -203,6 +202,21 @@
         <item name="android:layout_marginLeft">120dp</item>
         <item name="android:layout_marginRight">120dp</item>
         <item name="android:text">下一题</item>
+    </style>
+    <!--测试，视力测试部分选项的布局样式-->
+    <style name="test_vision_question_option" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginLeft">50dp</item>
+        <item name="android:layout_marginRight">50dp</item>
+    </style>
+    <style name="test_vision_question_option_rbtn" >
+        <item name="android:layout_width">30dp</item>
+        <item name="android:button">@null</item>
+        <item name="android:layout_height">30dp</item>
+
 
     </style>
 
