@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
+    android:layout_width="fill_parent"
+    android:orientation="vertical"
+    android:layout_height="fill_parent">
+
+    <!--自定义的标题栏-->
+    <LinearLayout
+        android:id="@+id/layout_titlebar"
+        style="@style/title">
+        <TextView
+            android:id="@+id/button_backward"
+            style="@style/title_btn"
+            android:visibility="visible"
+            android:drawableLeft="@mipmap/title_btn_return"
+            android:text="@string/title_btn_return"/>
+
+        <TextView
+            android:id="@+id/text_title"
+            style="@style/title_title"
+            android:text="@string/test_sensitivity"
+            android:textColor="@color/title_title" />
+
+        <TextView
+            android:id="@+id/button_forward"
+            android:visibility="invisible"
+            style="@style/title_btn"
+            android:text="@string/title_btn_confirm"/>
+
+    </LinearLayout>
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            style="@style/test_question_title"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:text="请选择您认为不一样的色块！"/>
+        <TableRow>
+            <LinearLayout
+                style="@style/test_sensitivity_question">
+                <Button
+                    android:layout_marginLeft="0dp"
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+
+
+            </LinearLayout>
+
+        </TableRow>
+        <TableRow>
+            <LinearLayout
+                style="@style/test_sensitivity_question">
+                <Button
+                    android:layout_marginLeft="0dp"
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+
+
+            </LinearLayout>
+
+        </TableRow>
+        <TableRow>
+            <LinearLayout
+                style="@style/test_sensitivity_question">
+                <Button
+                    android:layout_marginLeft="0dp"
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+
+
+            </LinearLayout>
+
+        </TableRow>
+        <TableRow>
+            <LinearLayout
+                style="@style/test_sensitivity_question">
+                <Button
+                    android:layout_marginLeft="0dp"
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+
+
+            </LinearLayout>
+
+        </TableRow>
+        <TableRow>
+            <LinearLayout
+                style="@style/test_sensitivity_question">
+                <Button
+                    android:layout_marginLeft="0dp"
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+                <Button
+                    style="@style/test_sensitivity_question_option" />
+
+
+            </LinearLayout>
+
+        </TableRow>
+
+    </TableLayout>
+
+
+</LinearLayout>

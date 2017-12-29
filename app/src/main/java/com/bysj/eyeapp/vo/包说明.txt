@@ -1,0 +1,4 @@
+1、这个包主要放vo对象（View Object)，该对象用于和View（界面)进行交互
+2、界面和service类方法的交互，尽量封装为一个Object对象（即vo)
+3、类命名规则：模块+含义+VO(VO要大写)，例如，用户登录方法的参数封装类：UserLoginVO
+4、vo成员变量统一private修饰，通过getter和setter获取

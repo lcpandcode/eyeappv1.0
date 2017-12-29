@@ -216,8 +216,20 @@
         <item name="android:layout_width">30dp</item>
         <item name="android:button">@null</item>
         <item name="android:layout_height">30dp</item>
-
-
+    </style>
+    <!--测试：敏感度测试页面的布局-->
+    <style name="test_sensitivity_question">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">3dp</item>
+    </style>
+    <style name="test_sensitivity_question_option" >
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">3dp</item>
+        <item name="android:background">@drawable/test_sensitivity_option_btn_background</item>
     </style>
 
 
