@@ -38,4 +38,7 @@
     <color name="test_question_option_label">@color/global_label</color><!--测试选项的文字颜色，默认全局label颜色-->
     <color name="test_question_option_background">#ED93B3</color><!--答题选项背景颜色-->
     <color name="test_question_option_selected">#8BC34A</color><!--答题选项被选中时背景颜色-->
+    <!--测试界面结果相关的颜色-->
+    <color name="test_result_bar_content_num">#ED93B3</color><!--正确率等数字显示颜色-->
+
 </resources>

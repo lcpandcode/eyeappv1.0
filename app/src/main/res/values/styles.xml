@@ -106,6 +106,7 @@
         <item name="android:background">@null</item>
         <item name="android:onClick">onClick</item>
         <item name="android:textColor">@color/title_btn</item>
+        <item name="android:clickable">true</item>
 
     </style>
     <!--顶部标题栏标题样式-->
@@ -188,7 +189,8 @@
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/test_question_option_label</item>
         <item name="android:button">@null</item>
-        <item name="android:background">@drawable/test_question_option_background</item>
+        <!--<item name="android:background">@drawable/test_question_option_background</item>-->
+        <item name="android:background">@drawable/test_question_option_selector</item>
         <item name="android:layout_marginLeft">50dp</item>
         <item name="android:layout_marginRight">50dp</item>
         <item name="android:layout_marginTop">15dp</item>
@@ -230,6 +232,57 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginLeft">3dp</item>
         <item name="android:background">@drawable/test_sensitivity_option_btn_background</item>
+    </style>
+    <!--测试结果上部结果栏（显示正确率）-->
+    <style name="test_result_bar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+    <style name="test_result_bar_content">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/global_label</item>
+        <item name="android:gravity">right</item>
+    </style>
+    <style name="test_result_bar_content_num" >
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/test_result_bar_content_num</item>
+        <item name="android:gravity">left</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">20dp</item>
+        <item name="android:layout_marginLeft">5dp</item>
+    </style>
+    <style name="test_result_bar_btn" parent="test_result_bar">>
+        <item name="android:layout_marginTop">30dp</item>
+    </style>
+    <style name="test_result_btn" parent="global_btn">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:textSize">15dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/global_btn_font</item>
+        <item name="android:layout_marginRight">30dp</item>
+        <item name="android:layout_marginLeft">30dp</item>
+    </style>
+    <style name="test_result_bar_description" parent="test_result_bar" >
+        <item name="android:layout_height">match_parent</item>
+    </style>
+    <style name="test_result_bar_description_content" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginRight">30dp</item>
+        <item name="android:layout_marginLeft">30dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/global_label</item>
+    </style>
+    <style name="test_result_line" parent="global_line">
+        <item name="android:layout_marginLeft">30dp</item>
+        <item name="android:layout_marginRight">30dp</item>
     </style>
 
 

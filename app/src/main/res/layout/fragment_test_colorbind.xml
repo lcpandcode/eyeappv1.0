@@ -12,23 +12,35 @@
 
         <ImageView
             style="@style/test_question_img"
+            android:id="@+id/test_question_colorbind_img"
             android:src="@mipmap/colorbind_demo" />
         <TextView
             style="@style/test_question_title"
+            android:id="@+id/test_colorbind_question_title"
             android:text="1、上面图片您看到的数字是？"/>
         <RadioGroup
+            android:id="@+id/test_colorbind_options"
             style="@style/test_question_option">
-            <RadioButton style="@style/test_question_option_rbtn"
+            <RadioButton
+                android:id="@+id/test_colorbind_option1"
+                style="@style/test_question_option_rbtn"
                 android:text="数字1"/>
-            <RadioButton style="@style/test_question_option_rbtn"
+            <RadioButton
+                android:id="@+id/test_colorbind_option2"
+                style="@style/test_question_option_rbtn"
                 android:text="数字2"/>
-            <RadioButton style="@style/test_question_option_rbtn"
+            <RadioButton
+                android:id="@+id/test_colorbind_option3"
+                style="@style/test_question_option_rbtn"
                 android:text="数字6"/>
-            <RadioButton style="@style/test_question_option_rbtn"
+            <RadioButton
+                android:id="@+id/test_colorbind_option4"
+                style="@style/test_question_option_rbtn"
                 android:text="数字7"/>
         </RadioGroup>
 
         <Button
+            android:id="@+id/test_colorbind_nextbtn"
             style="@style/test_question_btn_next"/>
 
     </LinearLayout>

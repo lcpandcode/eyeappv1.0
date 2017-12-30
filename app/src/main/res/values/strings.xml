@@ -35,7 +35,27 @@
     <string name="test_vision">明视测试</string>
     <string name="test_sensitivity">敏感度测试</string>
     <string name="test_vision_title">在平放好手机后，点击选择您要测试的眼睛</string>
-
+    <string name="test_colorbind_result">色盲测试结果</string>
+    <string name="test_astigmatism_result">散光测试结果</string>
+    <string name="test_sensitivity_result">敏感度测试结果</string>
+    <string name="test_vision_result">明视测试结果</string>
+    <string name="test_result_truerate">答题正确率：</string>
+    <string name="test_result">测试结果：</string>
+    <string name="test_result_eye">测试的眼睛：</string>
+    <string name="test_vision_num">视力：</string>
+    <string name="left_eye">左眼</string>
+    <string name="right_eye">右眼</string>
+    <string name="test_result_normal">正常</string>
+    <string name="test_result_little">轻微</string>
+    <string name="test_result_medium">一定程度</string>
+    <string name="test_result_serious">较严重</string>
+    <string name="test_result_good">良好</string>
+    <string name="test_result_verygood">优秀</string>
+    <string name="test_result_btn_submit">提交测试结果</string>
+    <string name="test_result_btn_retest">重新测试</string>
+    <string name="test_result_description">以上结果仅供参考，若要更科学、准确的测试结果请到专业机构进行测试！</string>
+    <string name="test_result_sensitivity_description">注：眼睛识别度最高为100！</string>
+    <string name="test_result_vision_description">注：眼睛视力范围为4.0-5.0！</string>
     <!--个人中心页面文字-->
     <string name="person_centre_info">个人资料</string>
     <string name="person_centre_eye">用眼情况</string>

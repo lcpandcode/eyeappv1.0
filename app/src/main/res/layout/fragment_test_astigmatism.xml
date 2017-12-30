@@ -9,7 +9,27 @@
 
         <ImageView
             style="@style/test_question_img"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:src="@mipmap/astigmatism_demo" />
+        <RadioGroup
+            android:id="@+id/test_vision_eye"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:gravity="center">
+            <RadioButton
+                android:id="@+id/test_vision_eye_left"
+                style="@style/global_rbtn"
+                android:text="@string/left_eye"/>
+            <RadioButton
+                android:id="@+id/test_vision_eye_right"
+                style="@style/global_rbtn"
+                android:layout_marginLeft="30dp"
+                android:text="@string/right_eye"/>
+
+        </RadioGroup>
         <TextView
             style="@style/test_question_title"
             android:text="1、您看到上图是什么感觉？"/>
