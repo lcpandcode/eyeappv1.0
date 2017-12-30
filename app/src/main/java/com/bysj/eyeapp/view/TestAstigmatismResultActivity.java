@@ -1,23 +1,59 @@
 package com.bysj.eyeapp.view;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+
+
+import java.io.Serializable;
 
 public class TestAstigmatismResultActivity extends BaseActivity {
-	//字符串常量
+	//控件相关变量
+	private TextView trueRate ;
+	private TextView result ;
+	private TextView probability;
+	private Button submit;
+	private Button retest;
+	private TextView testEye;
 
 
-	// tab用参数
+	//数据相关变量
+	private TestAstigmatismResult testResult;
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_test_astigmatism_result);
+
+		init();
 	}
 
 	private void init(){
-		//设置监听按钮事件
+		//初始化控件
+		trueRate = findViewById(R.id.test_astigmatism_result_truerate);
+		probability = findViewById(R.id.test_astigmatism_result_probability);
+		result = findViewById(R.id.test_astigmatism_result_result);
+		submit = findViewById(R.id.test_astigmatism_result_submit);
+		retest = findViewById(R.id.test_astigmatism_result_retest);
+		testEye = findViewById(R.id.test_astigmatism_result_eye);
+		//获取传输过来的数据
+		Intent intent = getIntent();
+		//反序列化数据对象
+		Serializable se = intent.getSerializableExtra(TestAstigmatismFragment.getTestResultKey());
+		if(se instanceof TestAstigmatismResult){
+			testResult = (TestAstigmatismResult)se;
+		}else {
+			throw new RuntimeException("对象不可反序列化为TestAstigmatismResult对象");
+		}
+		//设置数据
+		trueRate.setText(testResult.getTrueRate() + "%");
+		result.setText(testResult.getResult());
+		probability.setText(testResult.getProbability() + "%");
+		testEye.setText(testResult.getEye() + "");
 
 	}
 
@@ -28,6 +64,22 @@ public class TestAstigmatismResultActivity extends BaseActivity {
 	public void titleReturn(View v){
 		finish();
 	}
+
+
+	/**
+	 * 提交数据
+	 */
+	public void submit(View view){
+
+	}
+
+	/**
+	 * 重新测试数据
+	 */
+	public void retest(View view){
+		finish();
+	}
+
 
 
 

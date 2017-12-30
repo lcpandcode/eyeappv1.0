@@ -9,22 +9,23 @@
 
         <ImageView
             style="@style/test_question_img"
+            android:id="@+id/test_question_astigmatism_img"
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:src="@mipmap/astigmatism_demo" />
         <RadioGroup
-            android:id="@+id/test_vision_eye"
+            android:id="@+id/test_astigmatism_rbtns"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:layout_marginTop="10dp"
             android:gravity="center">
             <RadioButton
-                android:id="@+id/test_vision_eye_left"
+                android:id="@+id/test_astigmatism_rbtn_eye_left"
                 style="@style/global_rbtn"
                 android:text="@string/left_eye"/>
             <RadioButton
-                android:id="@+id/test_vision_eye_right"
+                android:id="@+id/test_astigmatism_rbtn_eye_right"
                 style="@style/global_rbtn"
                 android:layout_marginLeft="30dp"
                 android:text="@string/right_eye"/>
@@ -32,20 +33,31 @@
         </RadioGroup>
         <TextView
             style="@style/test_question_title"
+            android:id="@+id/test_astigmatism_question_title"
             android:text="1、您看到上图是什么感觉？"/>
         <RadioGroup
+            android:id="@+id/test_astigmatism_options"
             style="@style/test_question_option">
-            <RadioButton style="@style/test_question_option_rbtn"
+            <RadioButton
+                android:id="@+id/test_astigmatism_option1"
+                style="@style/test_question_option_rbtn"
                 android:text="各个线条大小一样、内外侧一样"/>
-            <RadioButton style="@style/test_question_option_rbtn"
+            <RadioButton
+                android:id="@+id/test_astigmatism_option2"
+                style="@style/test_question_option_rbtn"
                 android:text="各个线条大小不同"/>
-            <RadioButton style="@style/test_question_option_rbtn"
+            <RadioButton
+                android:id="@+id/test_astigmatism_option3"
+                style="@style/test_question_option_rbtn"
                 android:text="各个线条大小一样，内侧小于外侧"/>
-            <RadioButton style="@style/test_question_option_rbtn"
+            <RadioButton
+                android:id="@+id/test_astigmatism_option4"
+                style="@style/test_question_option_rbtn"
                 android:text="各个线条大小一样，外侧小于内侧"/>
         </RadioGroup>
 
         <Button
+            android:id="@+id/test_astigmatism_nextbtn"
             style="@style/test_question_btn_next"/>
 
     </LinearLayout>
