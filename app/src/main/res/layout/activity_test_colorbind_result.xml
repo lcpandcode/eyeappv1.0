@@ -15,6 +15,7 @@
             style="@style/title_btn"
             android:visibility="visible"
             android:drawableLeft="@mipmap/title_btn_return"
+            android:onClick="titleReturn"
             android:text="@string/title_btn_return"/>
 
         <TextView
@@ -72,10 +73,12 @@
         <Button
             android:id="@+id/test_colorbind_result_submit"
             style="@style/test_result_btn"
+            android:onClick="submit"
             android:text="@string/test_result_btn_submit"/>
         <Button
             android:id="@+id/test_colorbind_result_retest"
             style="@style/test_result_btn"
+            android:onClick="retest"
             android:text="@string/test_result_btn_retest"/>
     </LinearLayout>
     <LinearLayout

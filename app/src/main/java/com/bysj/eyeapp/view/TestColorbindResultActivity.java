@@ -52,7 +52,6 @@ public class TestColorbindResultActivity extends BaseActivity {
 		result.setText(testResult.getResult());
 		probability.setText(testResult.getProbability() + "%");
 
-
 	}
 
 
@@ -65,7 +64,7 @@ public class TestColorbindResultActivity extends BaseActivity {
 
 
 	/**
-	 * 提交数据
+	 * 提交数据（待完善）
 	 */
 	public void submit(View view){
 

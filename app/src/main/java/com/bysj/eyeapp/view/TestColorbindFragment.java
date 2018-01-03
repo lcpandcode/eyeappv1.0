@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bysj.eyeapp.service.TestColorbindService;
 import com.bysj.eyeapp.vo.TestColorbindQuestionVO;
@@ -28,6 +29,8 @@ public class TestColorbindFragment extends Fragment {
 	final private static double MEDIUM = 0.7;//阈值：答题正确率小于MEDIUM判断测试结果为中等
 	final private static double LITTLE = 0.8;//阈值：答题正确率小于LITTLE判断测试结果为轻微患病
 	final private static String TEST_RESULT_KEY = "色盲测试结果";
+	final private static String REMIND_CANNOT_CHANGE_EYE = "您已开始答题，不能改变选中的眼睛";
+	final private static String REMIDN_CHOSE_OPTION = "请选择您认为正确的选项!";
 
 	//控件相关变量
 	private View thisView;
@@ -88,6 +91,12 @@ public class TestColorbindFragment extends Fragment {
 	 * 下一题按钮对应的事件
 	 */
 	private void nextQuestion(){
+		//是否选中了选项
+		int checkedId = options.getCheckedRadioButtonId();
+		if(checkedId==-1){
+			Toast.makeText(getActivity(),REMIDN_CHOSE_OPTION,Toast.LENGTH_SHORT).show();
+			return ;
+		}
 		//判断答题情况，并更新答题状态
 		judgeTest();
 		nowAnswerQuestion++;
@@ -113,6 +122,10 @@ public class TestColorbindFragment extends Fragment {
 	 * 判断当前答题是否正确
 	 */
 	private void judgeTest(){
+		//防止返回点击页面报异常，判断答题数目是否超过了题目个数
+		if(nowAnswerQuestion>=questions.size()){
+			return ;
+		}
 		TestColorbindQuestionVO question = questions.get(nowAnswerQuestion);
 		//获取选项值
 		int checkId = options.getCheckedRadioButtonId();

@@ -30,6 +30,7 @@ public class TestAstigmatismFragment extends Fragment {
 	final private static String TEST_RESULT_KEY = "散光测试结果";
 	final private static String REMIND_CANNOT_CHANGE_EYE = "您已开始答题，不能改变选中的眼睛";
 	final private static String REMIDN_CHOSE_EYE = "请先选择您要测试的眼睛！";
+	final private static String REMIDN_CHOSE_OPTION = "请选择您认为正确的选项";
 	final private static char LEFT_EYE = '左';
 	final private static char RIGHT_EYE = '右';
 
@@ -117,6 +118,12 @@ public class TestAstigmatismFragment extends Fragment {
 			Toast.makeText(getActivity(),REMIDN_CHOSE_EYE,Toast.LENGTH_SHORT).show();
 			return ;
 		}
+		//是否选中了选项
+		int checkedId = options.getCheckedRadioButtonId();
+		if(checkedId==-1){
+			Toast.makeText(getActivity(),REMIDN_CHOSE_OPTION,Toast.LENGTH_SHORT).show();
+			return ;
+		}
 		//一旦开始答题，不能改变选中的眼睛
 		setCanChangeChoseEye();
 		//判断答题情况，并更新答题状态
@@ -144,6 +151,10 @@ public class TestAstigmatismFragment extends Fragment {
 	 * 判断当前答题是否正确
 	 */
 	private void judgeTest(){
+		//防止返回点击页面报异常，判断答题数目是否超过了题目个数
+		if(nowAnswerQuestion>=questions.size()){
+			return ;
+		}
 		TestAstigmatismQuestionVO question = questions.get(nowAnswerQuestion);
 		//获取选项值
 		int checkId = options.getCheckedRadioButtonId();
@@ -214,7 +225,7 @@ public class TestAstigmatismFragment extends Fragment {
 	private void setCanChangeChoseEye(){
 		//首先，吧rbtn设置为不可点击
 		rbtnLeftEye.setClickable(false);
-		rbtnLeftEye.setClickable(false);
+		rbtnRightEye.setClickable(false);
 		canChangeChoseEye = false;
 		//设置提示
 		rbtnLeftEye.setOnTouchListener(new View.OnTouchListener() {

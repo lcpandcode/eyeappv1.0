@@ -85,6 +85,7 @@
         <Button
             android:id="@+id/test_astigmatism_result_submit"
             style="@style/test_result_btn"
+            android:onClick="submit"
             android:text="@string/test_result_btn_submit"/>
         <Button
             android:id="@+id/test_astigmatism_result_retest"

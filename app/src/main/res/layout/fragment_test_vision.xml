@@ -14,6 +14,7 @@
             android:layout_height="120dp"
             android:gravity="center">
             <ImageView
+                android:id="@+id/test_question_vision_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/test_btn_vision" />
@@ -25,18 +26,18 @@
             style="@style/test_question_title"
             android:text="当提示您调整完毕时，您便可以进行测试操作！"/>
         <RadioGroup
-            android:id="@+id/test_vision_eye"
+            android:id="@+id/test_vision_rbtns"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:layout_marginTop="20dp"
             android:gravity="center">
             <RadioButton
-                android:id="@+id/test_vision_eye_left"
+                android:id="@+id/test_vision_rbtn_eye_left"
                 style="@style/global_rbtn"
                 android:text="左眼"/>
             <RadioButton
-                android:id="@+id/test_vision_eye_right"
+                android:id="@+id/test_vision_rbtn_eye_right"
                 style="@style/global_rbtn"
                 android:layout_marginLeft="30dp"
                 android:text="右眼"/>
@@ -81,6 +82,7 @@
         </RadioGroup>
 
         <Button
+            android:id="@+id/test_vision_nextbtn"
             style="@style/test_question_btn_next"/>
 
     </LinearLayout>
