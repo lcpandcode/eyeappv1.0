@@ -33,6 +33,7 @@
     </LinearLayout>
 
     <TableLayout
+        android:id="@+id/test_sensitivity_btns"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <TextView
@@ -41,7 +42,7 @@
             android:layout_marginBottom="20dp"
             android:gravity="center"
             android:text="请选择您认为不一样的色块！"/>
-        <TableRow>
+        <TableRow >
             <LinearLayout
                 style="@style/test_sensitivity_question">
                 <Button

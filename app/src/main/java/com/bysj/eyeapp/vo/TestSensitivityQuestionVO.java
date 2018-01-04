@@ -9,22 +9,31 @@ package com.bysj.eyeapp.vo;
  */
 public class TestSensitivityQuestionVO {
     //背景颜色（即错误选项）：用16进制的颜色表示
-    private int backgroundColor;
-    private int trueOptionColor;//正确选项的颜色
+    private String backgroundColor;
+    private String trueOptionColor;//正确选项的颜色
+    private int difficulty;//题目难度系数：难度系数影响分值，越难分值越大
 
-    public int getBackgroundColor() {
+    public int getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(int difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public String getBackgroundColor() {
         return backgroundColor;
     }
 
-    public void setBackgroundColor(int backgroundColor) {
+    public void setBackgroundColor(String backgroundColor) {
         this.backgroundColor = backgroundColor;
     }
 
-    public int getTrueOptionColor() {
+    public String getTrueOptionColor() {
         return trueOptionColor;
     }
 
-    public void setTrueOptionColor(int trueOptionColor) {
+    public void setTrueOptionColor(String trueOptionColor) {
         this.trueOptionColor = trueOptionColor;
     }
 }
