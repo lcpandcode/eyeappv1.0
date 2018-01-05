@@ -14,7 +14,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bysj.eyeapp.service.TestAstigmatismService;
+import com.bysj.eyeapp.service.TestService;
 import com.bysj.eyeapp.vo.TestAstigmatismQuestionVO;
 
 import java.io.Serializable;
@@ -52,7 +52,7 @@ public class TestAstigmatismFragment extends Fragment {
 	private int nowAnswerQuestion = 0;//当前作答数目
 	private List<TestAstigmatismQuestionVO> questions;//题目列表
 	private int nowAnswerTrue = 0;//当前作答正确个数
-	private TestAstigmatismService service;//核心服务类，service层的类
+	private TestService service;//核心服务类，service层的类
 	private boolean isChoseEye = false;//会否选择了眼睛，如果否提示选择眼睛方可进行测试
 	private boolean canChangeChoseEye = true;//能否改变选中的眼睛：答题开始后（即已经至少答了一题）不能改变眼睛选择
 
@@ -83,7 +83,7 @@ public class TestAstigmatismFragment extends Fragment {
 		rbtnsEye = thisView.findViewById(R.id.test_astigmatism_rbtns);
 		rbtnLeftEye = thisView.findViewById(R.id.test_astigmatism_rbtn_eye_left);
 		rbtnRightEye = thisView.findViewById(R.id.test_astigmatism_rbtn_eye_right);
-		service = new TestAstigmatismService();
+		service = new TestService();
 		//初始化数据
 		questions = service.getAstigmatismQustion(QUESTION_NUM);
 		//初始化第一个答题页面

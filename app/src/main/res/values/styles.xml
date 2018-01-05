@@ -285,6 +285,77 @@
         <item name="android:layout_marginRight">30dp</item>
     </style>
 
+    <!--知识库模块样式-->
+    <style name="knowledge_main" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="knowledge_main_bar" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="knowledge_main_bar_label" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/global_label</item>
+        <item name="android:clickable">true</item>
+    </style>
+    <style name="knowledge_main_bar_label_bottom" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/global_label</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+    <!--文章标签-->
+    <style name="knowledge_main_bar_label_bottom_papertype" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/knowledge_main_bar_papertype_background</item>
+    </style>
+    <!--文章标签文字-->
+    <style name="knowledge_main_bar_label_bottom_papertype_content" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/knowledge_main_bar_papertype_label</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">10dp</item>
+        <item name="android:layout_margin">3dp</item>
+    </style>
+    <style name="knowledge_main_bar_label_bottom_paperinfo" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/knowledge_main_bar_paperinfo</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">10dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+
+    </style>
+    <style name="knowledge_main_bar_line" parent="global_line">
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+    <!--常用功能-->
+    <style name="knowledge_main_menu" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="knowledge_menu_btn">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/global_label</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:button">@null</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:drawablePadding">2dp</item>
+        <item name="android:layout_weight">1.0</item>
+    </style>
 
 
 </resources>

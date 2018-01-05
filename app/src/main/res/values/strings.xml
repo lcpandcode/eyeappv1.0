@@ -5,6 +5,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <!--全局相关字符-->
+    <string name="global_loading">加载中...</string>
+
     <!--title-->
     <string name="title_test">视力测试</string>
     <string name="title_person">个人中心</string>
@@ -66,5 +69,11 @@
     <string name="person_centre_train">眼部训练记录</string>
     <string name="person_centre_communicate">专家交流记录</string>
     <string name="person_centre_message">消息中心</string>
+
+    <!--知识库-->
+    <string name="knowledge_eathabit">饮食习惯</string>
+    <string name="knowledge_blog">护眼博客</string>
+    <string name="knowledge_lecture">护眼讲座</string>
+    <string name="knowledge_advisory">我要提问</string>
 
 </resources>

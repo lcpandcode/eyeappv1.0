@@ -1,14 +1,98 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="知识库界面" />
+
+
+    <LinearLayout
+        android:id="@+id/knowledge_main_barlist"
+        style="@style/knowledge_main">
+        <LinearLayout
+            android:id="@+id/knowledge_main_menu"
+            style="@style/knowledge_main_menu">
+            <RadioGroup
+                android:id="@+id/knowledge_menu"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@color/test_menu_background"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio_knowledge_eathabit"
+                    style="@style/knowledge_menu_btn"
+                    android:drawableTop="@mipmap/knowledge_btn_eathabit"
+                    android:text="@string/knowledge_eathabit" />
+
+                <RadioButton
+                    android:id="@+id/radio_test_astigmatism"
+                    style="@style/knowledge_menu_btn"
+                    android:drawableTop="@mipmap/knowledge_btn_blog"
+                    android:text="@string/knowledge_blog" />
+
+                <RadioButton
+                    android:id="@+id/radio_test_vision"
+                    style="@style/knowledge_menu_btn"
+                    android:drawableTop="@mipmap/knowledge_btn_lecture"
+                    android:text="@string/knowledge_lecture" />
+                <RadioButton
+                    android:id="@+id/radio_test_sensitivity"
+                    style="@style/knowledge_menu_btn"
+                    android:drawableTop="@mipmap/knowledge_btn_advisory"
+                    android:text="@string/knowledge_advisory" />
+
+            </RadioGroup>
+
+        </LinearLayout>
+        <LinearLayout style="@style/knowledge_main_bar">
+
+            <TextView
+                style="@style/knowledge_main_bar_label"
+                android:gravity="left"
+                android:text="文章推荐" />
+        </LinearLayout>
+
+        <View style="@style/knowledge_main_bar_line" />
+        <!--<LinearLayout-->
+            <!--android:id="@+id/knowledge_main_bar"-->
+            <!--style="@style/knowledge_main_bar">-->
+
+            <!--<LinearLayout style="@style/knowledge_main_bar_label">-->
+
+                <!--<TextView-->
+                    <!--style="@style/knowledge_main_bar_label"-->
+                    <!--android:text="震惊每天吃胡萝卜尽可以提高三倍视力" />-->
+            <!--</LinearLayout>-->
+
+            <!--<LinearLayout style="@style/knowledge_main_bar_label_bottom">-->
+                <!--<LinearLayout-->
+                    <!--style="@style/knowledge_main_bar_label_bottom_papertype">-->
+                    <!--<TextView-->
+                        <!--style="@style/knowledge_main_bar_label_bottom_papertype_content"-->
+                        <!--android:text="热文" />-->
+                <!--</LinearLayout>-->
+
+                <!--<TextView-->
+                    <!--style="@style/knowledge_main_bar_label_bottom_paperinfo"-->
+                    <!--android:text="讲座通知"/>-->
+                <!--<TextView-->
+                    <!--style="@style/knowledge_main_bar_label_bottom_paperinfo"-->
+                    <!--android:text="2333浏览"/>-->
+                <!--<TextView-->
+                    <!--style="@style/knowledge_main_bar_label_bottom_paperinfo"-->
+                    <!--android:text="2018-02-02"/>-->
+            <!--</LinearLayout>-->
+        <!--</LinearLayout>-->
+        <ListView
+            android:id="@+id/knowledge_main_bar_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <View style="@style/knowledge_main_bar_line" />
+
+
+
+    </LinearLayout>
 
 </LinearLayout>

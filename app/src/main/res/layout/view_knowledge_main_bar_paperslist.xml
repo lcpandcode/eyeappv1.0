@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+    <View style="@style/knowledge_main_bar_line" />
+    <LinearLayout
+        android:id="@+id/knowledge_main_bar"
+        style="@style/knowledge_main_bar">
+
+        <LinearLayout style="@style/knowledge_main_bar_label">
+
+            <TextView
+                android:id="@+id/knowledge_main_bar_papertitle"
+                style="@style/knowledge_main_bar_label"
+                android:text="震惊每天吃胡萝卜尽可以提高三倍视力" />
+        </LinearLayout>
+
+        <LinearLayout style="@style/knowledge_main_bar_label_bottom">
+            <LinearLayout
+                style="@style/knowledge_main_bar_label_bottom_papertype">
+                <TextView
+                    android:id="@+id/knowledge_main_bar_papertype"
+                    style="@style/knowledge_main_bar_label_bottom_papertype_content"
+                    android:text="热文" />
+            </LinearLayout>
+
+            <TextView
+                style="@style/knowledge_main_bar_label_bottom_paperinfo"
+                android:text="讲座通知"/>
+            <TextView
+                android:id="@+id/knowledge_main_bar_readcount"
+                style="@style/knowledge_main_bar_label_bottom_paperinfo"
+                android:text="2333浏览"/>
+            <TextView
+                style="@style/knowledge_main_bar_label_bottom_paperinfo"
+                android:text="2018-02-02"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+

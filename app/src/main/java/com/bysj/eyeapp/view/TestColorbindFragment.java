@@ -13,7 +13,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bysj.eyeapp.service.TestColorbindService;
+import com.bysj.eyeapp.service.TestService;
 import com.bysj.eyeapp.vo.TestColorbindQuestionVO;
 
 import java.io.Serializable;
@@ -47,7 +47,7 @@ public class TestColorbindFragment extends Fragment {
 	private int nowAnswerQuestion = 0;//当前作答数目
 	private List<TestColorbindQuestionVO> questions;//题目列表
 	private int nowAnswerTrue = 0;//当前作答正确个数
-	private TestColorbindService service;//核心服务类，service层的类
+	private TestService service;//核心服务类，service层的类
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -73,7 +73,7 @@ public class TestColorbindFragment extends Fragment {
 		option2 = thisView.findViewById(R.id.test_colorbind_option2);
 		option3 = thisView.findViewById(R.id.test_colorbind_option3);
 		option4 = thisView.findViewById(R.id.test_colorbind_option4);
-		service = new TestColorbindService();
+		service = new TestService();
 		//初始化数据
 		questions = service.getColorbindQustion(QUESTION_NUM);
 		//初始化第一个答题页面

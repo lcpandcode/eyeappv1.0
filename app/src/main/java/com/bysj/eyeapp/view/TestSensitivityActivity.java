@@ -22,7 +22,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bysj.eyeapp.service.TestSensitivityService;
+import com.bysj.eyeapp.service.TestService;
 import com.bysj.eyeapp.util.TestSensitivityUtil;
 import com.bysj.eyeapp.vo.TestSensitivityQuestionVO;
 
@@ -52,7 +52,7 @@ public class TestSensitivityActivity extends BaseActivity {
 	private List<TestSensitivityQuestionVO> questions;//题目列表
 	private List<Boolean> testResult;//每道题对应的答题状况：正确还是错误，在计算最终结果时要用到
 	private int nowAnswerTrue = 0;//当前作答正确个数
-	private TestSensitivityService service;//核心服务类，service层的类
+	private TestService service;//核心服务类，service层的类
 	List<Button> btns ;//所有敏感度测试的按钮
 
 	@Override
@@ -64,7 +64,7 @@ public class TestSensitivityActivity extends BaseActivity {
 
 	private void init(){
 		//初始化服务类
-		service = new TestSensitivityService();
+		service = new TestService();
 		//初始化答题结果列表
 		testResult = new ArrayList<>();
 		//初始化问题数据列表

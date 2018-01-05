@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/global_background" /><!--注意，这个在出现黑框时加上，表示默认填充颜色！-->
+    <stroke
+        android:width="0.5dip"
+        android:color="@color/knowledge_main_bar_papertype_frame"/>
+    <corners android:topLeftRadius="3dp"
+        android:topRightRadius="3dp"
+        android:bottomRightRadius="3dp"
+        android:bottomLeftRadius="3dp"/>
+
+</shape>
