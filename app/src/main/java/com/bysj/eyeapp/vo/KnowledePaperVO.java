@@ -14,8 +14,17 @@ public class KnowledePaperVO {
     private String title;
     private String content;
     private int viewCount;
-    private Date date;
+    private String date;
     private String type;
+    private String sign;
+
+    public String getSign() {
+        return sign;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
 
     public int getId() {
         return id;
@@ -49,11 +58,11 @@ public class KnowledePaperVO {
         this.viewCount = viewCount;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

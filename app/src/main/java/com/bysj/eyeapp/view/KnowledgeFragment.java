@@ -1,5 +1,8 @@
 package com.bysj.eyeapp.view;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -7,16 +10,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RadioGroup;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bysj.eyeapp.service.KnowledgeService;
 import com.bysj.eyeapp.util.JavaBeanUtil;
+import com.bysj.eyeapp.util.RegularUtil;
 import com.bysj.eyeapp.vo.KnowledePaperVO;
 
 import org.json.JSONObject;
@@ -31,11 +37,18 @@ public class KnowledgeFragment extends Fragment {
 	private static final int PAGE_LIMIT = 10;//默认每次加载数据的数目，这里为10
 	private static final String STATUS_LOADING = "loading";//页面状态：加载中
 	private static final String STATUS_LOAD_FINISH = "loading finish";//页面状态：加载完成
+	public static final int PAPER_TYPE_BLOG = R.id.radio_knowledge_blog;//文章类型：博客
+	public static final int PAPER_TYPE_EATINGHABIT = R.id.radio_knowledge_eathabit;//文章类型：饮食习惯
+	public static final int PAPER_TYPE_LECTURE = R.id.radio_knowledge_lecture;//文章类型：护眼讲座
+	public static final int PAPER_TYPE_DEFAULT = -1;//默认文章类型为推荐文章，用-1代表
+	private static final String VIEW_PAPER_ID_KEY = "文章id";
 	//组件相关变量
 	private View thisView;
 	private ListView papersList;//文章列表对应的区域view对象
 	private List<TextView> papersTitle;//文章标题
 	private LinearLayout loadBar;//文章加载中的显示底部
+	private RadioGroup menu;
+	private TextView paperListTopTitle;
 
 
 	//数据相关变量
@@ -44,6 +57,7 @@ public class KnowledgeFragment extends Fragment {
 	private String listViewStatus;//listView的状态：加载中，加载完成
 	private KnowledgeService service;
 	private SimpleAdapter listViewAdaptor;
+	private int paperType = PAPER_TYPE_DEFAULT; //当前选择的文章类型，默认-1，代表当前的文章显示的是推荐文章
 
 
 	@Override
@@ -64,31 +78,21 @@ public class KnowledgeFragment extends Fragment {
 	 * 界面初始化方法
 	 */
 	private void init(){
+		//初始化服务层类
 		service = new KnowledgeService();
+		//初始化功能栏区域
+		initMenu();
+		//初始化文章列表区域
 		initPapersBarList();
-	}
-
-
-	/**
-	 * 初始化文章列表对应的文章栏（即这个变量：List<TextView> papers）
-	 * 该方法主要用于查找文章列表栏中所有文章标题的Textview对象，并把它放在papers这个列表对象中
-	 */
-	private void initPapersBar(){
-		//获取知识库界面的文章列表对象
-		View barList = thisView.findViewById(R.id.knowledge_main_barlist);
-		/*抽取文章标题所在的区域的View对象（这里抽取时特别注意：修改布局文件后有可能会影响代码运行，所以对应需要修改这里代码）
-			为了需要抽取正确的组件对象，需要注意一下：
-			1、避免抽取了横线View  ，所以在选取对象时先判断
-		 */
-
+		paperListTopTitle = thisView.findViewById(R.id.knowledge_main_bar_top_title);
 	}
 
 	/**
 	 * 初始化文章列表对应的Listview对象
 	 */
+	//相关常量
 	private void initPapersBarList(){
 		papersList = thisView.findViewById(R.id.knowledge_main_bar_list);
-		//初始化数据（这里先写死）
 		//获取一个View原型
 		View viewPaper = thisView.findViewById(R.id.knowledge_main_bar);
 		//初始化推荐文章数据
@@ -97,8 +101,9 @@ public class KnowledgeFragment extends Fragment {
 		initLoadBar();
 		//设置适配器
 		listViewAdaptor = new SimpleAdapter(getActivity(),papers,R.layout.view_knowledge_main_bar_paperslist,
-				new String[]{"title","type","readCount"},new int[]{R.id.knowledge_main_bar_papertitle,R.id.knowledge_main_bar_papertype,
-				R.id.knowledge_main_bar_readcount});
+				new String[]{"title","sign","type","viewCount","date","id"},
+				new int[]{R.id.knowledge_main_bar_papertitle,R.id.knowledge_main_bar_papersign,R.id.knowledge_main_bar_papertype,
+				R.id.knowledge_main_bar_viewcount,R.id.knowledge_main_bar_date,R.id.knowledge_main_bar_date_paperid});
 		papersList.setAdapter(listViewAdaptor);
 		//设置是否显示加载中的状态栏（当滑动到最后一条数据时，显示）
 		papersList.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -114,15 +119,37 @@ public class KnowledgeFragment extends Fragment {
 					return ;
 				}
 				if(firstVisibleItem + visibleItemCount>=totalItemCount){
-					//加载数据，刷新页面
-					//showLoadBar();
-					refreshPaperList();
-					//hideLoadBar();
+					//下拉动态加载数据
+					loadMorePaper();
 				}
 			}
 		});
+		//设置item监听事件
+		papersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				String paperIdStr = ((TextView)view.findViewById(R.id.knowledge_main_bar_date_paperid)).getText().toString();
+				if(!RegularUtil.numberIsTrue(paperIdStr)){
+					Toast.makeText(getActivity(),"当前文章id非法！",Toast.LENGTH_SHORT);
+				}
 
+				int paperId = Integer.parseInt(paperIdStr);
+				//把paperid传给文章浏览界面
+				showViewPaperActivity(paperId);
+			}
+		});
 		listViewStatus = STATUS_LOAD_FINISH;
+	}
+
+	/**
+	 * 文章列表区域，点击文章标题后，跳转到查看文章的页面
+	 * @param paperId
+	 */
+	public void showViewPaperActivity(int paperId){
+		Intent intent = new Intent();
+		intent.setClass(thisView.getContext(),KnowledgeViewPaperActivity.class);
+		intent.putExtra(VIEW_PAPER_ID_KEY,paperId);
+		startActivity(intent);
 	}
 
 	/**
@@ -153,6 +180,66 @@ public class KnowledgeFragment extends Fragment {
 	}
 
 	/**
+	 * 初始化功能栏区域方法
+	 */
+	private void initMenu(){
+		menu = (RadioGroup) thisView.findViewById(R.id.knowledge_menu);
+		int checkedId = menu.getCheckedRadioButtonId();
+		//设置监听事件
+		menu.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(RadioGroup group, int checkedId) {
+				if(checkedId==R.id.radio_knowledge_advisory){
+					//跳转到提问界面
+					showAdvisoryActivity();
+				}else {
+					//改变文章列表区域显示的文章类型
+					changePaperType(checkedId);
+				}
+
+			}
+		});
+	}
+
+	/**
+	 * 改变文章列表显示的文章类型：该方法在点击界面功能栏按钮时，筛选文章类型时使用
+	 * @param checkedId 功能栏中被选中的功能模块，代表某种类型的文章
+	 */
+	private void changePaperType(int checkedId){
+		//清空paper区域的数据
+		clearPaperList();
+		//获取新类型文章的数据
+		List<KnowledePaperVO> papersNew = service.getPaperByType(checkedId,nowPage,PAGE_LIMIT);
+		//对象转换并刷新数据
+		papers.addAll(paperListToMapList(papersNew));
+		//刷新页面
+		listViewAdaptor.notifyDataSetChanged();
+		//回到顶部
+		papersList.setSelectionAfterHeaderView();
+		//改变标题（文章列表区域的标题以及activity的标题）
+		if(checkedId==PAPER_TYPE_LECTURE){
+			getActivity().setTitle(R.string.knowledge_lecture);
+			paperListTopTitle.setText(R.string.knowledge_lecture);
+		}else if(checkedId==PAPER_TYPE_BLOG){
+			getActivity().setTitle(R.string.knowledge_blog);
+			paperListTopTitle.setText(R.string.knowledge_blog);
+		}else {
+			getActivity().setTitle(R.string.knowledge_eathabit);
+			paperListTopTitle.setText(R.string.knowledge_eathabit);
+		}
+		//改变文章类型变量的值
+		paperType = checkedId;
+
+	}
+
+	/**
+	 * 显示提问界面
+	 */
+	private void showAdvisoryActivity(){
+
+	}
+
+	/**
 	 * 显示底部加载中的提示
 	 */
 	private void showLoadBar(){
@@ -167,12 +254,12 @@ public class KnowledgeFragment extends Fragment {
 	}
 
 	/**
-	 * 刷新文章列表
+	 * 刷新文章列表，该方法在下拉文章时动态加载文章列表
 	 */
-	private void refreshPaperList(){
+	private void loadMorePaper(){
 		listViewStatus = STATUS_LOADING;
 		//加载数据
-		papers.addAll(paperListToMapList(service.getRecommendPaper(nowPage,PAGE_LIMIT)));
+		papers.addAll(paperListToMapList(service.getPaperByType(paperType,nowPage,PAGE_LIMIT)));
 		//刷新页面
 		listViewAdaptor.notifyDataSetChanged();
 		//改变当前页码
@@ -185,20 +272,37 @@ public class KnowledgeFragment extends Fragment {
 		if(papers==null){
 			papers = new ArrayList<>();
 		}
-		papers.addAll(paperListToMapList(service.getRecommendPaper(nowPage,PAGE_LIMIT)));
+		papers.addAll(paperListToMapList(service.getPaperByType(paperType,nowPage,PAGE_LIMIT)));
 		nowPage++;
 		listViewStatus = STATUS_LOAD_FINISH;
 	}
 
 	/**
+	 * 清空文章列表方法：在切换文章类型时用到，为了清晰，抽取出来独立为一个方法
+	 */
+	private void clearPaperList(){
+		//清空papers对象
+		if(papers!=null){
+			papers.clear();
+		}
+		//页数重新变为1
+		nowPage = 1;
+	}
+
+
+	/**
 	 * 工具方法：把文章列表转换为List<Map>的方法
 	 */
-	private List<Map<String,Object>> paperListToMapList(List<KnowledePaperVO> papers){
-		List<Map<String,Object>> rtn = new ArrayList<>();
-		for(KnowledePaperVO paper : papers){
-			rtn.add(JavaBeanUtil.ObjtoMap(paper));
+		private List<Map<String,Object>> paperListToMapList(List<KnowledePaperVO> papers){
+			List<Map<String,Object>> rtn = new ArrayList<>();
+			for(KnowledePaperVO paper : papers){
+				rtn.add(JavaBeanUtil.ObjtoMap(paper));
+			}
+			return rtn;
 		}
-		return rtn;
-	}
+
+
+
+
 
 }

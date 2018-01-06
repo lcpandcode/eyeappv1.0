@@ -12,41 +12,39 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/CustomTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-
-
-             <category android:name="android.intent.category.LAUNCHER" />
-             </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".LoginActivity"
             android:theme="@style/CustomTheme">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
         </activity>
         <activity android:name=".RegisterActivity">
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+            <!-- <intent-filter> -->
+            <!-- <action android:name="android.intent.action.MAIN" /> -->
+
+
+            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+            <!-- </intent-filter> -->
 
         </activity>
-        <activity android:name=".TestSensitivityActivity">
-        </activity>
-        <activity android:name=".TestColorbindResultActivity">
-        </activity>
-        <activity android:name=".TestSensitivityResultActivity">
-        </activity>
-        <activity android:name=".TestVisionResultActivity">
-        </activity>
-        <activity android:name=".TestAstigmatismResultActivity">
-        </activity>
+        <activity android:name=".TestSensitivityActivity"></activity>
+        <activity android:name=".TestColorbindResultActivity"></activity>
+        <activity android:name=".TestSensitivityResultActivity"></activity>
+        <activity android:name=".TestVisionResultActivity"></activity>
+        <activity android:name=".TestAstigmatismResultActivity"></activity>
+        <activity android:name=".KnowledgeViewPaperActivity"></activity>
     </application>
 
 </manifest>

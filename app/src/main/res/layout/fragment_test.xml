@@ -31,6 +31,7 @@
             style="@style/test_menu_btn"
             android:drawableTop="@mipmap/test_btn_vision"
             android:text="@string/test_vision" />
+
         <RadioButton
             android:id="@+id/radio_test_sensitivity"
             style="@style/test_menu_btn"

@@ -48,4 +48,14 @@ public class RegularUtil {
         Matcher matcher = pattern.matcher(checkCode);
         return matcher.find();
     }
+
+    /**
+     * 判断是否是数字
+     */
+    public static boolean numberIsTrue(String number){
+        String regx = "^[1-9]\\d*$";
+        Pattern pattern = Pattern.compile(regx);
+        Matcher matcher = pattern.matcher(number);
+        return matcher.find();
+    }
 }

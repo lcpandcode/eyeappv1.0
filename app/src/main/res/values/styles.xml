@@ -302,7 +302,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/global_label</item>
-        <item name="android:clickable">true</item>
+        <!--<item name="android:clickable">true</item>-->
     </style>
     <style name="knowledge_main_bar_label_bottom" >
         <item name="android:layout_width">match_parent</item>
@@ -318,7 +318,7 @@
         <item name="android:background">@drawable/knowledge_main_bar_papertype_background</item>
     </style>
     <!--文章标签文字-->
-    <style name="knowledge_main_bar_label_bottom_papertype_content" >
+    <style name="knowledge_main_bar_label_bottom_papersign_content" >
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/knowledge_main_bar_papertype_label</item>
@@ -333,7 +333,6 @@
         <item name="android:gravity">center</item>
         <item name="android:textSize">10dp</item>
         <item name="android:layout_marginLeft">10dp</item>
-
     </style>
     <style name="knowledge_main_bar_line" parent="global_line">
         <item name="android:layout_marginTop">10dp</item>
@@ -355,6 +354,46 @@
         <item name="android:singleLine">true</item>
         <item name="android:drawablePadding">2dp</item>
         <item name="android:layout_weight">1.0</item>
+    </style>
+    <!--文章查看页面-->
+    <style name="knowledge_view_paper">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="knowledge_view_paper_papertitle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:textColor">@color/global_label</item>
+    </style>
+    <style name="knowledge_view_paper_paperinfo">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="knowledge_view_paper_paperinfo_icon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="knowledge_view_paper_paperinfo_content">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:textColor">@color/global_label</item>
+    </style>
+    <style name="knowledge_view_paper_content">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:textColor">@color/global_label</item>
     </style>
 
 

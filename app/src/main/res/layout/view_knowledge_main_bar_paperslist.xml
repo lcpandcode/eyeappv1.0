@@ -20,21 +20,32 @@
             <LinearLayout
                 style="@style/knowledge_main_bar_label_bottom_papertype">
                 <TextView
-                    android:id="@+id/knowledge_main_bar_papertype"
-                    style="@style/knowledge_main_bar_label_bottom_papertype_content"
+                    android:id="@+id/knowledge_main_bar_papersign"
+                    style="@style/knowledge_main_bar_label_bottom_papersign_content"
                     android:text="热文" />
             </LinearLayout>
 
             <TextView
+                android:id="@+id/knowledge_main_bar_papertype"
                 style="@style/knowledge_main_bar_label_bottom_paperinfo"
                 android:text="讲座通知"/>
             <TextView
-                android:id="@+id/knowledge_main_bar_readcount"
+                android:id="@+id/knowledge_main_bar_viewcount"
                 style="@style/knowledge_main_bar_label_bottom_paperinfo"
-                android:text="2333浏览"/>
+                android:text="2333"/>
             <TextView
+            style="@style/knowledge_main_bar_label_bottom_paperinfo"
+            android:layout_marginLeft = "0dp"
+            android:text="浏览"/>
+            <TextView
+                android:id="@+id/knowledge_main_bar_date"
                 style="@style/knowledge_main_bar_label_bottom_paperinfo"
                 android:text="2018-02-02"/>
+            <TextView
+                android:id="@+id/knowledge_main_bar_date_paperid"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:visibility="invisible"/><!--这个TextView用来存储id值-->
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

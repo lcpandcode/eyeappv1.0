@@ -27,18 +27,18 @@
                     android:text="@string/knowledge_eathabit" />
 
                 <RadioButton
-                    android:id="@+id/radio_test_astigmatism"
+                    android:id="@+id/radio_knowledge_blog"
                     style="@style/knowledge_menu_btn"
                     android:drawableTop="@mipmap/knowledge_btn_blog"
                     android:text="@string/knowledge_blog" />
 
                 <RadioButton
-                    android:id="@+id/radio_test_vision"
+                    android:id="@+id/radio_knowledge_lecture"
                     style="@style/knowledge_menu_btn"
                     android:drawableTop="@mipmap/knowledge_btn_lecture"
                     android:text="@string/knowledge_lecture" />
                 <RadioButton
-                    android:id="@+id/radio_test_sensitivity"
+                    android:id="@+id/radio_knowledge_advisory"
                     style="@style/knowledge_menu_btn"
                     android:drawableTop="@mipmap/knowledge_btn_advisory"
                     android:text="@string/knowledge_advisory" />
@@ -49,42 +49,14 @@
         <LinearLayout style="@style/knowledge_main_bar">
 
             <TextView
+                android:id="@+id/knowledge_main_bar_top_title"
                 style="@style/knowledge_main_bar_label"
                 android:gravity="left"
                 android:text="文章推荐" />
         </LinearLayout>
 
         <View style="@style/knowledge_main_bar_line" />
-        <!--<LinearLayout-->
-            <!--android:id="@+id/knowledge_main_bar"-->
-            <!--style="@style/knowledge_main_bar">-->
 
-            <!--<LinearLayout style="@style/knowledge_main_bar_label">-->
-
-                <!--<TextView-->
-                    <!--style="@style/knowledge_main_bar_label"-->
-                    <!--android:text="震惊每天吃胡萝卜尽可以提高三倍视力" />-->
-            <!--</LinearLayout>-->
-
-            <!--<LinearLayout style="@style/knowledge_main_bar_label_bottom">-->
-                <!--<LinearLayout-->
-                    <!--style="@style/knowledge_main_bar_label_bottom_papertype">-->
-                    <!--<TextView-->
-                        <!--style="@style/knowledge_main_bar_label_bottom_papertype_content"-->
-                        <!--android:text="热文" />-->
-                <!--</LinearLayout>-->
-
-                <!--<TextView-->
-                    <!--style="@style/knowledge_main_bar_label_bottom_paperinfo"-->
-                    <!--android:text="讲座通知"/>-->
-                <!--<TextView-->
-                    <!--style="@style/knowledge_main_bar_label_bottom_paperinfo"-->
-                    <!--android:text="2333浏览"/>-->
-                <!--<TextView-->
-                    <!--style="@style/knowledge_main_bar_label_bottom_paperinfo"-->
-                    <!--android:text="2018-02-02"/>-->
-            <!--</LinearLayout>-->
-        <!--</LinearLayout>-->
         <ListView
             android:id="@+id/knowledge_main_bar_list"
             android:layout_width="match_parent"
