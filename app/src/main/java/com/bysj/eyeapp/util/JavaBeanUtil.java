@@ -4,6 +4,14 @@ package com.bysj.eyeapp.util;
  * Created by lcplcp on 2018/1/5.
  */
 
+
+import android.content.Intent;
+import android.util.Log;
+
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONException;
+import com.alibaba.fastjson.JSONObject;
+
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
@@ -44,4 +52,23 @@ public class JavaBeanUtil {
         }
         return result;
     }
+
+    /**
+     * 解析json的方法：如果结果非法，返回null
+     * @param json json字符
+     * @return 解析的map:包含两部分数据，status和data，分别是一个string和一个Object(这个Object其实也是个Map)
+     */
+    public static Map<String,Object> jsonToObj(String json){
+        Map<String,Object> map = null;
+        try {
+            map =  (Map<String, Object>) JSON.parse(json);
+        } catch (JSONException e) {
+            Log.e("Json解析错误：" ,e.getMessage());
+            return null;
+        }
+        return map;
+    }
+
+
+
 }
