@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--全局输入框的背景设置：主要用来设置边框以及光标-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/global_background" /><!--注意，这个在出现黑框时加上，表示默认填充颜色！-->
+    <stroke
+        android:width="1dip"
+        android:color="@color/eyedata_bar_title"/>
+    <corners android:topLeftRadius="3dp"
+        android:topRightRadius="3dp"
+        android:bottomRightRadius="3dp"
+        android:bottomLeftRadius="3dp"/>
+
+</shape>

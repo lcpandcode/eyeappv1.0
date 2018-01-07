@@ -13,6 +13,7 @@
         <TextView
             android:id="@+id/button_backward"
             style="@style/title_btn"
+            android:onClick="titleReturn"
             android:visibility="visible"
             android:text="@string/title_btn_return"/>
 

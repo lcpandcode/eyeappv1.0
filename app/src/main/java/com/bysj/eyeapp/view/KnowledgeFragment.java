@@ -236,7 +236,9 @@ public class KnowledgeFragment extends Fragment {
 	 * 显示提问界面
 	 */
 	private void showAdvisoryActivity(){
-
+		Intent intent = new Intent();
+		intent.setClass(thisView.getContext(),KnowledgeAdvisoryActivity.class);
+		startActivity(intent);
 	}
 
 	/**

@@ -10,8 +10,12 @@
     <color name="global_btn_font">#FCFCFC</color> <!--全局按钮文字的颜色-->
     <color name="global_href_font">#4A5691</color><!--全局连接相关的颜色，例如登录界面的忘记密码，注册等连接字体，为蓝色-->
     <color name="global_line">#E3E3E3</color><!--全局线条颜色-->
-    <color name="global_background">#F5F5F5</color>
+    <color name="global_background">#FFFFFF</color>
     <color name="main_background">#FCFCFC</color><!--主界面的颜色：白色-->
+    <color name="global_edittext_frame">#38ADFF</color><!--全局输入区域边框颜色-->
+    <color name="global_hint">#AEAEAE</color>
+    <color name="global_edittext_background">#FFFFFF</color>
+    <color name="global_cursor">#008000</color>
 
     <!--title颜色-->
     <color name="title_background">#000000</color>
@@ -45,5 +49,12 @@
     <color name="knowledge_main_bar_papertype_frame">#C62F2F</color>
     <color name="knowledge_main_bar_papertype_label">#C62F2F</color>
     <color name="knowledge_main_bar_paperinfo">#AEAEAE</color>
+
+    <!--用眼数据-->
+    <color name="eyedata_frame">#AEAEAE</color>
+    <color name="eyedata_bar_title">#AEAEAE</color>
+    <color name="eyedata_bar_line">#AEAEDE</color>
+    <color name="eyedata_bar_arc">#A9F5B1</color>
+    <color name="eyedata_bar_arc_round">#FFFDC4</color>
 
 </resources>

@@ -315,7 +315,7 @@
     <style name="knowledge_main_bar_label_bottom_papertype" >
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/knowledge_main_bar_papertype_background</item>
+        <item name="android:background">@drawable/knowledge_main_bar_papersign_background</item>
     </style>
     <!--文章标签文字-->
     <style name="knowledge_main_bar_label_bottom_papersign_content" >
@@ -394,6 +394,94 @@
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:layout_marginRight">10dp</item>
         <item name="android:textColor">@color/global_label</item>
+    </style>
+    <!--提问界面-->
+    <style name="knowledge_advisory_label">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:textColor">@color/global_label</item>
+    </style>
+    <style name="knowledge_advisory_input">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:background">@drawable/global_edittext_background</item>
+    </style>
+    <style name="knowledge_advisory_input_edittext">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:textColor">@color/global_label</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:maxLength">3000</item>
+        <item name="android:minLines">10</item>
+        <item name="android:background">@null</item>
+        <item name="android:textColorHint">@color/global_hint</item>
+        <item name="android:gravity">left</item>
+        <item name="android:textCursorDrawable">@drawable/global_cursor</item>
+    </style>
+
+    <!--用眼数据-->
+    <style name="eyedata">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/eyedata_background</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+    <style name="eyedata_bar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:gravity">center</item>
+    </style>
+    <style name="eyedata_bar_label">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/global_label</item>
+        <item name="android:background">@color/global_background</item>
+    </style>
+    <style name="eyedata_bar_line" parent="global_line">
+        <item name="android:background">@color/eyedata_bar_line</item>
+        <item name="android:layout_marginLeft">60dp</item>
+        <item name="android:layout_marginRight">60dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+    </style>
+    <style name="eyedata_bar_title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/eyedata_bar_title_background</item>
+        <item name="android:layout_marginTop">20dp</item>
+    </style>
+    <style name="eyedata_bar_title_content">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/global_background</item>
+        <item name="android:textColor">@color/eyedata_bar_title</item>
+        <item name="android:layout_margin">10dp</item>
+    </style>
+    <style name="eyedata_bar_icon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginRight">20dp</item>
+    </style>
+    <style name="eyedata_bar_arc_round">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@mipmap/eyedata_bar_arc_round</item>
     </style>
 
 
