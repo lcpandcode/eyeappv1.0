@@ -17,6 +17,15 @@ public class KnowledePaperVO {
     private String date;
     private String type;
     private String sign;
+    private boolean hasNextPage;
+
+    public boolean isHasNextPage() {
+        return hasNextPage;
+    }
+
+    public void setHasNextPage(boolean hasNextPage) {
+        this.hasNextPage = hasNextPage;
+    }
 
     public String getSign() {
         return sign;

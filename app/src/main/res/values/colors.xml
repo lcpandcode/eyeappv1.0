@@ -16,6 +16,8 @@
     <color name="global_hint">#AEAEAE</color>
     <color name="global_edittext_background">#FFFFFF</color>
     <color name="global_cursor">#008000</color>
+    <color name="global_toast_background">#2B2B2B</color>
+    <color name="global_toast_label">#FFFFFF</color>
 
     <!--title颜色-->
     <color name="title_background">#000000</color>

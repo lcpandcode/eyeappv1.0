@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -20,7 +19,9 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bysj.eyeapp.exception.HttpException;
 import com.bysj.eyeapp.service.KnowledgeService;
+import com.bysj.eyeapp.util.CustomToast;
 import com.bysj.eyeapp.util.JavaBeanUtil;
 import com.bysj.eyeapp.util.RegularUtil;
 import com.bysj.eyeapp.vo.KnowledePaperVO;
@@ -35,13 +36,12 @@ import java.util.Map;
 public class KnowledgeFragment extends Fragment {
 	//常量定义处
 	private static final int PAGE_LIMIT = 10;//默认每次加载数据的数目，这里为10
-	private static final String STATUS_LOADING = "loading";//页面状态：加载中
-	private static final String STATUS_LOAD_FINISH = "loading finish";//页面状态：加载完成
 	public static final int PAPER_TYPE_BLOG = R.id.radio_knowledge_blog;//文章类型：博客
 	public static final int PAPER_TYPE_EATINGHABIT = R.id.radio_knowledge_eathabit;//文章类型：饮食习惯
 	public static final int PAPER_TYPE_LECTURE = R.id.radio_knowledge_lecture;//文章类型：护眼讲座
 	public static final int PAPER_TYPE_DEFAULT = -1;//默认文章类型为推荐文章，用-1代表
 	private static final String VIEW_PAPER_ID_KEY = "文章id";
+	private static final String REMIND_NOMORE_DATA = "没有更多数据啦！";
 	//组件相关变量
 	private View thisView;
 	private ListView papersList;//文章列表对应的区域view对象
@@ -108,20 +108,16 @@ public class KnowledgeFragment extends Fragment {
 		//设置是否显示加载中的状态栏（当滑动到最后一条数据时，显示）
 		papersList.setOnScrollListener(new AbsListView.OnScrollListener() {
 			@Override
-			public void onScrollStateChanged(AbsListView view, int scrollState) {
-
-			}
-
-			@Override
 			public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-				//判断状态
-				if(listViewStatus==null || listViewStatus.equals(STATUS_LOADING)){
-					return ;
-				}
-				if(firstVisibleItem + visibleItemCount>=totalItemCount){
+
+				if((firstVisibleItem + visibleItemCount)>(totalItemCount )){
 					//下拉动态加载数据
 					loadMorePaper();
 				}
+			}
+			@Override
+			public void onScrollStateChanged(AbsListView view, int scrollState) {
+
 			}
 		});
 		//设置item监听事件
@@ -130,7 +126,9 @@ public class KnowledgeFragment extends Fragment {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				String paperIdStr = ((TextView)view.findViewById(R.id.knowledge_main_bar_date_paperid)).getText().toString();
 				if(!RegularUtil.numberIsTrue(paperIdStr)){
-					Toast.makeText(getActivity(),"当前文章id非法！",Toast.LENGTH_SHORT);
+					//Toast toast = Toast.makeText(getActivity(),"当前文章id非法！",Toast.LENGTH_SHORT);
+					CustomToast.showToast(getActivity(),"当前文章id非法！");
+					return ;
 				}
 
 				int paperId = Integer.parseInt(paperIdStr);
@@ -138,7 +136,6 @@ public class KnowledgeFragment extends Fragment {
 				showViewPaperActivity(paperId);
 			}
 		});
-		listViewStatus = STATUS_LOAD_FINISH;
 	}
 
 	/**
@@ -174,9 +171,12 @@ public class KnowledgeFragment extends Fragment {
 		TextView mTipContent = new TextView(getActivity());
 		mTipContent.setText(getActivity().getResources().getString(R.string.global_loading));
 		mTipContent.setTextColor(getActivity().getResources().getColor(R.color.global_label));
-		loadBar.addView(mTipContent, mTipContentLayoutParams);
 		papersList.addFooterView(loadBar);
+		View view = new View(getActivity());
 		papersList.addFooterView(new View(getActivity()));//这个View对象仅仅用于吧底部加载条显示出来，无其他作用
+
+		loadBar.addView(mTipContent, mTipContentLayoutParams);
+		hideLoadBar();
 	}
 
 	/**
@@ -206,10 +206,25 @@ public class KnowledgeFragment extends Fragment {
 	 * @param checkedId 功能栏中被选中的功能模块，代表某种类型的文章
 	 */
 	private void changePaperType(int checkedId){
+		showLoadBar();
 		//清空paper区域的数据
 		clearPaperList();
 		//获取新类型文章的数据
-		List<KnowledePaperVO> papersNew = service.getPaperByType(checkedId,nowPage,PAGE_LIMIT);
+		List<KnowledePaperVO> papersNew = null;
+		try {
+			papersNew = service.getPaperByType(checkedId,nowPage,PAGE_LIMIT);
+		} catch (HttpException e) {
+			//Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_SHORT).show();
+			CustomToast.showToast(getActivity(),e.getMessage());
+			hideLoadBar();
+			return ;
+		}
+		if(papersNew.size()==0){
+			//Toast.makeText(getActivity(),REMIND_NOMORE_DATA,Toast.LENGTH_SHORT).show();
+			CustomToast.showToast(getActivity(),REMIND_NOMORE_DATA);
+			hideLoadBar();
+			return ;
+		}
 		//对象转换并刷新数据
 		papers.addAll(paperListToMapList(papersNew));
 		//刷新页面
@@ -229,7 +244,7 @@ public class KnowledgeFragment extends Fragment {
 		}
 		//改变文章类型变量的值
 		paperType = checkedId;
-
+		hideLoadBar();
 	}
 
 	/**
@@ -245,7 +260,7 @@ public class KnowledgeFragment extends Fragment {
 	 * 显示底部加载中的提示
 	 */
 	private void showLoadBar(){
-		papersList.setVisibility(View.VISIBLE);
+		loadBar.setVisibility(View.VISIBLE);
 	}
 
 	/**
@@ -259,24 +274,47 @@ public class KnowledgeFragment extends Fragment {
 	 * 刷新文章列表，该方法在下拉文章时动态加载文章列表
 	 */
 	private void loadMorePaper(){
-		listViewStatus = STATUS_LOADING;
+		showLoadBar();
 		//加载数据
-		papers.addAll(paperListToMapList(service.getPaperByType(paperType,nowPage,PAGE_LIMIT)));
+		List<KnowledePaperVO> result = null;
+		try {
+			result = service.getPaperByType(paperType,nowPage,PAGE_LIMIT);
+		} catch (HttpException e) {
+			//Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_SHORT).show();
+			CustomToast.showToast(getActivity(),e.getMessage());
+			hideLoadBar();
+			return;
+		}
+		if(result.size()==0){
+			//Toast.makeText(getActivity(),REMIND_NOMORE_DATA,Toast.LENGTH_SHORT).show();
+			CustomToast.showToast(getActivity(),REMIND_NOMORE_DATA);
+			hideLoadBar();
+			return ;
+		}
+		papers.addAll(paperListToMapList(result));
 		//刷新页面
 		listViewAdaptor.notifyDataSetChanged();
 		//改变当前页码
 		nowPage++;
-		listViewStatus = STATUS_LOAD_FINISH;
+		hideLoadBar();
 	}
 
 	private void initPapers(){
-		listViewStatus = STATUS_LOADING;
+		//showLoadBar();
 		if(papers==null){
 			papers = new ArrayList<>();
 		}
-		papers.addAll(paperListToMapList(service.getPaperByType(paperType,nowPage,PAGE_LIMIT)));
+		List<KnowledePaperVO> result = null;
+        try {
+            result = service.getPaperByType(paperType,nowPage,PAGE_LIMIT);
+        } catch (HttpException e) {
+            //Toast.makeText(getActivity(),e.getMessage(),Toast.LENGTH_SHORT).show();
+			CustomToast.showToast(getActivity(),e.getMessage());
+			return ;
+        }
+        papers.addAll(paperListToMapList(result));
 		nowPage++;
-		listViewStatus = STATUS_LOAD_FINISH;
+		//hideLoadBar();
 	}
 
 	/**
@@ -298,7 +336,7 @@ public class KnowledgeFragment extends Fragment {
 		private List<Map<String,Object>> paperListToMapList(List<KnowledePaperVO> papers){
 			List<Map<String,Object>> rtn = new ArrayList<>();
 			for(KnowledePaperVO paper : papers){
-				rtn.add(JavaBeanUtil.ObjtoMap(paper));
+				rtn.add(JavaBeanUtil.objToMap(paper));
 			}
 			return rtn;
 		}
