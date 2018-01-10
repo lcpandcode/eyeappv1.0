@@ -1,5 +1,6 @@
 package com.bysj.eyeapp.view;
 
+import com.bysj.eyeapp.exception.HttpException;
 import com.bysj.eyeapp.util.HttpUtil;
 import com.bysj.eyeapp.util.JavaBeanUtil;
 
@@ -27,5 +28,20 @@ public class HttpUtilTest {
         map.put("fuck1","ff");
         map.put("funck2","fff");
         System.out.println(HttpUtil.urlAddParam("url",map));
+    }
+    @Test
+    public void synPostTest(){
+        String path = "/eyeapp/user/login.do";
+        Map<String,String> params = new HashMap<>();
+        params.put("phone","15521195093");
+        params.put("password","123456");
+        String result;
+        try {
+            result = HttpUtil.synPost(path,params);
+            System.out.println(result);
+        } catch (HttpException e) {
+            e.printStackTrace();
+        }
+        int a = 3;
     }
 }

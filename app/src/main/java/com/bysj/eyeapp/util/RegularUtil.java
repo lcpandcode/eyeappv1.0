@@ -58,4 +58,15 @@ public class RegularUtil {
         Matcher matcher = pattern.matcher(number);
         return matcher.find();
     }
+
+    /**
+     * 判断字符是否为空
+     */
+    public static boolean strIsEmpty(String str){
+        if(str==null || "".equals(str)){
+            return true;
+        }
+        //其他类似于空格也要过滤，这里待扩展
+        return false;
+    }
 }

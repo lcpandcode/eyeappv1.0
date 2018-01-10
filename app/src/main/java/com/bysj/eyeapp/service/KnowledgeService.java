@@ -164,7 +164,8 @@ public class KnowledgeService {
      * @return map结果：status:状态，data:数据，info：请求信息，如果失败，代表请求失败的信息，成功的话一般为null
      */
     public Map<String,String> advisorySubmitQUestion(KnowledgeAdvisoryQuestionVO question) throws HttpException {
-        return HttpUtil.synPost(ADVISORY_PATH, JavaBeanUtil.objToMap(question));
+        //return HttpUtil.synPost(ADVISORY_PATH, JavaBeanUtil.objToMap(question));
+        return null;
     }
 
     public int getRecommendPaperMaxPage() {

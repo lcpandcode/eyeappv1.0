@@ -93,38 +93,51 @@ public class HttpUtil {
      * @param param 参数
      * @return map:代表结果信息，主要有两个字段，status：success-fail;info:失败的原因，成功则无该字段；data：json字符
      */
-    public static Map<String,String> synPost(String path,Map<String,String> param) throws HttpException {
-        Map<String,String> result = new HashMap<>();
+    public static String synPost(final String path,final Map<String,String> param) throws HttpException {
+        final StringBuffer result = new StringBuffer();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String url = HOST + path ;
+                    OkHttpClient client = new OkHttpClient.Builder()
+                            .connectTimeout(CONNECT_TIME_LIMIT, TimeUnit.SECONDS)
+                            .readTimeout(READ_TIME_LIMIT, TimeUnit.SECONDS)
+                            .build();
+                    FormBody.Builder builder = new FormBody.Builder();
+                    //添加参数
+                    for(Map.Entry<String,String> entry : param.entrySet()){
+                        builder.add(entry.getKey(),entry.getValue());
+                    }
+                    FormBody body = builder.build();
+                    Request request = new Request
+                            .Builder()
+                            .url(url)
+                            .post(body)
+                            .build();
+                    okhttp3.Response response = client.newCall(request).execute();
+                    if (response.isSuccessful()) {
+                        result.append(response.body().string());
+                    } else {
+                        Log.i(TAG, "okHttp 请求错误，网络有误");
+                    }
+                } catch (IOException e) {
+                    Log.i("网络请求，请求路径：" + path + "，出错" ,e.getMessage());
+                }
+            }
+        });
+        thread.start();
+        //等待线程请求完毕
         try {
-            String url = HOST + path ;
-            OkHttpClient client = new OkHttpClient.Builder()
-                    .connectTimeout(CONNECT_TIME_LIMIT, TimeUnit.SECONDS)
-                    .readTimeout(READ_TIME_LIMIT, TimeUnit.SECONDS)
-                    .build();
-            FormBody.Builder builder = new FormBody.Builder();
-            //添加参数
-            for(Map.Entry<String,String> entry : param.entrySet()){
-                builder.add(entry.getKey(),entry.getValue());
-            }
-            FormBody body = builder.build();
-            Request request = new Request
-                    .Builder()
-                    .url(url)
-                    .post(body)
-                    .build();
-            okhttp3.Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                result.put("status","success");
-                result.put("data",response.body().toString());
-            } else {
-                Log.i(TAG, "okHttp 请求错误，网络有误");
-                throw new HttpException(ERROR_TIMEOUT);
-            }
-        } catch (IOException e) {
-            Log.i("网络请求，请求路径：" + path + "，出错" ,e.getMessage());
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        if("".equals(result.toString())){
             throw new HttpException(ERROR_IO);
         }
-        return result;
+        return result.toString();
+
     }
 
     /**
