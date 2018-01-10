@@ -28,6 +28,11 @@ public class KnowledgeService {
     private static final String ADVISORY_PATH = "/eyeapp/askquestion.do";
     private static final String GET_PAPER_LIST_PATH = "/eyeapp/knowledge/list.do";
     private static final String GET_HOTPAPER_LIST_PATH = "/eyeapp/knowledge/hotlist.do";
+    private static int DEFAULT_LIMIT = 10;
+    private int recommendPaperMaxPage = -1;//推荐文章最大页数
+    private int blogPaperMaxPage = -1;//博客最大页数
+    private int eatdietPaperMaxPages = -1;//饮食习惯最大页数存储
+    private int lecturePaperMaxPage = -1;
 
 
     /**
@@ -42,9 +47,12 @@ public class KnowledgeService {
             page = 1;
         }
         if(limit<1){
-            limit = 10;
+            limit = DEFAULT_LIMIT;
         }
         List<KnowledePaperVO> papers = new ArrayList<>();
+        if(recommendPaperMaxPage!=-1 && page>recommendPaperMaxPage){
+            return papers;
+        }
         Map<String,String> param = new HashMap<>();
         param.put("pageNum",page + "");
         param.put("pageSize",limit + "");
@@ -56,10 +64,7 @@ public class KnowledgeService {
         }
         Map<String , Object> dataMap = (Map<String, Object>) resultMap.get("data");
         //判断是否已经到达最后一页，如果到达最后一页，返回空列表
-        Integer lastPage = (Integer)dataMap.get("lastPage");
-        if(page>lastPage){
-            return papers;
-        }
+        recommendPaperMaxPage = (Integer)dataMap.get("lastPage");
         List<Map<String,Object>> papersTem = (List<Map<String,Object>>)dataMap.get("list");
         for(Map<String,Object> map : papersTem){
             KnowledePaperVO paper = new KnowledePaperVO();
@@ -86,10 +91,10 @@ public class KnowledgeService {
      */
     public List<KnowledePaperVO> getPaperByType(int paperType,int page,int limit) throws HttpException {
         if(page<1){
-            throw new RuntimeException("page 页数必须大于0");
+            page = 1 ;
         }
         if(limit<1){
-            throw new RuntimeException("limit 每页显示页数必须大于0");
+            limit = DEFAULT_LIMIT;
         }
         //如果推荐文章，直接调用推荐文章的方法
         if(paperType==KnowledgeFragment.PAPER_TYPE_DEFAULT){
@@ -99,10 +104,22 @@ public class KnowledgeService {
         String type = null;
         if(paperType== KnowledgeFragment.PAPER_TYPE_BLOG){
             type = "护眼博客";
+            //判断page是否大于最大页码
+            if(blogPaperMaxPage!=-1 && page>blogPaperMaxPage){
+                return papers;
+            }
         }else if(paperType== KnowledgeFragment.PAPER_TYPE_LECTURE){
             type = "护眼讲座";
+            //判断page是否大于最大页码
+            if(lecturePaperMaxPage!=-1 && page>lecturePaperMaxPage){
+                return papers;
+            }
         }else {
             type = "饮食习惯";
+            //判断page是否大于最大页码
+            if(eatdietPaperMaxPages!=-1 && page>eatdietPaperMaxPages){
+                return papers;
+            }
         }
         Map<String,String> param = new HashMap<>();
         param.put("type",type);
@@ -117,8 +134,12 @@ public class KnowledgeService {
         Map<String , Object> dataMap = (Map<String, Object>) resultMap.get("data");
         //判断是否已经到达最后一页，如果到达最后一页，返回空列表
         Integer lastPage = (Integer)dataMap.get("lastPage");
-        if(page>lastPage){
-            return papers;
+        if("护眼博客".equals(type)){
+            blogPaperMaxPage = lastPage;
+        }else if("护眼讲座".equals(type)){
+            lecturePaperMaxPage = lastPage;
+        }else {
+            eatdietPaperMaxPages = lastPage;
         }
 
         List<Map<String,Object>> papersTem = (List<Map<String,Object>>)dataMap.get("list");
@@ -144,5 +165,21 @@ public class KnowledgeService {
      */
     public Map<String,String> advisorySubmitQUestion(KnowledgeAdvisoryQuestionVO question) throws HttpException {
         return HttpUtil.synPost(ADVISORY_PATH, JavaBeanUtil.objToMap(question));
+    }
+
+    public int getRecommendPaperMaxPage() {
+        return recommendPaperMaxPage;
+    }
+
+    public int getBlogPaperMaxPage() {
+        return blogPaperMaxPage;
+    }
+
+    public int getEatdietPaperMaxPages() {
+        return eatdietPaperMaxPages;
+    }
+
+    public int getLecturePaperMaxPage() {
+        return lecturePaperMaxPage;
     }
 }
