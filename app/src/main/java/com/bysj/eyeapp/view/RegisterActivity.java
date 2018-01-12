@@ -12,6 +12,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.bysj.eyeapp.util.CustomToast;
 import com.bysj.eyeapp.util.RegularUtil;
 
 import org.json.JSONException;
@@ -74,20 +75,20 @@ public class RegisterActivity extends BaseActivity {
             sex = WOMAN;
         }
         //进行是否为空验证
-        if(nickName==null || "".equals(nickName)){
-            Toast.makeText(getApplicationContext(),REGISTER_REMIND_NICKNAME,Toast.LENGTH_SHORT).show();
+        if(RegularUtil.strIsEmpty(nickName)){
+            CustomToast.showToast(getApplicationContext(),REGISTER_REMIND_NICKNAME);
             return ;
-        }else if(phone==null || "".equals(phone)){
-            Toast.makeText(getApplicationContext(),REGISTER_REMIND_PHONE,Toast.LENGTH_SHORT).show();
+        }else if(RegularUtil.strIsEmpty(phone)){
+            CustomToast.showToast(getApplicationContext(),REGISTER_REMIND_PHONE);
             return ;
-        }else if(pwd==null || "".equals(pwd)){
-            Toast.makeText(getApplicationContext(),REGISTER_REMIND_PWD,Toast.LENGTH_SHORT).show();
+        }else if(RegularUtil.strIsEmpty(pwd)){
+            CustomToast.showToast(getApplicationContext(),REGISTER_REMIND_PWD);
             return ;
-        }else if(checkCode==null || "".equals(checkCode)){
-            Toast.makeText(getApplicationContext(),REGISTER_REMIND_CHECKCODE,Toast.LENGTH_SHORT).show();
+        }else if(RegularUtil.strIsEmpty(checkCode)){
+            CustomToast.showToast(getApplicationContext(),REGISTER_REMIND_CHECKCODE);
             return ;
-        }else if(sex==null || "".equals(sex)){
-            Toast.makeText(getApplicationContext(),REGISTER_REMIND_SEX,Toast.LENGTH_SHORT).show();
+        }else if(RegularUtil.strIsEmpty(sex)){
+            CustomToast.showToast(getApplicationContext(),REGISTER_REMIND_SEX);
             return ;
         }
 

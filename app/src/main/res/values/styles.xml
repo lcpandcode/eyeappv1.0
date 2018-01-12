@@ -59,6 +59,10 @@
         <item name="android:textColor">@color/global_label</item>
         <item name="android:layout_gravity">left</item>
     </style>
+    <style name="global_swipeRefreshLayout">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+    </style>
 
 
 
@@ -87,6 +91,7 @@
         <item name="android:gravity">left</item>
         <item name="android:singleLine">true</item>
         <item name="android:background">@null</item>
+        <item name="android:textCursorDrawable">@drawable/global_cursor</item>
     </style>
 
 
@@ -96,7 +101,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:orientation">horizontal</item>
         <item name="android:background">@color/title_background</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">30dp</item>
     </style>
     <!--顶部标题栏按钮样式-->
     <style name="title_btn">
@@ -107,16 +112,16 @@
         <item name="android:onClick">onClick</item>
         <item name="android:textColor">@color/title_btn</item>
         <item name="android:clickable">true</item>
+        <item name="android:gravity">center</item>
 
     </style>
     <!--顶部标题栏标题样式-->
     <style name="title_title">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:layout_height">20dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:gravity">center</item>
         <item name="android:textSize">10dp</item>
-        <item name="android:ellipsize">marquee</item>
-        <item name="android:gravity">center_horizontal|center</item>
         <item name="android:singleLine">true</item>
         <item name="android:background">@color/title_background</item>
         <item name="android:textColor">@color/title_title</item>

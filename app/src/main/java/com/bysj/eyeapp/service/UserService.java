@@ -4,9 +4,6 @@ package com.bysj.eyeapp.service;
  * Created by lcplcp on 2018/1/10.
  */
 
-import android.graphics.Paint;
-import android.util.Log;
-
 import com.bysj.eyeapp.exception.HttpException;
 import com.bysj.eyeapp.exception.UserException;
 import com.bysj.eyeapp.util.HttpUtil;
@@ -23,7 +20,7 @@ import java.util.Map;
 public class UserService {
     private final static String REMIND_PHONE_ERROR = "手机号输入不合法";
     private final static String REMIND_PASS_ERROR = "密码输入不合法";
-    private final static String LOGIN_PATH = "/eyeapp/user/login.do";
+    private final static String LOGIN_PATH = "/user/login.do";
 
     public UserVO login(String phone,String password) throws HttpException {
         UserVO user = new UserVO();
@@ -53,6 +50,8 @@ public class UserService {
         String sex = (String)data.get("sex");
         String type = (String)data.get("type");
         user.setId(id).setNickName(nickName).setSex(sex).setType(type).setPhone(phone);
+        user.setToken(HttpUtil.getToken());
         return user;
     }
+
 }

@@ -18,6 +18,9 @@
     <color name="global_cursor">#008000</color>
     <color name="global_toast_background">#2B2B2B</color>
     <color name="global_toast_label">#FFFFFF</color>
+    <color name="global_refresh_loadbar_color1">@android:color/holo_blue_light</color>
+    <color name="global_refresh_loadbar_color2">@android:color/holo_orange_light</color>
+    <color name="global_refresh_loadbar_color3">@android:color/holo_green_light</color>
 
     <!--title颜色-->
     <color name="title_background">#000000</color>

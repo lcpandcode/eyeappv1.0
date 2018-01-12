@@ -75,11 +75,6 @@ public class LoginActivity extends BaseActivity {
         CustomToast.showToast(getApplicationContext(),"登录成功，准备跳转页面");
         Intent intent = new Intent();
         intent.setClass(this,MainActivity.class);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         startActivity(intent);
     }
 
@@ -88,7 +83,9 @@ public class LoginActivity extends BaseActivity {
      * @param view
      */
     public void register(View view){
-        Toast.makeText(getApplicationContext(),"register",Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent();
+        intent.setClass(getApplicationContext(),RegisterActivity.class);
+        startActivity(intent);
     }
 
     /**
@@ -96,7 +93,7 @@ public class LoginActivity extends BaseActivity {
      * @param view
      */
     public void findPwd(View view){
-        Toast.makeText(getApplicationContext(),"findPwd",Toast.LENGTH_SHORT).show();
+        CustomToast.showToast(getApplicationContext(),"这个功能还没有开发！");
     }
 
     /**

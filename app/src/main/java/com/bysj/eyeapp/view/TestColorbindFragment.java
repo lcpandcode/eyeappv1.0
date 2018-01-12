@@ -1,20 +1,29 @@
 package com.bysj.eyeapp.view;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bysj.eyeapp.exception.HttpException;
 import com.bysj.eyeapp.service.TestService;
+import com.bysj.eyeapp.util.CustomSwipeRefreshLayout;
+import com.bysj.eyeapp.util.CustomToast;
+import com.bysj.eyeapp.util.GlobalConst;
 import com.bysj.eyeapp.vo.TestColorbindQuestionVO;
+import com.bysj.eyeapp.vo.TestQuestionVO;
 
 import java.io.Serializable;
 import java.util.List;
@@ -42,10 +51,11 @@ public class TestColorbindFragment extends Fragment {
 	private RadioButton option2;
 	private RadioButton option3;
 	private RadioButton option4;
+	private CustomSwipeRefreshLayout swipeRefreshLayout;
 
 	//类数据相关变量
 	private int nowAnswerQuestion = 0;//当前作答数目
-	private List<TestColorbindQuestionVO> questions;//题目列表
+	private List<TestQuestionVO> questions;//题目列表
 	private int nowAnswerTrue = 0;//当前作答正确个数
 	private TestService service;//核心服务类，service层的类
 
@@ -73,9 +83,16 @@ public class TestColorbindFragment extends Fragment {
 		option2 = thisView.findViewById(R.id.test_colorbind_option2);
 		option3 = thisView.findViewById(R.id.test_colorbind_option3);
 		option4 = thisView.findViewById(R.id.test_colorbind_option4);
+		swipeRefreshLayout = thisView.findViewById(R.id.eyedata_bar_refresh);
 		service = new TestService();
 		//初始化数据
-		questions = service.getColorbindQustion(QUESTION_NUM);
+		try {
+			questions = service.getTestQuestions(QUESTION_NUM, GlobalConst.TEST_TYPE_COLORBIND);
+		} catch (HttpException e) {
+			Log.e("网络错误：" ,e.getMessage());
+			CustomToast.showToast(getActivity(),GlobalConst.REMIND_NET_ERROR);
+			return ;
+		}
 		//初始化第一个答题页面
 		showNewQuestion(questions.get(nowAnswerQuestion));
 		//设置监听事件
@@ -85,6 +102,34 @@ public class TestColorbindFragment extends Fragment {
 				nextQuestion();
 			}
 		});
+
+		//初始化下拉刷新功能
+		swipeRefreshLayout = (CustomSwipeRefreshLayout)thisView.findViewById(R.id.test_colorbind_refresh);
+		//swipeRefreshLayout.setmListView((ListView) thisView.findViewById(R.id.));
+
+		//设置刷新时动画的颜色，可以设置4个
+		swipeRefreshLayout.setColorSchemeResources(R.color.global_refresh_loadbar_color1,
+				R.color.global_refresh_loadbar_color2,R.color.global_refresh_loadbar_color3);
+		//设置下拉刷新事件
+		swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+			@Override
+			public void onRefresh() {
+				//tv.setText("正在刷新");
+				// TODO Auto-generated method stub
+				new Handler().postDelayed(new Runnable() {
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						//tv.setText("刷新完成");
+						refresh();
+						swipeRefreshLayout.setRefreshing(false);
+					}
+				}, 0);
+			}
+		});
+
 	}
 
 	/**
@@ -94,7 +139,7 @@ public class TestColorbindFragment extends Fragment {
 		//是否选中了选项
 		int checkedId = options.getCheckedRadioButtonId();
 		if(checkedId==-1){
-			Toast.makeText(getActivity(),REMIDN_CHOSE_OPTION,Toast.LENGTH_SHORT).show();
+			CustomToast.showToast(getActivity(),REMIDN_CHOSE_OPTION);
 			return ;
 		}
 		//判断答题情况，并更新答题状态
@@ -102,7 +147,7 @@ public class TestColorbindFragment extends Fragment {
 		nowAnswerQuestion++;
 		if(nowAnswerQuestion<QUESTION_NUM){
 			//获取下一题
-			TestColorbindQuestionVO question = questions.get(nowAnswerQuestion);
+			TestQuestionVO question = questions.get(nowAnswerQuestion);
 			//清除上题的选项
 			options.clearCheck();
 			//更新页面问题
@@ -126,7 +171,7 @@ public class TestColorbindFragment extends Fragment {
 		if(nowAnswerQuestion>=questions.size()){
 			return ;
 		}
-		TestColorbindQuestionVO question = questions.get(nowAnswerQuestion);
+		TestQuestionVO question = questions.get(nowAnswerQuestion);
 		//获取选项值
 		int checkId = options.getCheckedRadioButtonId();
 		int choseOption = 0;
@@ -144,7 +189,7 @@ public class TestColorbindFragment extends Fragment {
 				choseOption = 4;
 				break;
 		}
-		if(question.getTrueOption()==choseOption){
+		if(question.getCorrectOption()==choseOption){
 			//正确题目数加1
 			nowAnswerTrue++;
 		}
@@ -155,7 +200,7 @@ public class TestColorbindFragment extends Fragment {
 	/**
 	 * 更新页面的问题区域（待完善）
 	 */
-	private void showNewQuestion(TestColorbindQuestionVO question){
+	private void showNewQuestion(TestQuestionVO question){
 		//设置图片展示的src属性待完善（需要发起请求获得Bitmap）
 
 		questionTitle.setText(question.getTitle());
@@ -184,6 +229,41 @@ public class TestColorbindFragment extends Fragment {
 		//计算患色盲可能性(该部分待定）
 
 		return result;
+	}
+
+	/**
+	 * 清楚页面数据
+	 */
+	private void clearData(){
+		nowAnswerQuestion = 0;
+		questions.clear();
+		nowAnswerTrue = 0;
+		//清空选中状态
+		options.clearCheck();
+	}
+
+	/**
+	 * 下拉刷新方法
+	 */
+	private void refresh(){
+		List<TestQuestionVO> questionsNew;
+		try {
+			questionsNew = service.getTestQuestions(QUESTION_NUM, GlobalConst.TEST_TYPE_COLORBIND);
+		} catch (HttpException e) {
+			Log.e("网络错误：" ,e.getMessage());
+			CustomToast.showToast(getActivity(),GlobalConst.REMIND_NET_ERROR);
+			return ;
+		}
+		if(questionsNew.size()==0 || questionsNew==null){
+			CustomToast.showToast(getActivity(),GlobalConst.REMIND_NET_ERROR);
+			return ;
+		}
+		//成功请求数据，清空数据
+		clearData();
+		//重新初始化数据
+		questions = questionsNew;
+		showNewQuestion(questions.get(nowAnswerQuestion));
+		CustomToast.showToast(getActivity(),GlobalConst.REMIND_REFRESH_SUCCESS);
 	}
 
 

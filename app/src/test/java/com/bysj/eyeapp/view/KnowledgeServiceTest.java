@@ -22,11 +22,11 @@ public class KnowledgeServiceTest {
         KnowledgeAdvisoryQuestionVO questionVO = new KnowledgeAdvisoryQuestionVO();
         questionVO.setContent("contentTest");
         questionVO.setTitle("titleTest");
-        try {
-            System.out.println(service.advisorySubmitQUestion(questionVO));
-        } catch (HttpException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            System.out.println(service.advisorySubmitQUestion(questionVO));
+//        } catch (HttpException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Test

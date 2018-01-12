@@ -10,11 +10,16 @@ import android.util.Log;
 import com.bysj.eyeapp.exception.HttpException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
 import okhttp3.FormBody;
+import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
@@ -26,11 +31,13 @@ import static android.content.ContentValues.TAG;
  */
 
 public class HttpUtil {
-    private static final String HOST = "http://120.78.69.141:8080";//远程主机地址
+    private static final String HOST = GlobalConst.HOST;//远程主机地址
     public static final String ERROR_IO = "网络IO出错，请检查网络";
     public static final String ERROR_TIMEOUT = "网络超时";
-    public static final int CONNECT_TIME_LIMIT = 3;//连接请求最大时间：默认为3秒为超时
-    public static final int READ_TIME_LIMIT = 5;//读数据请求最大时间：默认为5秒为超时
+    public static final int CONNECT_TIME_LIMIT = 100;//连接请求最大时间：默认为3秒为超时
+    public static final int READ_TIME_LIMIT = 100;//读数据请求最大时间：默认为5秒为超时
+
+    private  static String token ="" ;
 
     /**
      * 同步get请求方法，用于同步查询数据
@@ -60,8 +67,28 @@ public class HttpUtil {
                     OkHttpClient client = new OkHttpClient.Builder()
                             .connectTimeout(CONNECT_TIME_LIMIT, TimeUnit.SECONDS)
                             .readTimeout(READ_TIME_LIMIT, TimeUnit.SECONDS)
+                            .cookieJar(new CookieJar() {
+                                @Override
+                                public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+                                }
+
+                                @Override
+                                public List<Cookie> loadForRequest(HttpUrl url) {
+                                    ArrayList<Cookie> cookies = new ArrayList<>();
+                                    Cookie cookie = new Cookie.Builder()
+                                            .hostOnlyDomain(url.host())
+                                            .name("token").value(token)
+                                            .build();
+                                    cookies.add(cookie);
+
+                                    return cookies;
+                                }
+                            })
                             .build();
-                    Request request = new Request.Builder().url(url).build();
+                    Request request = new Request.Builder()
+                            .url(url)
+                            .addHeader("cookie",token)
+                            .build();
                     okhttp3.Response response = client.newCall(request).execute();
                     if (response.isSuccessful()) {
                         result.append(response.body().string());
@@ -95,6 +122,7 @@ public class HttpUtil {
      */
     public static String synPost(final String path,final Map<String,String> param) throws HttpException {
         final StringBuffer result = new StringBuffer();
+        final StringBuffer tokenTem = new StringBuffer();
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -103,12 +131,40 @@ public class HttpUtil {
                     OkHttpClient client = new OkHttpClient.Builder()
                             .connectTimeout(CONNECT_TIME_LIMIT, TimeUnit.SECONDS)
                             .readTimeout(READ_TIME_LIMIT, TimeUnit.SECONDS)
+                            .cookieJar(new CookieJar() {
+                                @Override
+                                public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {
+                                    if(!"".equals(token)){
+                                        return ;
+                                    }
+                                    for(Cookie cookie : cookies){
+                                        if("token".equals(cookie.name())){
+                                            tokenTem.append(cookie.value());
+                                            break;
+                                        }
+                                    }
+
+                                }
+
+                                @Override
+                                public List<Cookie> loadForRequest(HttpUrl url) {
+                                    ArrayList<Cookie> cookies = new ArrayList<>();
+                                    Cookie cookie = new Cookie.Builder()
+                                            .hostOnlyDomain(url.host())
+                                            .name("token").value(token)
+                                            .build();
+                                    cookies.add(cookie);
+
+                                    return cookies;
+                                }
+                            })
                             .build();
                     FormBody.Builder builder = new FormBody.Builder();
                     //添加参数
                     for(Map.Entry<String,String> entry : param.entrySet()){
                         builder.add(entry.getKey(),entry.getValue());
                     }
+
                     FormBody body = builder.build();
                     Request request = new Request
                             .Builder()
@@ -136,8 +192,10 @@ public class HttpUtil {
         if("".equals(result.toString())){
             throw new HttpException(ERROR_IO);
         }
+        if ("".equals(token)) {
+            token = tokenTem.toString();
+        }
         return result.toString();
-
     }
 
     /**
@@ -160,6 +218,17 @@ public class HttpUtil {
             sb.append(String.format("%s=%s",entry.getKey(),entry.getValue()));
         }
         return sb.toString();
+    }
+
+    private static String getCookie(String str){
+        String [] arr = str.split(";");
+        String cookieTem = arr[2];
+        String cookieVal = cookieTem.split("=")[1];
+        return cookieVal;
+    }
+
+    public static String getToken(){
+        return token;
     }
 
 

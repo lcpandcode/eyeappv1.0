@@ -4,8 +4,17 @@ package com.bysj.eyeapp.vo;
  * Created by lcplcp on 2017/12/29.
  */
 
-public class TestAstigmatismQuestionVO {
+public class TestQuestionVO {
     private int id;
+    private String type;
+    private String imgUrl;
+    private String title;
+    private String option1;
+    private String option2;
+    private String option3;
+    private String option4;
+    private int correctOption;
+
 
     public int getId() {
         return id;
@@ -15,28 +24,12 @@ public class TestAstigmatismQuestionVO {
         this.id = id;
     }
 
-    public int getCorrectOption() {
-        return correctOption;
+    public String getType() {
+        return type;
     }
 
-    public void setCorrectOption(int correctOption) {
-        this.correctOption = correctOption;
-    }
-
-    private String imgUrl;
-    private String title;
-    private String option1;
-    private String option2;
-    private String option3;
-    private String option4;
-    private int correctOption;
-
-    public int getTrueOption() {
-        return correctOption;
-    }
-
-    public void setTrueOption(int trueOption) {
-        this.correctOption = trueOption;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getImgUrl() {
@@ -85,5 +78,13 @@ public class TestAstigmatismQuestionVO {
 
     public void setOption4(String option4) {
         this.option4 = option4;
+    }
+
+    public int getCorrectOption() {
+        return correctOption;
+    }
+
+    public void setCorrectOption(int correctOption) {
+        this.correctOption = correctOption;
     }
 }

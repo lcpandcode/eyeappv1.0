@@ -74,6 +74,10 @@ public class JavaBeanUtil {
         return JSONObject.toJSONString(object);
     }
 
+    /**
+     *
+     */
+
 
 
 }

@@ -5,7 +5,9 @@ package com.bysj.eyeapp.service;
  */
 
 import com.alibaba.fastjson.JSON;
+import com.bysj.eyeapp.exception.BackstageException;
 import com.bysj.eyeapp.exception.HttpException;
+import com.bysj.eyeapp.exception.UserException;
 import com.bysj.eyeapp.util.GlobalConst;
 import com.bysj.eyeapp.util.HttpUtil;
 import com.bysj.eyeapp.util.JavaBeanUtil;
@@ -25,9 +27,12 @@ import java.util.Map;
  * 知识库模块服务类
  */
 public class KnowledgeService {
-    private static final String ADVISORY_PATH = "/eyeapp/askquestion.do";
-    private static final String GET_PAPER_LIST_PATH = "/eyeapp/knowledge/list.do";
-    private static final String GET_HOTPAPER_LIST_PATH = "/eyeapp/knowledge/hotlist.do";
+    private static final String ADVISORY_PATH = "/askquestion.do";
+    private static final String GET_PAPER_LIST_PATH = "/knowledge/list.do";
+    private static final String GET_HOTPAPER_LIST_PATH = "/knowledge/hotlist.do";
+    private static final String POST_ADVISORY = "/knowledge/askquestion.do";
+    private static final String REMIND_NOT_LOGIN = "您尚未登录,请先登录！";
+    private static final String REMNID_BACKSTAGE_ERROR = "后台出错！";
     private static int DEFAULT_LIMIT = 10;
     private int recommendPaperMaxPage = -1;//推荐文章最大页数
     private int blogPaperMaxPage = -1;//博客最大页数
@@ -161,11 +166,22 @@ public class KnowledgeService {
     /**
      * 提交问题service方法
      * @param question 问题对象
-     * @return map结果：status:状态，data:数据，info：请求信息，如果失败，代表请求失败的信息，成功的话一般为null
      */
-    public Map<String,String> advisorySubmitQUestion(KnowledgeAdvisoryQuestionVO question) throws HttpException {
-        //return HttpUtil.synPost(ADVISORY_PATH, JavaBeanUtil.objToMap(question));
-        return null;
+    public void advisorySubmitQUestion(KnowledgeAdvisoryQuestionVO question) throws HttpException {
+        Map<String,String> params = new HashMap<>();
+        params.put("title",question.getTitle());
+        params.put("content",question.getContent());
+        String result = HttpUtil.synPost(POST_ADVISORY,params);
+        Map<String,Object> resultMap = (Map<String,Object>)JavaBeanUtil.jsonToObj(result);
+        int status = (Integer) resultMap.get("status");
+        if(status==10){
+            throw new UserException(REMIND_NOT_LOGIN);
+        }
+        if(status==1){
+            throw new BackstageException(REMNID_BACKSTAGE_ERROR);
+        }
+
+
     }
 
     public int getRecommendPaperMaxPage() {

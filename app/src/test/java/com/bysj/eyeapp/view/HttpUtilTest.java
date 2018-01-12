@@ -31,7 +31,7 @@ public class HttpUtilTest {
     }
     @Test
     public void synPostTest(){
-        String path = "/eyeapp/user/login.do";
+        String path = "/user/login.do";
         Map<String,String> params = new HashMap<>();
         params.put("phone","15521195093");
         params.put("password","123456");
@@ -43,5 +43,21 @@ public class HttpUtilTest {
             e.printStackTrace();
         }
         int a = 3;
+    }
+    @Test
+    public void synPostTestCookie(){
+        //先登录
+        synPostTest();
+        String path = "/knowledge/askquestion.do";
+        Map<String,String> params = new HashMap<>();
+        params.put("title","tttttest");
+        params.put("content","contentttttest");
+        String result;
+        try {
+            result = HttpUtil.synPost(path,params);
+            System.out.println(result);
+        } catch (HttpException e) {
+            e.printStackTrace();
+        }
     }
 }

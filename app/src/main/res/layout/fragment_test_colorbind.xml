@@ -6,43 +6,46 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <com.bysj.eyeapp.util.CustomSwipeRefreshLayout
+        android:id="@+id/test_colorbind_refresh"
+        style="@style/global_swipeRefreshLayout">
+        <LinearLayout
+            style="@style/test_question">
 
-    <LinearLayout
-        style="@style/test_question">
+            <ImageView
+                style="@style/test_question_img"
+                android:id="@+id/test_question_colorbind_img"
+                android:src="@mipmap/colorbind_demo" />
+            <TextView
+                style="@style/test_question_title"
+                android:id="@+id/test_colorbind_question_title"
+                android:text="1、上面图片您看到的数字是？"/>
+            <RadioGroup
+                android:id="@+id/test_colorbind_options"
+                style="@style/test_question_option">
+                <RadioButton
+                    android:id="@+id/test_colorbind_option1"
+                    style="@style/test_question_option_rbtn"
+                    android:text="数字1"/>
+                <RadioButton
+                    android:id="@+id/test_colorbind_option2"
+                    style="@style/test_question_option_rbtn"
+                    android:text="数字2"/>
+                <RadioButton
+                    android:id="@+id/test_colorbind_option3"
+                    style="@style/test_question_option_rbtn"
+                    android:text="数字6"/>
+                <RadioButton
+                    android:id="@+id/test_colorbind_option4"
+                    style="@style/test_question_option_rbtn"
+                    android:text="数字7"/>
+            </RadioGroup>
 
-        <ImageView
-            style="@style/test_question_img"
-            android:id="@+id/test_question_colorbind_img"
-            android:src="@mipmap/colorbind_demo" />
-        <TextView
-            style="@style/test_question_title"
-            android:id="@+id/test_colorbind_question_title"
-            android:text="1、上面图片您看到的数字是？"/>
-        <RadioGroup
-            android:id="@+id/test_colorbind_options"
-            style="@style/test_question_option">
-            <RadioButton
-                android:id="@+id/test_colorbind_option1"
-                style="@style/test_question_option_rbtn"
-                android:text="数字1"/>
-            <RadioButton
-                android:id="@+id/test_colorbind_option2"
-                style="@style/test_question_option_rbtn"
-                android:text="数字2"/>
-            <RadioButton
-                android:id="@+id/test_colorbind_option3"
-                style="@style/test_question_option_rbtn"
-                android:text="数字6"/>
-            <RadioButton
-                android:id="@+id/test_colorbind_option4"
-                style="@style/test_question_option_rbtn"
-                android:text="数字7"/>
-        </RadioGroup>
+            <Button
+                android:id="@+id/test_colorbind_nextbtn"
+                style="@style/test_question_btn_next"/>
 
-        <Button
-            android:id="@+id/test_colorbind_nextbtn"
-            style="@style/test_question_btn_next"/>
-
-    </LinearLayout>
+        </LinearLayout>
+    </com.bysj.eyeapp.util.CustomSwipeRefreshLayout>
 
 </LinearLayout>

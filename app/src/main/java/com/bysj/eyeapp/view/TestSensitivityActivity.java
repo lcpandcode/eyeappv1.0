@@ -68,7 +68,7 @@ public class TestSensitivityActivity extends BaseActivity {
 		//初始化答题结果列表
 		testResult = new ArrayList<>();
 		//初始化问题数据列表
-		questions = service.getDefaultSensitivityQustions();
+		questions = service.getDefaultSensitivityQuestions();
 		//初始化按钮列表
 		initBtns();
 

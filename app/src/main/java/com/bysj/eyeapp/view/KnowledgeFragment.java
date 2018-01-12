@@ -3,6 +3,7 @@ package com.bysj.eyeapp.view;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -98,7 +99,8 @@ public class KnowledgeFragment extends Fragment {
 		swipeRefreshLayout = (CustomSwipeRefreshLayout)thisView.findViewById(R.id.eyedata_bar_refresh);
 		swipeRefreshLayout.setmListView((ListView) thisView.findViewById(R.id.knowledge_main_bar_list));
 		//设置刷新时动画的颜色，可以设置4个
-		swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_light, android.R.color.holo_red_light, android.R.color.holo_orange_light, android.R.color.holo_green_light);
+		swipeRefreshLayout.setColorSchemeResources(R.color.global_refresh_loadbar_color1,
+				R.color.global_refresh_loadbar_color2,R.color.global_refresh_loadbar_color3);
 		//设置下拉刷新事件
 		swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
 

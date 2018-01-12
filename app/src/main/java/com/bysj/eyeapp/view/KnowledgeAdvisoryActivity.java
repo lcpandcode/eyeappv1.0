@@ -4,13 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bysj.eyeapp.exception.HttpException;
+import com.bysj.eyeapp.exception.UserException;
 import com.bysj.eyeapp.service.KnowledgeService;
+import com.bysj.eyeapp.util.CustomToast;
+import com.bysj.eyeapp.util.GlobalConst;
 import com.bysj.eyeapp.vo.KnowledgeAdvisoryQuestionVO;
 
 import java.util.Map;
@@ -19,6 +23,8 @@ import java.util.Map;
  * Created by lcplcp on 2017/12/25.
  */
 public class KnowledgeAdvisoryActivity extends BaseActivity {
+    private static final String REMIND_SUBMIT_SUCCESS = "提交成功";
+
     //页面控件的相关变量
     private EditText titleInput;
     private EditText contentInput;
@@ -64,17 +70,20 @@ public class KnowledgeAdvisoryActivity extends BaseActivity {
         question.setContent(content);
         Map<String,String> result = null;
         try {
-            result = service.advisorySubmitQUestion(question);
+            service.advisorySubmitQUestion(question);
         } catch (HttpException e) {
-            e.printStackTrace();
+            Log.e("网络错误：",e.getMessage());
+            CustomToast.showToast(getApplicationContext(), GlobalConst.REMIND_NET_ERROR);
+            return ;
+        }catch (UserException e){
+            Log.e("用户权限：",e.getMessage());
+            CustomToast.showToast(getApplicationContext(), GlobalConst.REMIND_NOT_LOGIN);
+            return ;
         }
-        String status = result.get("status");
-        if("success".equals(status)){
-            Toast.makeText(getApplicationContext(),"提交成功",Toast.LENGTH_SHORT).show();
-            finish();
-        }else {
-            Toast.makeText(getApplicationContext(),"失败:" +result.get("info"),Toast.LENGTH_SHORT).show();
-        }
+        //无异常说明提交成功
+        CustomToast.showToast(getApplicationContext(), GlobalConst.REMIND_SUBMIT_SUCCESS);
+        //返回
+        finish();
 
     }
 

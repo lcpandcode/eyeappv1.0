@@ -11,6 +11,15 @@ public class UserVO {
     private String sex;
     private String password;
     private String type;
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public int getId() {
         return id;

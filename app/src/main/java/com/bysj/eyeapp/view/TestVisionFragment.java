@@ -3,8 +3,11 @@ package com.bysj.eyeapp.view;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -16,7 +19,12 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bysj.eyeapp.exception.HttpException;
 import com.bysj.eyeapp.service.TestService;
+import com.bysj.eyeapp.util.CustomSwipeRefreshLayout;
+import com.bysj.eyeapp.util.CustomToast;
+import com.bysj.eyeapp.util.GlobalConst;
+import com.bysj.eyeapp.vo.TestQuestionVO;
 import com.bysj.eyeapp.vo.TestVisionQuestionVO;
 
 import java.io.Serializable;
@@ -56,6 +64,7 @@ public class TestVisionFragment extends Fragment {
 	private RadioButton option4;
 	private RadioButton rbtnLeftEye;
 	private RadioButton rbtnRightEye;
+	private CustomSwipeRefreshLayout swipeRefreshLayout;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -88,7 +97,7 @@ public class TestVisionFragment extends Fragment {
 		rbtnRightEye = thisView.findViewById(R.id.test_vision_rbtn_eye_right);
 		service = new TestService();
 		//初始化数据
-		questions = service.getVisionQustion(QUESTION_NUM);
+		questions = service.getVisionQuestions(QUESTION_NUM);
 		//初始化第一个答题页面
 		showNewQuestion(questions.get(nowAnswerQuestion));
 		//设置监听事件
@@ -134,6 +143,34 @@ public class TestVisionFragment extends Fragment {
 				isChoseEye = true;
 			}
 		});
+
+		//设置下拉刷新
+		//初始化下拉刷新功能
+		swipeRefreshLayout = (CustomSwipeRefreshLayout)thisView.findViewById(R.id.test_vision_refresh);
+		//swipeRefreshLayout.setmListView((ListView) thisView.findViewById(R.id.));
+
+		//设置刷新时动画的颜色，可以设置4个
+		swipeRefreshLayout.setColorSchemeResources(R.color.global_refresh_loadbar_color1,
+				R.color.global_refresh_loadbar_color2,R.color.global_refresh_loadbar_color3);
+		//设置下拉刷新事件
+		swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+			@Override
+			public void onRefresh() {
+				//tv.setText("正在刷新");
+				// TODO Auto-generated method stub
+				new Handler().postDelayed(new Runnable() {
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						//tv.setText("刷新完成");
+						refresh();
+						swipeRefreshLayout.setRefreshing(false);
+					}
+				}, 0);
+			}
+		});
 	}
 
 	/**
@@ -175,13 +212,13 @@ public class TestVisionFragment extends Fragment {
 	private void nextQuestion(){
 		//判断是否选择了眼睛
 		if(!isChoseEye){
-			Toast.makeText(getActivity(),REMIDN_CHOSE_EYE,Toast.LENGTH_SHORT).show();
+			CustomToast.showToast(getActivity(),REMIDN_CHOSE_EYE);
 			return ;
 		}
 		//是否选中了选项
 		int checkedId = nowCheckedId;
 		if(checkedId==-1){
-			Toast.makeText(getActivity(),REMIDN_CHOSE_OPTION,Toast.LENGTH_SHORT).show();
+			CustomToast.showToast(getActivity(),REMIDN_CHOSE_OPTION);
 			return ;
 		}
 		//一旦开始答题，不能改变选中的眼睛
@@ -291,18 +328,69 @@ public class TestVisionFragment extends Fragment {
 		rbtnLeftEye.setOnTouchListener(new View.OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				Toast.makeText(getActivity(), REMIND_CANNOT_CHANGE_EYE, Toast.LENGTH_SHORT).show();
+				if(canChangeChoseEye){
+					return false;
+				}
+				CustomToast.showToast(getActivity(),REMIND_CANNOT_CHANGE_EYE);
 				return false;
 			}
 		});
 		rbtnRightEye.setOnTouchListener(new View.OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				Toast.makeText(getActivity(), REMIND_CANNOT_CHANGE_EYE, Toast.LENGTH_SHORT).show();
+				if(canChangeChoseEye){
+					return false;
+				}
+				CustomToast.showToast(getActivity(),REMIND_CANNOT_CHANGE_EYE);
 				return false;
 			}
 		});
 	}
+
+
+	/**
+	 * 清楚页面数据
+	 */
+	private void clearData(){
+		nowAnswerQuestion = 0;
+		questions.clear();
+		nowAnswerTrue = 0;
+		//清空选中状态
+		options.clearCheck();
+		rbtnsEye.clearCheck();
+		rbtnLeftEye.setClickable(true);
+		rbtnRightEye.setClickable(true);
+		isChoseEye = false;
+		canChangeChoseEye = true;
+	}
+
+	/**
+	 * 下拉刷新方法
+	 */
+	private void refresh(){
+		List<TestVisionQuestionVO> questionsNew;
+		questionsNew = service.getVisionQuestions(QUESTION_NUM);
+//		try {
+//			questionsNew = service.getVisionQuestions(QUESTION_NUM);
+//		} catch (HttpException e) {
+//			Log.e("网络错误：" ,e.getMessage());
+//			CustomToast.showToast(getActivity(),GlobalConst.REMIND_NET_ERROR);
+//			return ;
+//		}
+		if(questionsNew.size()==0 || questionsNew==null){
+			CustomToast.showToast(getActivity(),GlobalConst.REMIND_NET_ERROR);
+			return ;
+		}
+		//成功请求数据，清空数据
+		clearData();
+
+		//重新初始化数据
+		questions = questionsNew;
+		showNewQuestion(questions.get(nowAnswerQuestion));
+		CustomToast.showToast(getActivity(),GlobalConst.REMIND_REFRESH_SUCCESS);
+	}
+
+
 	public static String getTestResultKey(){
 		return TEST_RESULT_KEY;
 	}

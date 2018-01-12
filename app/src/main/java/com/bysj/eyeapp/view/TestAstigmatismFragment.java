@@ -1,8 +1,11 @@
 package com.bysj.eyeapp.view;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,8 +17,13 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bysj.eyeapp.exception.HttpException;
 import com.bysj.eyeapp.service.TestService;
+import com.bysj.eyeapp.util.CustomSwipeRefreshLayout;
+import com.bysj.eyeapp.util.CustomToast;
+import com.bysj.eyeapp.util.GlobalConst;
 import com.bysj.eyeapp.vo.TestAstigmatismQuestionVO;
+import com.bysj.eyeapp.vo.TestQuestionVO;
 
 import java.io.Serializable;
 import java.util.List;
@@ -47,10 +55,11 @@ public class TestAstigmatismFragment extends Fragment {
 	private RadioButton option4;
 	private RadioButton rbtnLeftEye;
 	private RadioButton rbtnRightEye;
+	private CustomSwipeRefreshLayout swipeRefreshLayout;
 
 	//类数据相关变量
 	private int nowAnswerQuestion = 0;//当前作答数目
-	private List<TestAstigmatismQuestionVO> questions;//题目列表
+	private List<TestQuestionVO> questions;//题目列表
 	private int nowAnswerTrue = 0;//当前作答正确个数
 	private TestService service;//核心服务类，service层的类
 	private boolean isChoseEye = false;//会否选择了眼睛，如果否提示选择眼睛方可进行测试
@@ -85,7 +94,13 @@ public class TestAstigmatismFragment extends Fragment {
 		rbtnRightEye = thisView.findViewById(R.id.test_astigmatism_rbtn_eye_right);
 		service = new TestService();
 		//初始化数据
-		questions = service.getAstigmatismQustion(QUESTION_NUM);
+		try {
+			questions = service.getTestQuestions(QUESTION_NUM, GlobalConst.TEST_TYPE_COLORBIND);
+		} catch (HttpException e) {
+			Log.e("网络错误：" ,e.getMessage());
+			CustomToast.showToast(getActivity(),GlobalConst.REMIND_NET_ERROR);
+			return ;
+		}
 		//初始化第一个答题页面
 		showNewQuestion(questions.get(nowAnswerQuestion));
 		//设置监听事件
@@ -107,6 +122,34 @@ public class TestAstigmatismFragment extends Fragment {
 				isChoseEye = true;
 			}
 		});
+
+		//设置下拉刷新
+		//初始化下拉刷新功能
+		swipeRefreshLayout = (CustomSwipeRefreshLayout)thisView.findViewById(R.id.test_astigmatism_refresh);
+		//swipeRefreshLayout.setmListView((ListView) thisView.findViewById(R.id.));
+
+		//设置刷新时动画的颜色，可以设置4个
+		swipeRefreshLayout.setColorSchemeResources(R.color.global_refresh_loadbar_color1,
+				R.color.global_refresh_loadbar_color2,R.color.global_refresh_loadbar_color3);
+		//设置下拉刷新事件
+		swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+			@Override
+			public void onRefresh() {
+				//tv.setText("正在刷新");
+				// TODO Auto-generated method stub
+				new Handler().postDelayed(new Runnable() {
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						//tv.setText("刷新完成");
+						refresh();
+						swipeRefreshLayout.setRefreshing(false);
+					}
+				}, 0);
+			}
+		});
 	}
 
 	/**
@@ -115,13 +158,13 @@ public class TestAstigmatismFragment extends Fragment {
 	private void nextQuestion(){
 		//判断是否选择了眼睛
 		if(!isChoseEye){
-			Toast.makeText(getActivity(),REMIDN_CHOSE_EYE,Toast.LENGTH_SHORT).show();
+			CustomToast.showToast(getActivity(),REMIDN_CHOSE_EYE);
 			return ;
 		}
 		//是否选中了选项
 		int checkedId = options.getCheckedRadioButtonId();
 		if(checkedId==-1){
-			Toast.makeText(getActivity(),REMIDN_CHOSE_OPTION,Toast.LENGTH_SHORT).show();
+			CustomToast.showToast(getActivity(),REMIDN_CHOSE_OPTION);
 			return ;
 		}
 		//一旦开始答题，不能改变选中的眼睛
@@ -131,7 +174,7 @@ public class TestAstigmatismFragment extends Fragment {
 		nowAnswerQuestion++;
 		if(nowAnswerQuestion<QUESTION_NUM){
 			//获取下一题
-			TestAstigmatismQuestionVO question = questions.get(nowAnswerQuestion);
+			TestQuestionVO question = questions.get(nowAnswerQuestion);
 			//清除上题的选项
 			options.clearCheck();
 			//更新页面问题
@@ -155,7 +198,7 @@ public class TestAstigmatismFragment extends Fragment {
 		if(nowAnswerQuestion>=questions.size()){
 			return ;
 		}
-		TestAstigmatismQuestionVO question = questions.get(nowAnswerQuestion);
+		TestQuestionVO question = questions.get(nowAnswerQuestion);
 		//获取选项值
 		int checkId = options.getCheckedRadioButtonId();
 		int choseOption = 0;
@@ -173,7 +216,7 @@ public class TestAstigmatismFragment extends Fragment {
 				choseOption = 4;
 				break;
 		}
-		if(question.getTrueOption()==choseOption){
+		if(question.getCorrectOption()==choseOption){
 			//正确题目数加1
 			nowAnswerTrue++;
 		}
@@ -184,7 +227,7 @@ public class TestAstigmatismFragment extends Fragment {
 	/**
 	 * 更新页面的问题区域（待完善）
 	 */
-	private void showNewQuestion(TestAstigmatismQuestionVO question){
+	private void showNewQuestion(TestQuestionVO question){
 		//设置图片展示的src属性待完善（需要发起请求获得Bitmap）
 
 		questionTitle.setText(question.getTitle());
@@ -231,19 +274,67 @@ public class TestAstigmatismFragment extends Fragment {
 		rbtnLeftEye.setOnTouchListener(new View.OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				Toast.makeText(getActivity(),REMIND_CANNOT_CHANGE_EYE,Toast.LENGTH_SHORT).show();
-				return false;
+				if(canChangeChoseEye){
+					return false;
+				}else {
+					CustomToast.showToast(getActivity(),"fuck");
+					return true;
+				}
 			}
 		});
 		rbtnRightEye.setOnTouchListener(new View.OnTouchListener() {
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				Toast.makeText(getActivity(),REMIND_CANNOT_CHANGE_EYE,Toast.LENGTH_SHORT).show();
-				return false;
+				if(canChangeChoseEye){
+					return false;
+				}else {
+					CustomToast.showToast(getActivity(),REMIND_CANNOT_CHANGE_EYE);
+					return true;
+				}
 			}
 		});
 	}
 
+	/**
+	 * 清楚页面数据
+	 */
+	private void clearData(){
+		nowAnswerQuestion = 0;
+		questions.clear();
+		nowAnswerTrue = 0;
+		//清空选中状态
+		options.clearCheck();
+		rbtnsEye.clearCheck();
+		rbtnLeftEye.setClickable(true);
+		rbtnRightEye.setClickable(true);
+		isChoseEye = false;
+		canChangeChoseEye = true;
+
+	}
+
+	/**
+	 * 下拉刷新方法
+	 */
+	private void refresh(){
+		List<TestQuestionVO> questionsNew;
+		try {
+			questionsNew = service.getTestQuestions(QUESTION_NUM, GlobalConst.TEST_TYPE_ASTIGMATISM);
+		} catch (HttpException e) {
+			Log.e("网络错误：" ,e.getMessage());
+			CustomToast.showToast(getActivity(),GlobalConst.REMIND_NET_ERROR);
+			return ;
+		}
+		if(questionsNew.size()==0 || questionsNew==null){
+			CustomToast.showToast(getActivity(),GlobalConst.REMIND_NET_ERROR);
+			return ;
+		}
+		//成功请求数据，清空数据
+		clearData();
+		//重新初始化数据
+		questions = questionsNew;
+		showNewQuestion(questions.get(nowAnswerQuestion));
+		CustomToast.showToast(getActivity(),GlobalConst.REMIND_REFRESH_SUCCESS);
+	}
 
 
 	public static String getTestResultKey() {
