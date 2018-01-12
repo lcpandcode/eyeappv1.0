@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bysj.eyeapp.exception.BackstageException;
 import com.bysj.eyeapp.exception.HttpException;
+import com.bysj.eyeapp.exception.TestException;
 import com.bysj.eyeapp.exception.UserException;
 import com.bysj.eyeapp.util.GlobalConst;
 import com.bysj.eyeapp.util.HttpUtil;
@@ -16,6 +17,7 @@ import com.bysj.eyeapp.util.TestSensitivityUtil;
 import com.bysj.eyeapp.vo.TestAstigmatismQuestionVO;
 import com.bysj.eyeapp.vo.TestColorbindQuestionVO;
 import com.bysj.eyeapp.vo.TestQuestionVO;
+import com.bysj.eyeapp.vo.TestResultVO;
 import com.bysj.eyeapp.vo.TestSensitivityQuestionVO;
 import com.bysj.eyeapp.vo.TestVisionQuestionVO;
 
@@ -30,6 +32,7 @@ import java.util.Map;
  */
 public class TestService {
     private static final String GET_QUESTION_PATH = "/eyetest/randomquestion.do";
+    private static final String SUBMIT_TEST_RESULT = "/eyetest/submitquestion.do";
 
     /**
      * 获取num个问题并返回问题列表
@@ -134,4 +137,26 @@ public class TestService {
 //
 //        return questions;
 //    }
+
+
+    /**
+     * 提交测试结果，提交失败抛异常,异常中包含相应的失败原因信息
+     * @param testResult 测试结果对象
+     */
+    public void submitTestResult(TestResultVO testResult) throws HttpException {
+        Map<String,String> params = new HashMap<>();
+        params.put("correctRate",testResult.getCorrectRate() + "");
+        params.put("eye",testResult.getEye());
+        params.put("testResult",testResult.getTestResult() + "");
+        params.put("eye",testResult.getEye());
+        params.put("type",testResult.getType());
+        String result = HttpUtil.synPost(SUBMIT_TEST_RESULT,params);
+        Map<String,Object> resultMap = (Map<String,Object>)JavaBeanUtil.jsonToObj(result);
+        Integer status = (Integer)resultMap.get("status");
+        if(status!=0){
+            //失败，抛异常并设置失败相关信息
+            String data = (String) resultMap.get("data");
+            throw new TestException(data);
+        }
+    }
 }
