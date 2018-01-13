@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bysj.eyeapp.exception.BackstageException;
 import com.bysj.eyeapp.exception.HttpException;
 import com.bysj.eyeapp.exception.UserException;
 import com.bysj.eyeapp.service.KnowledgeService;
@@ -78,6 +79,16 @@ public class KnowledgeAdvisoryActivity extends BaseActivity {
         }catch (UserException e){
             Log.e("用户权限：",e.getMessage());
             CustomToast.showToast(getApplicationContext(), GlobalConst.REMIND_NOT_LOGIN);
+            //跳转到登录界面
+            goToLogin();
+            return ;
+        }catch (BackstageException e){
+            Log.e("后台错误：",e.getMessage());
+            CustomToast.showToast(getApplicationContext(), GlobalConst.REMIND_BACKSTAGE_ERROR);
+            return ;
+        }catch (Exception e){
+            Log.e("系统错误：",e.getMessage());
+            CustomToast.showToast(getApplicationContext(), GlobalConst.SYSTEM_ERROR);
             return ;
         }
         //无异常说明提交成功
@@ -85,6 +96,18 @@ public class KnowledgeAdvisoryActivity extends BaseActivity {
         //返回
         finish();
 
+    }
+
+    /**
+     * 登录跳转，跳转到登录界面
+     */
+
+    private void goToLogin(){
+        Intent intent = new Intent();
+        //设置标志数据，登录完成跳回原来的提问界面
+        intent.putExtra(GlobalConst.LOGIN_TO_OTHER_UI_TAG,"KnowledgeAdvisoryActivity");
+        intent.setClass(getApplicationContext(),LoginActivity.class);
+        startActivity(intent);
     }
 
 

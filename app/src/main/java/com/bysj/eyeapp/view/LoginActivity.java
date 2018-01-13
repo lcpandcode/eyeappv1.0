@@ -16,6 +16,7 @@ import com.bysj.eyeapp.exception.UserException;
 import com.bysj.eyeapp.service.UserService;
 import com.bysj.eyeapp.util.CustomToast;
 import com.bysj.eyeapp.util.GlobalApplication;
+import com.bysj.eyeapp.util.GlobalConst;
 import com.bysj.eyeapp.util.RegularUtil;
 import com.bysj.eyeapp.vo.UserVO;
 
@@ -73,6 +74,15 @@ public class LoginActivity extends BaseActivity {
         GlobalApplication application = (GlobalApplication)getApplication();
         application.putGlobalVar("user",user);
         CustomToast.showToast(getApplicationContext(),"登录成功，准备跳转页面");
+        //判断是否有之前的操作界面，如有，直接跳转到之前的界面
+        Intent intentGet = getIntent();
+        if(intentGet!=null){
+            //判断是否有跳转标记值
+            if(intentGet.getExtras().get(GlobalConst.LOGIN_TO_OTHER_UI_TAG)!=null){
+                finish();
+                return ;
+            }
+        }
         Intent intent = new Intent();
         intent.setClass(this,MainActivity.class);
         startActivity(intent);

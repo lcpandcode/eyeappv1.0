@@ -178,7 +178,10 @@ public class KnowledgeService {
             throw new UserException(REMIND_NOT_LOGIN);
         }
         if(status==1){
-            throw new BackstageException(REMNID_BACKSTAGE_ERROR);
+            throw new UserException(REMIND_NOT_LOGIN);
+        }
+        if(status!=0){
+            throw new BackstageException(GlobalConst.REMIND_BACKSTAGE_ERROR);
         }
 
 

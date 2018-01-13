@@ -27,4 +27,5 @@ public class GlobalConst {
     public static final String TEST_TYPE_SENSITIVITY = "敏感度";
     public static final String REMIND_REFRESH_SUCCESS = "刷新成功";
     public static final String APPLICATION_EYEDATA_TAG = "用眼数据";
+    public static final String LOGIN_TO_OTHER_UI_TAG = "登录完成跳转的页面";
 }
