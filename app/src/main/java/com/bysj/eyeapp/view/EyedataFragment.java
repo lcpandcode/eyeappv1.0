@@ -1,6 +1,7 @@
 package com.bysj.eyeapp.view;
 
 import android.app.Activity;
+import android.app.Application;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -17,12 +18,23 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bysj.eyeapp.dao.EyedataDAO;
+import com.bysj.eyeapp.service.EyedataService;
 import com.bysj.eyeapp.util.ArcView;
 import com.bysj.eyeapp.util.ArcViewUtil;
+import com.bysj.eyeapp.util.GlobalApplication;
+import com.bysj.eyeapp.util.GlobalConst;
+import com.bysj.eyeapp.vo.EyedataVO;
 
 public class EyedataFragment extends Fragment {
+	private static final String APPLICATION_EYEDARA_TAG = GlobalConst.APPLICATION_EYEDATA_TAG;
+
 	private ArcView arcView;
 	private View thisView;
+
+	//数据相关
+	private EyedataVO eyedata;
+	private EyedataService service;
 
 
 	@Override
@@ -44,6 +56,8 @@ public class EyedataFragment extends Fragment {
 
 
 	private void init(){
+		service = new EyedataService();
+		initEyedata();
 		arcView = getArcView();
 		LinearLayout view = thisView.findViewById(R.id.eyedata_bar_arc);
 		view.addView(arcView,0);
@@ -62,8 +76,21 @@ public class EyedataFragment extends Fragment {
 		round.setLayoutParams(params);
 		//round.setX(500);
 		//round.setY(500);
+
 	}
 
+	/**
+	 * 初始化用眼数据
+	 */
+	private void initEyedata(){
+		//从application中读取数据，如果没有数据，说明是初次加载
+		GlobalApplication application =  (GlobalApplication)getActivity().getApplication();
+		eyedata = (EyedataVO) application.getGlobalVar(APPLICATION_EYEDARA_TAG);
+		if(eyedata==null){
+			eyedata = service.getEyedataToday(getActivity());
+			application.putGlobalVar(APPLICATION_EYEDARA_TAG,eyedata);
+		}
+	}
 
 	/**
 	 * 画圆弧的方法，用于描绘界面中的圆弧
@@ -106,5 +133,6 @@ public class EyedataFragment extends Fragment {
 		DisplayMetrics dm = getResources().getDisplayMetrics() ;
 		return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpSize, dm);
 	}
+
 
 }

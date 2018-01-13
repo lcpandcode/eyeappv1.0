@@ -28,4 +28,7 @@ public class GlobalApplication extends Application {
     public void removeGlobalVar(String tag){
         globalMap.remove(tag);
     }
+    public Object getGlobalVar(String tag){
+        return globalMap.get(tag);
+    }
 }
