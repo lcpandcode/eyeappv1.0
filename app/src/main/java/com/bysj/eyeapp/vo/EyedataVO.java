@@ -12,24 +12,7 @@ public class EyedataVO {
     private int openScreenCount = 1;//开屏次数统计
     private int indoorTime = 0;//室内时间
     private int outdoorTime = 0;//室外时间
-
-    public int getIndoorTime() {
-        return indoorTime;
-    }
-
-    public void setIndoorTime(int indoorTime) {
-        this.indoorTime = indoorTime;
-    }
-
-    public int getOutdoorTime() {
-        return outdoorTime;
-    }
-
-    public void setOutdoorTime(int outdoorTime) {
-        this.outdoorTime = outdoorTime;
-    }
-
-    private String recentOpenScreenTime;//最近一次开屏时间，用于计算当前开屏时间
+    private int openScreenTimeCountRecent;//该次开屏时长
 
     public float getRatio() {
         return ratio;
@@ -55,15 +38,30 @@ public class EyedataVO {
         this.openScreenCount = openScreenCount;
     }
 
-
-
-    public String getRecentOpenScreenTime() {
-        return recentOpenScreenTime;
+    public int getIndoorTime() {
+        return indoorTime;
     }
 
-    public void setRecentOpenScreenTime(String recentOpenScreenTime) {
-        this.recentOpenScreenTime = recentOpenScreenTime;
+    public void setIndoorTime(int indoorTime) {
+        this.indoorTime = indoorTime;
     }
+
+    public int getOutdoorTime() {
+        return outdoorTime;
+    }
+
+    public void setOutdoorTime(int outdoorTime) {
+        this.outdoorTime = outdoorTime;
+    }
+
+    public int getOpenScreenTimeCountRecent() {
+        return openScreenTimeCountRecent;
+    }
+
+    public void setOpenScreenTimeCountRecent(int openScreenTimeCountRecent) {
+        this.openScreenTimeCountRecent = openScreenTimeCountRecent;
+    }
+
     @Override
     public String toString(){
         StringBuffer sb = new StringBuffer();

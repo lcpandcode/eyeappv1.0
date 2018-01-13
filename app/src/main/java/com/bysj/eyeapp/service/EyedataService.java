@@ -78,19 +78,5 @@ public class EyedataService {
     }
 
 
-    public void test(Context context){
-        EyedataVO vo = new EyedataVO();
-        vo.setOpenScreenTimeCountToday(1);
-        vo.setRecentOpenScreenTime("2016-02-02");
-        vo.setIndoorTime(2);
-        vo.setOutdoorTime(3);
-        if(!judgeTodayEyedataExist(context)){
-            addEyedata(context,vo);
-        }
 
-        EyedataVO getVO1 = getEyedataToday(context);
-        //screenCountAdd(context);
-        //submitOpenScreenTime(context,5);
-        EyedataVO getVO2 = getEyedataToday(context);
-    }
 }

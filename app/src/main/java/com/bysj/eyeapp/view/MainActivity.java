@@ -26,6 +26,8 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends BaseActivity {
 	//字符串常量
@@ -115,6 +117,8 @@ public class MainActivity extends BaseActivity {
 
 			@Override
 			public void onUserPresent() {//解锁触发的方法
+
+				Log.d("test","testwww");
 				System.out.println("解锁了屏幕");
 			}
 		});
@@ -159,35 +163,9 @@ public class MainActivity extends BaseActivity {
 				setTitle(R.string.title_eyedata);
 				showBackwardView(-1,false);
 				showForwardView(R.string.title_btn_confirm,true);
-
 		}
 		// 刷新actionbar的menu
 		getWindow().invalidatePanelMenu(Window.FEATURE_OPTIONS_PANEL);
-	}
-
-
-	/**
-	 *
-	 * 显示测试的Fragment
-	 */
-	private void showTestFragment(){
-		TestFragment f = new TestFragment();
-		FragmentManager fm = getSupportFragmentManager();
-		FragmentTransaction ft = fm.beginTransaction();
-		ft.replace(R.id.main_container,f);
-		ft.commit();
-	}
-
-	/**
-	 *
-	 * 显示个人中心的Fragment
-	 */
-	private void showPersonFragment(){
-		PersonFragment f = new PersonFragment();
-		FragmentManager fm = getSupportFragmentManager();
-		FragmentTransaction ft = fm.beginTransaction();
-		ft.replace(R.id.activity_main,f);
-		ft.commit();
 	}
 
 
@@ -211,9 +189,6 @@ public class MainActivity extends BaseActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
@@ -239,32 +214,52 @@ public class MainActivity extends BaseActivity {
 	 */
 	private void openScreenRefreshEyedata(){
 
-		//今天开屏次数+1,这需要更新数据库数据
+		//今天开屏次数+1
 		eyedataVO.setOpenScreenCount(eyedataVO.getOpenScreenCount() + 1);
-		eyedataService.updateEyedata(getApplicationContext(),eyedataVO);
+		eyedataVO.setOpenScreenTimeCountRecent(0);//本次时长变为0
 		//更新当次开屏时间
-		eyedataVO.setRecentOpenScreenTime(new SimpleDateFormat(GlobalConst.DATETIME_PATTERN).format(new Date()));
-		Log.d("开屏更新数据:","开屏，更新用眼数据成功");
-		Log.d("当前用眼数据详情：",eyedataVO.toString());
+//		new Thread(new Runnable() {
+//			@Override
+//			public void run() {
+//				eyedataService.updateEyedata(getApplicationContext(),eyedataVO);
+//				Log.d("开屏更新数据:","开屏，更新用眼数据成功");
+//				Log.d("当前用眼数据详情：",eyedataVO.toString());
+//			}
+//		}).start();
+//		eyedataVO.setRecentOpenScreenTime(new SimpleDateFormat(GlobalConst.DATETIME_PATTERN).format(new Date()));
 	}
 
 	/**
 	 * 关闭屏幕触发提交用眼数据：主要是更新今日开屏时间累计
 	 */
 	private void closeScreenRefreshEyedata(){
-		Date dateRecentOpenScreen = null;
-		try {
-			dateRecentOpenScreen = new SimpleDateFormat(GlobalConst.DATETIME_PATTERN).parse(eyedataVO.getRecentOpenScreenTime());
-		} catch (ParseException e) {
-			Log.d("错误：","日期格式错误");
-			return ;
-		}
-		Date dateNow = new Date();
-		int recentOpenSreenCount = (int)((dateRecentOpenScreen.getTime() - dateRecentOpenScreen.getTime())/1000);
-		eyedataVO.setOpenScreenTimeCountToday(eyedataVO.getOpenScreenTimeCountToday() + recentOpenSreenCount);
-		eyedataService.updateEyedata(application,eyedataVO);
-		Log.d("关屏更新数据:","关屏，更新用眼数据成功");
-		Log.d("当前用眼数据详情：",eyedataVO.toString());
+
+//		Date dateRecentOpenScreen = null;
+//		try {
+//			dateRecentOpenScreen = new SimpleDateFormat(GlobalConst.DATETIME_PATTERN).parse(eyedataVO.getRecentOpenScreenTime());
+//
+//		} catch (ParseException e) {
+//			Log.d("错误：","日期格式错误");
+//			return ;
+//		}
+//		Date dateNow = new Date();
+//
+//		int recentOpenSreenCount = (int)((dateNow.getTime() - dateRecentOpenScreen.getTime())/1000);
+//		Log.d("recentOpenSreenCount",recentOpenSreenCount + "");
+//		eyedataVO.setOpenScreenTimeCountToday(eyedataVO.getOpenScreenTimeCountToday() + recentOpenSreenCount);
+//		Log.d("begin close:","开始关闭");
+//		//由于这里很卡，异步更新
+//		new Thread(new Runnable() {
+//			@Override
+//			public void run() {
+//				eyedataService.updateEyedata(application,eyedataVO);
+//				Log.d("数据库：","数据库操作成功");
+//				Log.d("更新数据:","更新用眼数据成功");
+//				Log.d("当前用眼数据详情：",eyedataVO.toString());
+//			}
+//		}).start();
+//		Log.d("end close:","结束关闭");
+
 	}
 
 
@@ -275,7 +270,6 @@ public class MainActivity extends BaseActivity {
 	private boolean isIndoorNow(){
 		return false;
 	}
-
 
 
 
