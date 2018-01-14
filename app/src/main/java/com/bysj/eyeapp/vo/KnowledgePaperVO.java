@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * 文章VO对象
  */
-public class KnowledePaperVO {
+public class KnowledgePaperVO {
     private int id;
     private String title;
     private String content;

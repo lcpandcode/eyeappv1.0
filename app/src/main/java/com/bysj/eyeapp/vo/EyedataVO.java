@@ -13,6 +13,15 @@ public class EyedataVO {
     private int indoorTime = 0;//室内时间
     private int outdoorTime = 0;//室外时间
     private int openScreenTimeCountRecent;//该次开屏时长
+    private Date date = new Date();
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
 
     public float getRatio() {
         return ratio;

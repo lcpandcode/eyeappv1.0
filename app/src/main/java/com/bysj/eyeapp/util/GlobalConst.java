@@ -11,11 +11,11 @@ public class GlobalConst {
     //系统常量
     public static final String DATABASE_NAME = "eyeapp";
     public static final int DATABASE_VERSION = 1;
-
-    //普通常量
+    public static final String HOST = "http://120.78.69.141:8080/eyeapp2";
     public static final String DATE_PATTERN = "yyyy-MM-dd";
     public static final String DATETIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
-    public static final String HOST = "http://120.78.69.141:8080/eyeapp2";
+
+    //普通提示常量
     public static final String REMIND_NET_ERROR = "网络错误！";
     public static final String SYSTEM_ERROR = "系统错误";
     public static final String REMIND_NOT_LOGIN = "您未登录，请先登录";
@@ -28,4 +28,9 @@ public class GlobalConst {
     public static final String REMIND_REFRESH_SUCCESS = "刷新成功";
     public static final String APPLICATION_EYEDATA_TAG = "用眼数据";
     public static final String LOGIN_TO_OTHER_UI_TAG = "登录完成跳转的页面";
+    public static final String PAPER_ID_ERROR = "文章id错误";
+
+    //tab常量
+    public static final String VIEW_PAPER_ID_KEY = "文章id";
+    public static final String TEST_UI = "测试界面";
 }

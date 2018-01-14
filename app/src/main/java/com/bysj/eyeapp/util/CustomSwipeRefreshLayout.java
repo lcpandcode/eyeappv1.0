@@ -288,6 +288,6 @@ public class CustomSwipeRefreshLayout extends SwipeRefreshLayout {
         mListView = listView;
         mListView.addFooterView(mFooterView);
         //默认隐藏底部
-       //mFooterView.setVisibility(GONE);
+       mFooterView.setVisibility(GONE);
     }
 }

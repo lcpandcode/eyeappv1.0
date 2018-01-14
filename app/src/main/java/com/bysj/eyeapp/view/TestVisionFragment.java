@@ -32,7 +32,7 @@ import java.util.List;
 
 public class TestVisionFragment extends Fragment {
 	//字符串常量
-	final private static int QUESTION_NUM = 2;//作答个数默认10
+	final private static int QUESTION_NUM = 5;//作答个数默认10
 	final private static double SERIOUS = 0.5;//阈值：答题正确率小于SERIOUS判断测试结果为严重
 	final private static double MEDIUM = 0.7;//阈值：答题正确率小于MEDIUM判断测试结果为中等
 	final private static double LITTLE = 0.8;//阈值：答题正确率小于LITTLE判断测试结果为轻微患病

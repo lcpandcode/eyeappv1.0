@@ -14,6 +14,7 @@
             <TextView
                 android:id="@+id/button_backward"
                 style="@style/title_btn"
+                android:drawableLeft="@mipmap/title_btn_return"
                 android:visibility="visible"
                 android:onClick="titleReturn"
                 android:text="@string/title_btn_return"/>

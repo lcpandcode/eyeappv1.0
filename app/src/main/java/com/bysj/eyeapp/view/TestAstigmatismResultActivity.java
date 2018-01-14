@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.bysj.eyeapp.exception.HttpException;
 import com.bysj.eyeapp.exception.TestException;
+import com.bysj.eyeapp.exception.UserException;
 import com.bysj.eyeapp.service.TestService;
 import com.bysj.eyeapp.util.CustomToast;
 import com.bysj.eyeapp.util.GlobalConst;
@@ -110,6 +111,11 @@ public class TestAstigmatismResultActivity extends BaseActivity {
 			Log.e("网络错误：",e.getMessage());
 			CustomToast.showToast(getApplicationContext(),GlobalConst.REMIND_NET_ERROR);
 			return ;
+		} catch (UserException e){
+			Log.e("用户权限：",e.getMessage());
+			CustomToast.showToast(getApplicationContext(),e.getMessage());
+			goToLogin();
+			return ;
 		} catch (TestException e){
 			Log.e("提交失败：",e.getMessage());
 			CustomToast.showToast(getApplicationContext(),GlobalConst.REMIND_NET_ERROR);
@@ -122,6 +128,18 @@ public class TestAstigmatismResultActivity extends BaseActivity {
 		//无异常，说明提交成功
 		CustomToast.showToast(getApplicationContext(),GlobalConst.REMIND_SUBMIT_SUCCESS);
 		finish();
+	}
+
+
+	/**
+	 * 跳转到登录界面
+	 */
+	private void goToLogin(){
+		Intent intent = new Intent();
+		//设置标志数据，登录完成跳回原来的提问界面
+		intent.putExtra(GlobalConst.LOGIN_TO_OTHER_UI_TAG,"TestColorbindResult");
+		intent.setClass(getApplicationContext(),LoginActivity.class);
+		startActivity(intent);
 	}
 
 	/**

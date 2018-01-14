@@ -4,10 +4,15 @@ package com.bysj.eyeapp.util;
  * Created by lcplcp on 2018/1/7.
  */
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.util.Log;
+import android.widget.ImageView;
 
 
 import com.bysj.eyeapp.exception.HttpException;
+import com.bysj.eyeapp.view.R;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,8 +39,8 @@ public class HttpUtil {
     private static final String HOST = GlobalConst.HOST;//远程主机地址
     public static final String ERROR_IO = "网络IO出错，请检查网络";
     public static final String ERROR_TIMEOUT = "网络超时";
-    public static final int CONNECT_TIME_LIMIT = 100;//连接请求最大时间：默认为3秒为超时
-    public static final int READ_TIME_LIMIT = 100;//读数据请求最大时间：默认为5秒为超时
+    public static final int CONNECT_TIME_LIMIT = 3;//连接请求最大时间：默认为3秒为超时
+    public static final int READ_TIME_LIMIT = 5;//读数据请求最大时间：默认为5秒为超时
 
     private  static String token ="" ;
 
@@ -196,6 +201,20 @@ public class HttpUtil {
             token = tokenTem.toString();
         }
         return result.toString();
+    }
+
+    /**
+     * 加载图片
+     * @param context 上下文
+     * @param imgUrl 图片路径
+     * @param imageView 图片显示的imageView
+     */
+    public static void getImgAndShow(Context context,String imgUrl,ImageView imageView){
+            Picasso.with(context)
+                    .load(imgUrl)
+                    .placeholder(R.mipmap.img_loading)
+                    .error(R.mipmap.img_load_fail)
+                    .into(imageView);
     }
 
     /**

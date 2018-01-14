@@ -25,8 +25,8 @@ public class HttpUtilTest {
     @Test
     public void makeUrlTest(){
         Map<String,String> map = new HashMap<>();
-        map.put("fuck1","ff");
-        map.put("funck2","fff");
+        map.put("f","ff");
+        map.put("f","fff");
         System.out.println(HttpUtil.urlAddParam("url",map));
     }
     @Test

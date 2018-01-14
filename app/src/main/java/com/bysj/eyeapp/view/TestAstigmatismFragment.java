@@ -22,6 +22,7 @@ import com.bysj.eyeapp.service.TestService;
 import com.bysj.eyeapp.util.CustomSwipeRefreshLayout;
 import com.bysj.eyeapp.util.CustomToast;
 import com.bysj.eyeapp.util.GlobalConst;
+import com.bysj.eyeapp.util.HttpUtil;
 import com.bysj.eyeapp.vo.TestAstigmatismQuestionVO;
 import com.bysj.eyeapp.vo.TestQuestionVO;
 
@@ -31,7 +32,7 @@ import java.util.List;
 public class TestAstigmatismFragment extends Fragment {
 	//控件变量
 	//字符串常量
-	final private static int QUESTION_NUM = 2;//作答个数默认10
+	final private static int QUESTION_NUM = 5;//作答个数默认10
 	final private static double SERIOUS = 0.5;//阈值：答题正确率小于SERIOUS判断测试结果为严重
 	final private static double MEDIUM = 0.7;//阈值：答题正确率小于MEDIUM判断测试结果为中等
 	final private static double LITTLE = 0.8;//阈值：答题正确率小于LITTLE判断测试结果为轻微患病
@@ -78,6 +79,25 @@ public class TestAstigmatismFragment extends Fragment {
 		init();
 		return view;
 	}
+	@Override
+	public void onStart(){
+		super.onStart();
+		Log.d("debug:","onstart");
+		//刷新界面
+		swipeRefreshLayout.setRefreshing(true);
+		refresh();
+		swipeRefreshLayout.setRefreshing(false);
+	}
+//	@Override
+//	public void onPause(){
+//		super.onPause();
+//		Log.d("debug:","onpause");
+//	}
+//	@Override
+//	public void onResume(){
+//		super.onResume();
+//		Log.d("debug:","onresume");
+//	}
 
 	private void init(){
 		//初始化控件变量
@@ -95,7 +115,7 @@ public class TestAstigmatismFragment extends Fragment {
 		service = new TestService();
 		//初始化数据
 		try {
-			questions = service.getTestQuestions(QUESTION_NUM, GlobalConst.TEST_TYPE_COLORBIND);
+			questions = service.getTestQuestions(QUESTION_NUM, GlobalConst.TEST_TYPE_ASTIGMATISM);
 		} catch (HttpException e) {
 			Log.e("网络错误：" ,e.getMessage());
 			CustomToast.showToast(getActivity(),GlobalConst.REMIND_NET_ERROR);
@@ -228,8 +248,7 @@ public class TestAstigmatismFragment extends Fragment {
 	 * 更新页面的问题区域（待完善）
 	 */
 	private void showNewQuestion(TestQuestionVO question){
-		//设置图片展示的src属性待完善（需要发起请求获得Bitmap）
-
+		HttpUtil.getImgAndShow(getActivity(),GlobalConst.HOST + question.getImgUrl(),questionImg);
 		questionTitle.setText(question.getTitle());
 		option1.setText(question.getOption1());
 		option2.setText(question.getOption2());
@@ -249,15 +268,19 @@ public class TestAstigmatismFragment extends Fragment {
 		}else if(result.getTrueRate()<MEDIUM){
 			result.setResult(getResources().getString(R.string.test_result_medium));
 		}else if(result.getTrueRate()<LITTLE){
-			result.setResult(getResources().getString(R.string.test_result_medium));
+			result.setResult(getResources().getString(R.string.test_result_little));
 		}else {
 			result.setResult(getResources().getString(R.string.test_result_normal));
 		}
 		//获取测试的眼睛
 		char eye = rbtnsEye.getCheckedRadioButtonId()==R.id.test_astigmatism_rbtn_eye_left?LEFT_EYE:RIGHT_EYE;
 		result.setEye(eye);
-		//计算患散光可能性(该部分待定）
-
+		//计算患散光可能性(就是1-答题正确率)
+		result.setProbability((int)(100 - result.getTrueRate()));
+		//科学性，没有百分百事情
+		if(result.getProbability()>99){
+			result.setProbability(99);
+		}
 		return result;
 	}
 
@@ -277,7 +300,7 @@ public class TestAstigmatismFragment extends Fragment {
 				if(canChangeChoseEye){
 					return false;
 				}else {
-					CustomToast.showToast(getActivity(),"fuck");
+					CustomToast.showToast(getActivity(),REMIND_CANNOT_CHANGE_EYE);
 					return true;
 				}
 			}

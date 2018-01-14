@@ -22,6 +22,7 @@ import com.bysj.eyeapp.service.TestService;
 import com.bysj.eyeapp.util.CustomSwipeRefreshLayout;
 import com.bysj.eyeapp.util.CustomToast;
 import com.bysj.eyeapp.util.GlobalConst;
+import com.bysj.eyeapp.util.HttpUtil;
 import com.bysj.eyeapp.vo.TestColorbindQuestionVO;
 import com.bysj.eyeapp.vo.TestQuestionVO;
 
@@ -33,7 +34,7 @@ import java.util.List;
  */
 public class TestColorbindFragment extends Fragment {
 	//字符串常量
-	final private static int QUESTION_NUM = 2;//作答个数默认10
+	final private static int QUESTION_NUM = 5;//作答个数默认10
 	final private static double SERIOUS = 0.5;//阈值：答题正确率小于SERIOUS判断测试结果为严重
 	final private static double MEDIUM = 0.7;//阈值：答题正确率小于MEDIUM判断测试结果为中等
 	final private static double LITTLE = 0.8;//阈值：答题正确率小于LITTLE判断测试结果为轻微患病
@@ -71,6 +72,15 @@ public class TestColorbindFragment extends Fragment {
 		thisView = view;
 		init();
 		return view;
+	}
+	@Override
+	public void onStart(){
+		super.onStart();
+		Log.d("debug:","onstart");
+		//刷新界面
+		swipeRefreshLayout.setRefreshing(true);
+		refresh();
+		swipeRefreshLayout.setRefreshing(false);
 	}
 
 	private void init(){
@@ -202,7 +212,7 @@ public class TestColorbindFragment extends Fragment {
 	 */
 	private void showNewQuestion(TestQuestionVO question){
 		//设置图片展示的src属性待完善（需要发起请求获得Bitmap）
-
+		HttpUtil.getImgAndShow(getActivity(),GlobalConst.HOST + question.getImgUrl(),questionImg);
 		questionTitle.setText(question.getTitle());
 		option1.setText(question.getOption1());
 		option2.setText(question.getOption2());
@@ -226,8 +236,12 @@ public class TestColorbindFragment extends Fragment {
 		}else {
 			result.setResult(getResources().getString(R.string.test_result_normal));
 		}
-		//计算患色盲可能性(该部分待定）
-
+		//计算患色盲可能性
+		result.setProbability((int)(100-result.getTrueRate()));
+		//科学性，没有百分百事情
+		if(result.getProbability()>99){
+			result.setProbability(99);
+		}
 		return result;
 	}
 

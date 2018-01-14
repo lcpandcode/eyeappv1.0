@@ -4,7 +4,6 @@ package com.bysj.eyeapp.service;
  * Created by lcplcp on 2018/1/5.
  */
 
-import com.alibaba.fastjson.JSON;
 import com.bysj.eyeapp.exception.BackstageException;
 import com.bysj.eyeapp.exception.HttpException;
 import com.bysj.eyeapp.exception.UserException;
@@ -12,13 +11,11 @@ import com.bysj.eyeapp.util.GlobalConst;
 import com.bysj.eyeapp.util.HttpUtil;
 import com.bysj.eyeapp.util.JavaBeanUtil;
 import com.bysj.eyeapp.view.KnowledgeFragment;
-import com.bysj.eyeapp.view.R;
-import com.bysj.eyeapp.vo.KnowledePaperVO;
+import com.bysj.eyeapp.vo.KnowledgePaperVO;
 import com.bysj.eyeapp.vo.KnowledgeAdvisoryQuestionVO;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +28,7 @@ public class KnowledgeService {
     private static final String GET_PAPER_LIST_PATH = "/knowledge/list.do";
     private static final String GET_HOTPAPER_LIST_PATH = "/knowledge/hotlist.do";
     private static final String POST_ADVISORY = "/knowledge/askquestion.do";
+    private static final String GET_PAPER_DETAIL = "/knowledge/detail.do";
     private static final String REMIND_NOT_LOGIN = "您尚未登录,请先登录！";
     private static final String REMNID_BACKSTAGE_ERROR = "后台出错！";
     private static int DEFAULT_LIMIT = 10;
@@ -47,14 +45,14 @@ public class KnowledgeService {
      * @param limit 每页显示的个数
      * @return 文章列表
      */
-    private List<KnowledePaperVO> getRecommendPaper(int page,int limit) throws HttpException {
+    private List<KnowledgePaperVO> getRecommendPaper(int page, int limit) throws HttpException {
         if(page<1){
             page = 1;
         }
         if(limit<1){
             limit = DEFAULT_LIMIT;
         }
-        List<KnowledePaperVO> papers = new ArrayList<>();
+        List<KnowledgePaperVO> papers = new ArrayList<>();
         if(recommendPaperMaxPage!=-1 && page>recommendPaperMaxPage){
             return papers;
         }
@@ -72,7 +70,7 @@ public class KnowledgeService {
         recommendPaperMaxPage = (Integer)dataMap.get("lastPage");
         List<Map<String,Object>> papersTem = (List<Map<String,Object>>)dataMap.get("list");
         for(Map<String,Object> map : papersTem){
-            KnowledePaperVO paper = new KnowledePaperVO();
+            KnowledgePaperVO paper = new KnowledgePaperVO();
             paper.setId((Integer) map.get("id"));
             paper.setTitle(map.get("title").toString());
             paper.setContent(map.get("content").toString());
@@ -94,7 +92,7 @@ public class KnowledgeService {
      * @param limit 每页显示多少文章
      * @return 文章列表
      */
-    public List<KnowledePaperVO> getPaperByType(int paperType,int page,int limit) throws HttpException {
+    public List<KnowledgePaperVO> getPaperByType(int paperType, int page, int limit) throws HttpException {
         if(page<1){
             page = 1 ;
         }
@@ -105,7 +103,7 @@ public class KnowledgeService {
         if(paperType==KnowledgeFragment.PAPER_TYPE_DEFAULT){
             return getRecommendPaper(page,limit);
         }
-        List<KnowledePaperVO> papers = new ArrayList<>();
+        List<KnowledgePaperVO> papers = new ArrayList<>();
         String type = null;
         if(paperType== KnowledgeFragment.PAPER_TYPE_BLOG){
             type = "护眼博客";
@@ -149,7 +147,7 @@ public class KnowledgeService {
 
         List<Map<String,Object>> papersTem = (List<Map<String,Object>>)dataMap.get("list");
         for(Map<String,Object> map : papersTem){
-            KnowledePaperVO paper = new KnowledePaperVO();
+            KnowledgePaperVO paper = new KnowledgePaperVO();
             paper.setId((Integer) map.get("id"));
             paper.setTitle(map.get("title").toString());
             paper.setContent(map.get("content").toString());
@@ -185,6 +183,35 @@ public class KnowledgeService {
         }
 
 
+    }
+
+    /**
+     * 查询文章详情
+     * @param paperId 文章id
+     * @return
+     * @throws HttpException 网络异常
+     */
+    public KnowledgePaperVO getPaperDetail(int paperId) throws HttpException {
+        KnowledgePaperVO paper = new KnowledgePaperVO();
+        Map<String,String> params = new HashMap<>();
+        params.put("id",paperId + "");
+        String result = HttpUtil.synGet(GET_PAPER_DETAIL,params);
+        Map<String,Object> resultMap = (Map<String,Object>)JavaBeanUtil.jsonToObj(result);
+        //判断请求状态
+        int status = (Integer) resultMap.get("status");
+        if(status!=0){
+            throw new BackstageException(GlobalConst.REMIND_BACKSTAGE_ERROR);
+        }
+        Map<String,Object> data = (Map<String,Object>)resultMap.get("data");
+        paper.setId((Integer) data.get("id"));
+        paper.setTitle(data.get("title").toString());
+        paper.setContent(data.get("content").toString());
+        String date = new SimpleDateFormat(GlobalConst.DATE_PATTERN).format(data.get("date"));
+        paper.setDate(date);
+        paper.setType(data.get("type").toString());
+        paper.setSign("热文");
+        paper.setViewCount((Integer)data.get("viewCount"));
+        return paper;
     }
 
     public int getRecommendPaperMaxPage() {

@@ -153,10 +153,11 @@ public class TestService {
         String result = HttpUtil.synPost(SUBMIT_TEST_RESULT,params);
         Map<String,Object> resultMap = (Map<String,Object>)JavaBeanUtil.jsonToObj(result);
         Integer status = (Integer)resultMap.get("status");
-        if(status!=0){
+        if(status==1){
             //失败，抛异常并设置失败相关信息
-            String data = (String) resultMap.get("data");
-            throw new TestException(data);
+            throw new UserException(GlobalConst.REMIND_NOT_LOGIN);
+        }else if(status!=0){
+            throw new TestException(GlobalConst.REMIND_BACKSTAGE_ERROR);
         }
     }
 }

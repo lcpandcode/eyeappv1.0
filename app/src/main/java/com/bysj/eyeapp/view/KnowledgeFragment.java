@@ -1,41 +1,32 @@
 package com.bysj.eyeapp.view;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.RadioGroup;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bysj.eyeapp.exception.HttpException;
 import com.bysj.eyeapp.service.KnowledgeService;
 import com.bysj.eyeapp.util.CustomSwipeRefreshLayout;
 import com.bysj.eyeapp.util.CustomToast;
+import com.bysj.eyeapp.util.GlobalConst;
 import com.bysj.eyeapp.util.JavaBeanUtil;
 import com.bysj.eyeapp.util.RegularUtil;
-import com.bysj.eyeapp.vo.KnowledePaperVO;
-
-import org.json.JSONObject;
+import com.bysj.eyeapp.vo.KnowledgePaperVO;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -46,7 +37,7 @@ public class KnowledgeFragment extends Fragment {
 	public static final int PAPER_TYPE_EATINGHABIT = R.id.radio_knowledge_eathabit;//文章类型：饮食习惯
 	public static final int PAPER_TYPE_LECTURE = R.id.radio_knowledge_lecture;//文章类型：护眼讲座
 	public static final int PAPER_TYPE_DEFAULT = -1;//默认文章类型为推荐文章，用-1代表
-	private static final String VIEW_PAPER_ID_KEY = "文章id";
+	private static final String VIEW_PAPER_ID_KEY = GlobalConst.VIEW_PAPER_ID_KEY;
 	private static final String REMIND_NOMORE_DATA = "没有更多数据啦！";
 	//组件相关变量
 	private View thisView;
@@ -257,7 +248,7 @@ public class KnowledgeFragment extends Fragment {
 		//清空paper区域的数据
 		clearPaperList();
 		//获取新类型文章的数据
-		List<KnowledePaperVO> papersNew = null;
+		List<KnowledgePaperVO> papersNew = null;
 		try {
 			papersNew = service.getPaperByType(checkedId,nowPage,PAGE_LIMIT);
 		} catch (HttpException e) {
@@ -330,7 +321,7 @@ public class KnowledgeFragment extends Fragment {
 		}
 		//showLoadBar();
 		//加载数据
-		List<KnowledePaperVO> result = null;
+		List<KnowledgePaperVO> result = null;
 		try {
 			result = service.getPaperByType(paperType,nowPage,PAGE_LIMIT);
 		} catch (HttpException e) {
@@ -358,7 +349,7 @@ public class KnowledgeFragment extends Fragment {
 		if(papers==null){
 			papers = new ArrayList<>();
 		}
-		List<KnowledePaperVO> result = null;
+		List<KnowledgePaperVO> result = null;
         try {
             result = service.getPaperByType(paperType,nowPage,PAGE_LIMIT);
             int lastPage = service.getRecommendPaperMaxPage();
@@ -416,9 +407,9 @@ public class KnowledgeFragment extends Fragment {
 	/**
 	 * 工具方法：把文章列表转换为List<Map>的方法
 	 */
-		private List<Map<String,Object>> paperListToMapList(List<KnowledePaperVO> papers){
+		private List<Map<String,Object>> paperListToMapList(List<KnowledgePaperVO> papers){
 			List<Map<String,Object>> rtn = new ArrayList<>();
-			for(KnowledePaperVO paper : papers){
+			for(KnowledgePaperVO paper : papers){
 				rtn.add(JavaBeanUtil.objToMap(paper));
 			}
 			return rtn;

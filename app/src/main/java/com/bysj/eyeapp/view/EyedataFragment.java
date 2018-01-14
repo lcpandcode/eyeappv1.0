@@ -30,6 +30,7 @@ import com.bysj.eyeapp.util.CustomSwipeRefreshLayout;
 import com.bysj.eyeapp.util.CustomToast;
 import com.bysj.eyeapp.util.GlobalApplication;
 import com.bysj.eyeapp.util.GlobalConst;
+import com.bysj.eyeapp.util.RegularUtil;
 import com.bysj.eyeapp.vo.EyedataVO;
 
 import java.text.ParseException;
@@ -146,6 +147,11 @@ public class EyedataFragment extends Fragment {
 			timerTask = new TimerTask() {
 				@Override
 				public void run() {
+					//判断日期是否是今天，防止和昨天重复计算
+					if(!RegularUtil.dateIsSame(eyedata.getDate(),new Date())){
+						//如果已经过了一天,更新数据库并重新初始化eyedata
+						updateEyedata();
+					}
 					eyedata.setOpenScreenTimeCountRecent(eyedata.getOpenScreenTimeCountRecent() + 1);
 					eyedata.setOpenScreenTimeCountToday(eyedata.getOpenScreenTimeCountToday() + 1);
 					handler.post(refreshUI);//刷新界面
@@ -165,6 +171,7 @@ public class EyedataFragment extends Fragment {
 		}
 
 	}
+
 
 	/**
 	 * 初始化用眼数据
@@ -205,6 +212,25 @@ public class EyedataFragment extends Fragment {
 
 		indoorTime.setText(secondToHour(eyedata.getIndoorTime()));
 		outdoorTime.setText(secondToHour(eyedata.getOutdoorTime()));
+	}
+
+	/**
+	 * 更新eyedata对象以及数据库中数据，该方法主要是在当天过后，自动更新eyedata对象以及数据库
+	 */
+	private void updateEyedata(){
+		//更新数据库
+		service.updateEyedata(getActivity(),eyedata);
+		//更新eyedata
+		eyedata.setDate(new Date());
+		eyedata.setOpenScreenTimeCountRecent(0);
+		eyedata.setOpenScreenTimeCountToday(0);
+		eyedata.setOpenScreenCount(0);
+		eyedata.setOutdoorTime(0);
+		eyedata.setOutdoorTime(0);
+
+		//新插入当天的记录
+		service.addEyedata(getActivity(),eyedata);
+
 	}
 
 	/**

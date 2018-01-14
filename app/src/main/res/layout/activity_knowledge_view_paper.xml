@@ -15,6 +15,7 @@
             style="@style/title_btn"
             android:onClick="titleReturn"
             android:visibility="visible"
+            android:drawableLeft="@mipmap/title_btn_return"
             android:text="@string/title_btn_return"/>
 
         <TextView
@@ -33,6 +34,7 @@
     <LinearLayout
         style="@style/knowledge_view_paper">
         <TextView
+            android:id="@+id/paper_title"
             style="@style/knowledge_view_paper_papertitle"
             android:text="知名博主彦叫兽发布眼部研究重大发现"/>
         <LinearLayout
@@ -42,11 +44,12 @@
                 android:src="@mipmap/knowledge_view_paper_info_icon"/>
             <TextView
                 style="@style/knowledge_view_paper_paperinfo_content"
-                android:text="@string/knowledge_paperdetail_author"/>
+                android:text="@string/knowledge_paperdetail_viewcount"/>
             <TextView
+                android:id="@+id/paper_viewcount"
                 style="@style/knowledge_view_paper_paperinfo_content"
                 android:layout_marginLeft="0dp"
-                android:text="笙叫兽"/>
+                android:text="999"/>
         </LinearLayout>
         <ScrollView
             android:layout_width="match_parent"
@@ -54,6 +57,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp">
             <TextView
+                android:id="@+id/paper_content"
                 style="@style/knowledge_view_paper_content"
                 android:text="     由于阿尔茨海默氏症（俗称老年痴呆症）早期症状不明显，等到确诊时，患者病情可能已经相当严重。美国锡达斯—赛奈医疗中心的研究人员研究出一种新式无创眼部检查方法，可以在老年痴呆症状出现前２０年发现这一病症。
     　　近年来，医生借助正电子发射计算机断层扫描（ＰＥＴ）检查患者大脑来确诊老年痴呆症，但这种检查既价格高，又是有创检查。锡达斯—赛奈医疗中心的研究团队在１６名老年痴呆症患者身上开展临床试验，让他们喝下含有姜黄色素的溶液。姜黄色素会让视网膜上的淀粉样蛋白斑变得“明亮”，可通过无创视网膜扫描观察到。经与他们的ＰＥＴ扫描结果对比，并对比一些健康年轻人的扫描结果，研究人员发现，这种新式无创眼部检查能达到与ＰＥＴ相同的准确率。此外，视网膜上的淀粉样蛋白斑与大脑中某些特定区域的淀粉样蛋白斑存在关联。

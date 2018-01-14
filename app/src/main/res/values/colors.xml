@@ -23,9 +23,9 @@
     <color name="global_refresh_loadbar_color3">@android:color/holo_green_light</color>
 
     <!--title颜色-->
-    <color name="title_background">#000000</color>
+    <color name="title_background">#D6CFBD</color>
     <color name="title_btn">#38ADFF</color>
-    <color name="title_title">#FCFCFC</color>
+    <color name="title_title">@color/global_label</color>
 
     <!--底部栏（footer)背景颜色-->
     <color name="footer_background">#F2F2F2</color>

@@ -4,6 +4,7 @@ package com.bysj.eyeapp.util;
  * Created by lcplcp on 2017/12/27.
  */
 
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -68,5 +69,12 @@ public class RegularUtil {
         }
         //其他类似于空格也要过滤，这里待扩展
         return false;
+    }
+
+    public static boolean dateIsSame(Date d1, Date d2){
+        boolean yearBoolean = d1.getYear()==d2.getYear();
+        boolean monthBoolean = d1.getMonth()==d2.getMonth();
+        boolean dayBoolean = d1.getDay()==d1.getDay();
+        return yearBoolean && monthBoolean && dayBoolean;
     }
 }

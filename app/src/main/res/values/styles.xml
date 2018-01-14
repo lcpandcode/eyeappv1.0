@@ -112,7 +112,7 @@
         <item name="android:onClick">onClick</item>
         <item name="android:textColor">@color/title_btn</item>
         <item name="android:clickable">true</item>
-        <item name="android:gravity">center</item>
+        <item name="android:gravity">left</item>
 
     </style>
     <!--顶部标题栏标题样式-->
@@ -374,6 +374,7 @@
         <item name="android:layout_marginRight">10dp</item>
         <item name="android:layout_marginTop">20dp</item>
         <item name="android:textColor">@color/global_label</item>
+        <item name="android:textStyle">bold</item>
     </style>
     <style name="knowledge_view_paper_paperinfo">
         <item name="android:layout_width">match_parent</item>
