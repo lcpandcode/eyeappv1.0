@@ -4,7 +4,6 @@
     android:layout_width="fill_parent"
     android:orientation="vertical"
     android:layout_height="fill_parent">
-
     <!--自定义的标题栏-->
     <LinearLayout
         android:id="@+id/layout_titlebar"
@@ -18,7 +17,7 @@
         <TextView
             android:id="@+id/text_title"
             style="@style/title_title"
-            android:text="@string/title_register"
+            android:text="@string/title_forget_pass"
             android:textColor="@color/title_title" />
 
         <Button
@@ -28,31 +27,16 @@
             android:text="@string/title_btn_confirm"/>
 
     </LinearLayout>
-    <!--注册页面的布局和登录界面的布局一样，所以直接引用登录界面的style-->
+    <!--忘记密码页面的布局和登录界面的布局一样，所以直接引用登录界面的style-->
     <LinearLayout style="@style/login_inputBar"
         android:layout_marginTop="20dp">
 
         <TextView
             style="@style/login_label"
-            android:text="昵称" />
+            android:text="@string/forget_pass_phone" />
 
         <EditText
             android:id="@+id/register_nickName"
-            style="@style/login_textEdit"
-            android:hint="请输入昵称" />
-    </LinearLayout>
-    <View style="@style/global_line"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="30dp"/>
-    <LinearLayout style="@style/login_inputBar">
-
-        <TextView
-            style="@style/login_label"
-            android:inputType="phone"
-            android:text="手机" />
-        <EditText
-            android:id="@+id/register_phone"
             style="@style/login_textEdit"
             android:hint="请输入手机号" />
     </LinearLayout>
@@ -60,26 +44,6 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="30dp"/>
-    <LinearLayout style="@style/login_inputBar">
-
-        <TextView
-            style="@style/login_label"
-            android:text="密码" />
-        <EditText
-            android:id="@+id/register_pwd"
-            android:inputType="textPassword"
-            style="@style/login_textEdit"
-            android:hint="请输入密码" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:drawableRight="@mipmap/login_pwd_show"
-            android:layout_height="match_parent"
-            android:onClick="showPwd"/>
-    </LinearLayout>
-    <View style="@style/global_line"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"/>
     <LinearLayout style="@style/login_inputBar">
 
         <TextView
@@ -104,60 +68,39 @@
 
     </LinearLayout>
     <View style="@style/global_line"
-        android:layout_marginLeft="30dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="30dp"/>
     <LinearLayout style="@style/login_inputBar">
 
         <TextView
             style="@style/login_label"
-            android:text="性别" />
-        <RadioGroup
-            android:id="@+id/register_sex"
+            android:layout_weight="2"
+            android:text="@string/forget_pass_newpass" />
+        <EditText
+            android:id="@+id/forget_pass_pwd"
+            android:inputType="textPassword"
             style="@style/login_textEdit"
-            android:orientation="horizontal"
-            android:gravity="left">
-           <RadioButton
-               android:id="@+id/register_rbtn_man"
-               style="@style/global_rbtn"
-               android:text="男"/>
-            <RadioButton
-                android:id="@+id/register_rbtn_woman"
-                style="@style/global_rbtn"
-                android:layout_marginLeft="30dp"
-                android:text="女"/>
-
-        </RadioGroup>
-
+            android:hint="请输入新密码" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:drawableRight="@mipmap/login_pwd_show"
+            android:layout_height="match_parent"
+            android:onClick="showPwd"/>
     </LinearLayout>
     <View style="@style/global_line"
-        android:layout_marginLeft="30dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="30dp"/>
     <LinearLayout style="@style/login_inputBar">
         <Button
             android:id="@+id/login_btn"
             style="@style/global_btn"
-            android:text="同意服务条款并注册"
+            android:text="提交新密码"
             android:onClick="register"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:layout_marginTop="50dp"/>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        style="@style/login_inputBar">
-        <TextView
-            android:id="@+id/service_rule"
-            android:onClick="serviceRule"
-            android:text="《服务条款》"
-            style="@style/global_href"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:gravity="center"
-            android:textColor="@color/global_label"
-            android:layout_marginLeft="30dp"/>
 
     </LinearLayout>
 

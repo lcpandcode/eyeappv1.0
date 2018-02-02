@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">eyeapp</string>
+    <string name="app_name">eyeapp1</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
@@ -32,6 +32,12 @@
     <string name="login_title">用户登录</string>
     <string name="title_register">用户注册</string>
 
+    <!--忘记密码-->
+    <string name="forget_pass_phone">手机</string>
+    <string name="title_forget_pass">找回密码</string>
+    <string name="forget_pass_newpass">新密码</string>
+    <string name="forget_pass_checkcode">验证码</string>
+
     <!--测试界面-->
     <string name="test_colorbind">色盲检测</string>
     <string name="test_astigmatism">散光检测</string>
@@ -56,6 +62,7 @@
     <string name="test_vision_result_little">轻微近视</string>
     <string name="test_vision_result_medium">一定程度近视</string>
     <string name="test_vision_result_serious">近视较严重</string>
+    <string name="test_vision_distanceinput">请输入手机和您的距离</string>
     <string name="test_result_good">良好</string>
     <string name="test_result_verygood">优秀</string>
     <string name="test_result_btn_submit">提交测试结果</string>
@@ -63,6 +70,7 @@
     <string name="test_result_description">以上结果仅供参考，若要更科学、准确的测试结果请到专业机构进行测试！</string>
     <string name="test_result_sensitivity_description">注：眼睛识别度最高为100！</string>
     <string name="test_result_vision_description">注：眼睛视力范围为4.0-5.0！</string>
+
     <!--个人中心页面文字-->
     <string name="person_centre_info">个人资料</string>
     <string name="person_centre_eye">用眼情况</string>

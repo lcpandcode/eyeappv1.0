@@ -18,7 +18,7 @@
                     android:id="@+id/test_question_vision_img"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/test_btn_vision" />
+                    android:src="@mipmap/test_vision_icon" />
             </LinearLayout>
             <TextView
                 style="@style/test_question_title"

@@ -1,21 +1,36 @@
 package com.bysj.eyeapp.view;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
+import android.os.Build;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.AlertDialog;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,24 +39,31 @@ import com.bysj.eyeapp.service.TestService;
 import com.bysj.eyeapp.util.CustomSwipeRefreshLayout;
 import com.bysj.eyeapp.util.CustomToast;
 import com.bysj.eyeapp.util.GlobalConst;
+import com.bysj.eyeapp.util.RegularUtil;
 import com.bysj.eyeapp.vo.TestQuestionVO;
 import com.bysj.eyeapp.vo.TestVisionQuestionVO;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class TestVisionFragment extends Fragment {
 	//字符串常量
-	final private static int QUESTION_NUM = 5;//作答个数默认10
+	final private static int VISION_NUM = 4;//作答个数默认10
+	final private static int QUESTION_NUM = VISION_NUM * 12;
 	final private static double SERIOUS = 0.5;//阈值：答题正确率小于SERIOUS判断测试结果为严重
 	final private static double MEDIUM = 0.7;//阈值：答题正确率小于MEDIUM判断测试结果为中等
 	final private static double LITTLE = 0.8;//阈值：答题正确率小于LITTLE判断测试结果为轻微患病
 	final private static String TEST_RESULT_KEY = "视力测试结果";
 	final private static String REMIND_CANNOT_CHANGE_EYE = "您已开始答题，不能改变选中的眼睛";
-	final private static String REMIDN_CHOSE_EYE = "请先选择您要测试的眼睛！";
-	final private static String REMIDN_CHOSE_OPTION = "请选择您认为正确的选项！";
+	final private static String REMIND_CHOSE_EYE = "请先选择您要测试的眼睛！";
+	final private static String REMIND_CHOSE_OPTION = "请选择您认为正确的选项！";
+	final private static String REMIND_INPUT_DISTANCE = "请输入您和手机屏幕距离";
+	final private static String REMIND_INPUT_DISTANCE_NOT_NUM = "请输入合法数字";
 	final private static char LEFT_EYE = '左';
 	final private static char RIGHT_EYE = '右';
+	final private static int TOAST_MAX_RANGE_REMIND_SHOW_TIME = 1000 * 8;//距离传感器提示显示时间，8秒
 	//数据相关变量
 	//类数据相关变量
 	private int nowAnswerQuestion = 0;//当前作答数目
@@ -51,6 +73,7 @@ public class TestVisionFragment extends Fragment {
 	private boolean isChoseEye = false;//会否选择了眼睛，如果否提示选择眼睛方可进行测试
 	private boolean canChangeChoseEye = true;//能否改变选中的眼睛：答题开始后（即已经至少答了一题）不能改变眼睛选择
 	private int nowCheckedId = -1;//由于自定义线性布局嵌套radioButton，用RadioGroup的getCheckedId无法获取对应id，所以设置该全局变量存储当前选中的选项的id
+	private float testDistance = 0.0f;
 
 	//控件相关变量
 	private View thisView;
@@ -65,6 +88,12 @@ public class TestVisionFragment extends Fragment {
 	private RadioButton rbtnLeftEye;
 	private RadioButton rbtnRightEye;
 	private CustomSwipeRefreshLayout swipeRefreshLayout;
+	private AlertDialog testDistanceAlertDialog;
+	private EditText testDistanceEditText;
+	private TextView  testDistanceTextView;
+
+//	private SensorManager sensorManager;//传感器管理对象
+//	private Sensor proximitySensor;//距离传感器
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -84,6 +113,20 @@ public class TestVisionFragment extends Fragment {
 	 * 初始化方法
 	 */
 	private void init(View view){
+		//初始化传感器
+//		sensorManager = (SensorManager)getActivity().getSystemService(Context.SENSOR_SERVICE);
+//		proximitySensor=sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+//		float maxRange = proximitySensor.getMaximumRange();
+//		String maxRangeStr = new DecimalFormat("##0.00").format(maxRange);//保留两位小数
+//		CustomToast.showToast(getActivity(),String.format("提示：您的距离传感器支持最大距离为%s,请不要把放置距离超过该距离，否则将导致测试不准确！",maxRangeStr));
+//		CustomToast.setShowTime(TOAST_MAX_RANGE_REMIND_SHOW_TIME);
+//		Sensor proximitySensor=sensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
+//		Boolean res=sensorManager.registerListener(new ProximityListener(),proximitySensor,SensorManager.SENSOR_DELAY_FASTEST);
+//		if(!res){//绑定失败，提示
+//			CustomToast.showToast(getActivity(),REMIND_BIND_SENSOR_FAIL);
+//			return;
+//		}
+
 		//初始化控件变量
 		btnNext = thisView.findViewById(R.id.test_vision_nextbtn);
 		questionImg = thisView.findViewById(R.id.test_question_vision_img);
@@ -96,10 +139,8 @@ public class TestVisionFragment extends Fragment {
 		rbtnLeftEye = thisView.findViewById(R.id.test_vision_rbtn_eye_left);
 		rbtnRightEye = thisView.findViewById(R.id.test_vision_rbtn_eye_right);
 		service = new TestService();
-		//初始化数据
-		questions = service.getVisionQuestions(QUESTION_NUM);
-		//初始化第一个答题页面
-		showNewQuestion(questions.get(nowAnswerQuestion));
+
+
 		//设置监听事件
         option1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,6 +184,8 @@ public class TestVisionFragment extends Fragment {
 				isChoseEye = true;
 			}
 		});
+		//初始化测试距离
+		initDistance();
 
 		//设置下拉刷新
 		//初始化下拉刷新功能
@@ -172,6 +215,56 @@ public class TestVisionFragment extends Fragment {
 			}
 		});
 	}
+
+	/**
+	 * 初始距离输入弹出框
+	 */
+	private void initDistance(){
+		//初始化距离输入弹出框
+		LayoutInflater li = LayoutInflater.from(getActivity());
+		View promptsView = li.inflate(R.layout.view_test_vision_distanceinput_prompt, null);
+
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+		alertDialogBuilder.setView(promptsView);
+		testDistanceEditText = (EditText) promptsView.findViewById(R.id.test_vision_distance_input);
+		testDistanceTextView = (TextView) promptsView.findViewById(R.id.test_vision_distance_textview);
+		final EditText userInput = testDistanceEditText;
+		final TextView textView = testDistanceTextView;
+		alertDialogBuilder
+				.setCancelable(false)
+				.setPositiveButton("确定",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,int id) {
+								String result = userInput.getText().toString();
+								if(RegularUtil.strIsEmpty(result)){
+									textView.setText(REMIND_INPUT_DISTANCE);
+									textView.setTextColor(getActivity().getResources()
+											.getColor(R.color.test_vision_distance_input_remind));
+									//return;
+								}else if(!RegularUtil.strCanToFloat(result)){
+									textView.setText(REMIND_INPUT_DISTANCE_NOT_NUM);
+									textView.setTextColor(getActivity().getResources()
+											.getColor(R.color.test_vision_distance_input_remind));
+									//return;
+								}
+								testDistance = Float.parseFloat(result);
+								//初始化数据
+								questions = service.getVisionQuestions(testDistance,VISION_NUM);
+								//初始化第一个答题页面
+								showNewQuestion(questions.get(nowAnswerQuestion));
+							}
+						})
+				.setNegativeButton("取消",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,int id) {
+								dialog.cancel();
+							}
+						});
+
+		testDistanceAlertDialog = alertDialogBuilder.create();
+		testDistanceAlertDialog.show();
+	}
+
 
 	/**
 	 * 选项控制按钮，解决RadioButtonGroup无法线性布局的问题
@@ -210,15 +303,20 @@ public class TestVisionFragment extends Fragment {
 	 * 下一题按钮对应的事件
 	 */
 	private void nextQuestion(){
+		//判断是否输入了距离
+		if(testDistance==0.0){
+			testDistanceAlertDialog.show();
+			return;
+		}
 		//判断是否选择了眼睛
 		if(!isChoseEye){
-			CustomToast.showToast(getActivity(),REMIDN_CHOSE_EYE);
+			CustomToast.showToast(getActivity(),REMIND_CHOSE_EYE);
 			return ;
 		}
 		//是否选中了选项
 		int checkedId = nowCheckedId;
 		if(checkedId==-1){
-			CustomToast.showToast(getActivity(),REMIDN_CHOSE_OPTION);
+			CustomToast.showToast(getActivity(),REMIND_CHOSE_OPTION);
 			return ;
 		}
 		//一旦开始答题，不能改变选中的眼睛
@@ -270,7 +368,23 @@ public class TestVisionFragment extends Fragment {
 				choseOption = 4;
 				break;
 		}
-		if(question.getTrueOption()==choseOption){
+		char trueOption = question.getDirection();
+		int trueOptionId = -1;
+		switch (trueOption){
+			case '上':
+				trueOptionId = 1;
+				break;
+			case '下':
+				trueOption = 2;
+				break;
+			case '左':
+				trueOptionId = 3;
+				break;
+			case '右':
+				trueOption = 4;
+				break;
+		}
+		if(trueOptionId==choseOption){
 			//正确题目数加1
 			nowAnswerTrue++;
 		}
@@ -282,8 +396,32 @@ public class TestVisionFragment extends Fragment {
 	 * 更新页面的问题区域（待完善）
 	 */
 	private void showNewQuestion(TestVisionQuestionVO question){
-		//设置图片展示的src属性待完善（需要发起请求获得Bitmap）
-
+		//设置题目图片
+		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(0,0);
+		layoutParams.height = (int)mmToPx(question.getSize());// 设置图片的高度
+		layoutParams.width = (int)mmToPx(question.getSize()); // 设置图片的宽度
+		questionImg.setLayoutParams(layoutParams);
+//		questionImg.setMaxHeight((int)mmToPx(question.getSize()));
+//		questionImg.setMaxWidth((int)mmToPx(question.getSize()));
+		//旋转图片
+		questionImg.setPivotX(questionImg.getWidth()/2);
+		questionImg.setPivotY(questionImg.getHeight()/2);//支点在图片中心
+		float rotateAngle = 0.0f;
+		switch (question.getDirection()) {
+			case '右':
+				rotateAngle = 90f;
+				break;
+			case '上':
+				rotateAngle = 270f;
+				break;
+			case '下':
+				rotateAngle = 90f;
+				break;
+			case '左':
+				rotateAngle = 180f;
+				break;
+		}
+		questionImg.setRotation(rotateAngle);
 		//清除选中的值
 		nowCheckedId = -1;
 		option1.setChecked(false);
@@ -352,6 +490,7 @@ public class TestVisionFragment extends Fragment {
 	 * 清楚页面数据
 	 */
 	private void clearData(){
+		testDistance = 0.0f;
 		nowAnswerQuestion = 0;
 		questions.clear();
 		nowAnswerTrue = 0;
@@ -369,25 +508,72 @@ public class TestVisionFragment extends Fragment {
 	 */
 	private void refresh(){
 		List<TestVisionQuestionVO> questionsNew;
-		questionsNew = service.getVisionQuestions(QUESTION_NUM);
-//		try {
-//			questionsNew = service.getVisionQuestions(QUESTION_NUM);
-//		} catch (HttpException e) {
-//			Log.e("网络错误：" ,e.getMessage());
-//			CustomToast.showToast(getActivity(),GlobalConst.REMIND_NET_ERROR);
-//			return ;
-//		}
+		if(testDistance==0.0){
+			testDistanceAlertDialog.show();
+			return;
+		}
+		questionsNew = service.getVisionQuestions(testDistance,VISION_NUM);
+
 		if(questionsNew.size()==0 || questionsNew==null){
 			CustomToast.showToast(getActivity(),GlobalConst.REMIND_NET_ERROR);
 			return ;
 		}
-		//成功请求数据，清空数据
+		//清空数据
 		clearData();
 
 		//重新初始化数据
 		questions = questionsNew;
 		showNewQuestion(questions.get(nowAnswerQuestion));
 		CustomToast.showToast(getActivity(),GlobalConst.REMIND_REFRESH_SUCCESS);
+	}
+
+	/**
+	 * mm 转换为px
+	 * @param mm
+	 * @return
+	 */
+	private float mmToPx(float mm){
+		WindowManager wm1 = getActivity().getWindowManager();
+		int width = wm1.getDefaultDisplay().getWidth();
+		int height1 = wm1.getDefaultDisplay().getHeight();
+		DisplayMetrics dm = getResources().getDisplayMetrics();
+		int screenWidth = dm.widthPixels;
+		int screenHeight = dm.heightPixels;
+		double screen = Math.sqrt(Math.pow(screenWidth,2) + Math.pow(screenHeight,2));
+		double inchPx = screen/getScreenSizeOfDevice();//每英寸含有的像素点个数
+		//计算px和mm的关系
+		double mmPx = inchPx / (2.54*10);//每毫米含有多少个像素
+		return (float)(mmPx * mm);
+	}
+
+	/**
+	 * 获取屏幕物理尺寸
+	 * @return 尺寸大小，单位是
+	 */
+	private float getScreenSizeOfDevice() {
+
+		double screenInches = 0.0;
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+			Point point = new Point();
+			getActivity().getWindowManager().getDefaultDisplay().getRealSize(point);
+
+			DisplayMetrics dm = getResources().getDisplayMetrics();
+			double x = Math.pow(point.x/ dm.xdpi, 2);
+			double y = Math.pow(point.y / dm.ydpi, 2);
+			screenInches = Math.sqrt(x + y);
+		}else {
+			DisplayMetrics dm = getResources().getDisplayMetrics();
+			int width=dm.widthPixels;
+			int height=dm.heightPixels;
+			double x = Math.pow(width,2);
+			double y = Math.pow(height,2);
+			double diagonal = Math.sqrt(x+y);
+			int dens=dm.densityDpi;
+			screenInches = diagonal/(double)dens;
+		}
+
+		CustomToast.showToast(getActivity(),screenInches + "");
+		return (float)screenInches;
 	}
 
 

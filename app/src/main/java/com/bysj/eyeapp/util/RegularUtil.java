@@ -51,13 +51,40 @@ public class RegularUtil {
     }
 
     /**
-     * 判断是否是数字
+     * 判断是否是纯数字
      */
     public static boolean numberIsTrue(String number){
         String regx = "^[1-9]\\d*$";
         Pattern pattern = Pattern.compile(regx);
         Matcher matcher = pattern.matcher(number);
         return matcher.find();
+    }
+
+    public static boolean strCanToInt(String val){
+        try{
+            Integer.parseInt(val);
+        }catch (Exception e){
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean strCanToFloat(String val){
+        try{
+            Float.parseFloat(val);
+        }catch (Exception e){
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean strCanToDouble(String val){
+        try{
+            Double.parseDouble(val);
+        }catch (Exception e){
+            return false;
+        }
+        return true;
     }
 
     /**

@@ -17,11 +17,13 @@
         <activity
             android:name=".MainActivity"
             android:theme="@style/CustomTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
+
+
+             <category android:name="android.intent.category.LAUNCHER" />
+             </intent-filter>
         </activity>
         <activity
             android:name=".LoginActivity"
@@ -35,14 +37,11 @@
              <!--</intent-filter>-->
         </activity>
         <activity android:name=".RegisterActivity">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-            <!-- <intent-filter> -->
-            <!-- <action android:name="android.intent.action.MAIN" /> -->
-
-
-            <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
-            <!-- </intent-filter> -->
-
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity android:name=".TestSensitivityActivity" />
         <activity android:name=".TestColorbindResultActivity" />
@@ -51,7 +50,7 @@
         <activity android:name=".TestAstigmatismResultActivity" />
         <activity android:name=".KnowledgeViewPaperActivity" />
         <activity android:name=".KnowledgeAdvisoryActivity" />
-
+        <activity android:name=".ForgetPassActivity"></activity>
     </application>
 
 </manifest>

@@ -93,7 +93,8 @@
             style="@style/global_href"
             android:layout_width="0pt"
             android:layout_weight="1"
-            android:layout_marginLeft="30dp"/>
+            android:layout_marginLeft="30dp"
+            android:clickable="true"/>
         <TextView
             android:id="@+id/login_register"
             style="@style/global_href"
@@ -103,6 +104,7 @@
             android:layout_weight="1"
             android:layout_marginRight="30dp"
             android:gravity="right"
+            android:clickable="true"
             android:onClick="findPwd"/>
 
     </LinearLayout>

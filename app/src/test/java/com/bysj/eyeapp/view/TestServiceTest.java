@@ -9,6 +9,7 @@ import com.bysj.eyeapp.vo.KnowledgeAdvisoryQuestionVO;
 import com.bysj.eyeapp.vo.TestAstigmatismQuestionVO;
 import com.bysj.eyeapp.vo.TestQuestionVO;
 import com.bysj.eyeapp.vo.TestResultVO;
+import com.bysj.eyeapp.vo.TestVisionQuestionVO;
 
 import org.junit.Test;
 
@@ -53,6 +54,13 @@ public class TestServiceTest {
         } catch (HttpException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    public void getVisionQuestions(){
+        TestService service = new TestService();
+        List<TestVisionQuestionVO> questions = service.getVisionQuestions(500,1);
+        int a;
     }
 
 

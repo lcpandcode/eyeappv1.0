@@ -56,7 +56,7 @@ public class TestColorbindFragment extends Fragment {
 
 	//类数据相关变量
 	private int nowAnswerQuestion = 0;//当前作答数目
-	private List<TestQuestionVO> questions;//题目列表
+	private List<TestQuestionVO> questions	;//题目列表
 	private int nowAnswerTrue = 0;//当前作答正确个数
 	private TestService service;//核心服务类，service层的类
 

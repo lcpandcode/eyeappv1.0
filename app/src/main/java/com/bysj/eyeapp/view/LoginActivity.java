@@ -103,7 +103,9 @@ public class LoginActivity extends BaseActivity {
      * @param view
      */
     public void findPwd(View view){
-        CustomToast.showToast(getApplicationContext(),"这个功能还没有开发！");
+        Intent intent = new Intent();
+        intent.setClass(getApplicationContext(),ForgetPassActivity.class);
+        startActivity(intent);
     }
 
     /**

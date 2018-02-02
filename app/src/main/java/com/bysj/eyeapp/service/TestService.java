@@ -14,6 +14,7 @@ import com.bysj.eyeapp.util.GlobalConst;
 import com.bysj.eyeapp.util.HttpUtil;
 import com.bysj.eyeapp.util.JavaBeanUtil;
 import com.bysj.eyeapp.util.TestSensitivityUtil;
+import com.bysj.eyeapp.util.TestVisionUtil;
 import com.bysj.eyeapp.vo.TestAstigmatismQuestionVO;
 import com.bysj.eyeapp.vo.TestColorbindQuestionVO;
 import com.bysj.eyeapp.vo.TestQuestionVO;
@@ -94,22 +95,13 @@ public class TestService {
 
     /**
      * 获取num个问题并返回问题列表
-     * @param num ：需要获取问题的个数
+     * @param distance ：视力测试距离
+     * @param num ：每个视力值对应的图标个数
      * @return 问题列表
      */
-    public List<TestVisionQuestionVO> getVisionQuestions(int num){
+    public List<TestVisionQuestionVO> getVisionQuestions(float distance,int num){
         //代码待完善，测试需要直接返回
-        List<TestVisionQuestionVO> questions = new ArrayList<>();
-        TestVisionQuestionVO q1 = new TestVisionQuestionVO();
-        q1.setImgUrl("@mipmap/test_btn_vision");
-        q1.setTrueOption(3);
-        questions.add(q1);
-        TestVisionQuestionVO q2 = new TestVisionQuestionVO();
-        q2.setImgUrl("@mipmap/test_btn_vision");
-
-        q2.setTrueOption(3);
-        questions.add(q2);
-        return questions;
+        return TestVisionUtil.getTestVisionQuestionVOs(distance,num);
     }
 
     private TestQuestionVO mapToQuestion(Map<String,Object> map){
