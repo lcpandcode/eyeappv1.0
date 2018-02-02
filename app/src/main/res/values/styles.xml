@@ -489,6 +489,17 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@mipmap/eyedata_bar_arc_round</item>
     </style>
-
+    <!--个人中心按钮文字样式-->
+    <style name="person_centre_btn">
+        <!--<item name="android:layout_width">0dp</item>-->
+        <!--<item name="android:layout_weight">1</item>-->
+        <!--<item name="android:layout_height">20dp</item>-->
+        <item name="android:textSize">18dp</item>
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:background">#FFFFFF</item>
+        <item name="android:textColor">#000000</item>
+    </style>
 
 </resources>

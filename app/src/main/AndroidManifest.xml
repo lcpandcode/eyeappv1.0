@@ -25,6 +25,14 @@
              <category android:name="android.intent.category.LAUNCHER" />
              </intent-filter>
         </activity>
+
+
+    <activity
+        android:name=".PersonCentreActivity">
+    </activity>
+    <activity
+        android:name=".PersonInfo">
+    </activity>
         <activity
             android:name=".LoginActivity"
             android:theme="@style/CustomTheme">
@@ -43,6 +51,7 @@
                 <!--<category android:name="android.intent.category.LAUNCHER" />-->
             <!--</intent-filter>-->
         </activity>
+
         <activity android:name=".TestSensitivityActivity" />
         <activity android:name=".TestColorbindResultActivity" />
         <activity android:name=".TestSensitivityResultActivity" />

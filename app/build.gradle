@@ -17,6 +17,12 @@ android {
         }
     }
 }
+//修改添加
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
