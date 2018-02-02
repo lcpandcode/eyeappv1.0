@@ -25,7 +25,13 @@ public class PersonFragment extends Fragment {
 	}
 
 	private void init(){
-		Intent intent = new Intent(getActivity(),PersonInfo.class);
-	   startActivity(intent);
+		Button button = thisView.findViewById(R.id.button_person_info);
+		button.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getActivity(),PersonInfo.class);
+				startActivity(intent);
+			}
+		});
 	}
 }
