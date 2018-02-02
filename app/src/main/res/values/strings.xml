@@ -75,7 +75,7 @@
     <string name="person_centre_info">个人资料</string>
     <string name="person_centre_eye">用眼情况</string>
     <string name="person_centre_train">眼部训练记录</string>
-    <string name="person_centre_communicat">专家交流记录</string>
+    <string name="person_centre_communication">专家交流记录</string>
     <string name="person_centre_message">消息中心</string>
 
     <!--知识库-->

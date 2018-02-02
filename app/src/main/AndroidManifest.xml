@@ -27,12 +27,13 @@
         </activity>
 
 
-    <activity
-        android:name=".PersonCentreActivity">
-    </activity>
-    <activity
-        android:name=".PersonInfo">
-    </activity>
+    <activity android:name=".PersonCentreActivity"></activity>
+    <activity android:name=".PersonInfo"></activity>
+    <activity android:name=".PersonCommunication"></activity>
+    <activity android:name=".PersonEye"></activity>
+    <activity android:name=".PersonTrain"></activity>
+    <activity android:name=".PersonMessage"></activity>
+
         <activity
             android:name=".LoginActivity"
             android:theme="@style/CustomTheme">

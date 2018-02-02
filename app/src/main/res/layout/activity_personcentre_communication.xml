@@ -9,6 +9,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:textColor="@color/colorAccent"
-        android:text="个人资料页面" />
+        android:text="专家交流记录页面" />
 </LinearLayout>
 
