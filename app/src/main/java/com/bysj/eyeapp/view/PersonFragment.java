@@ -34,31 +34,6 @@ public class PersonFragment extends Fragment {
 		return view;
 	}
 
-//	使用onClick属性
-//	public void doPersonCentreClick(View view){
-//		switch (view.getId()){
-//				case R.id.button_person_info:
-//					Intent intent1 = new Intent(getActivity(),PersonInfo.class);
-//					startActivity(intent1);
-//					break;
-//				case R.id.button_person_eye:
-//					Intent intent2 = new Intent(getActivity(),PersonEye.class);
-//					startActivity(intent2);
-//					break;
-//				case R.id.button_person_train:
-//					Intent intent3 = new Intent(getActivity(),PersonTrain.class);
-//					startActivity(intent3);
-//					break;
-//				case R.id.button_person_communication:
-//					Intent intent4 = new Intent(getActivity(),PersonCommunication.class);
-//					startActivity(intent4);
-//					break;
-//				case R.id.button_person_message:
-//					Intent intent5 = new Intent(getActivity(),PersonMessage.class);
-//					startActivity(intent5);
-//					break;
-//	}
-
 
 	private class MyListenner implements View.OnClickListener {
 		@Override
