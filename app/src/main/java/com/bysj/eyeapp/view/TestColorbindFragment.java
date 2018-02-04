@@ -68,6 +68,7 @@ public class TestColorbindFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		Log.d("test","test1,onCreateView");
 		View view= inflater.inflate(R.layout.fragment_test_colorbind, null);
 		thisView = view;
 		init();
@@ -93,7 +94,7 @@ public class TestColorbindFragment extends Fragment {
 		option2 = thisView.findViewById(R.id.test_colorbind_option2);
 		option3 = thisView.findViewById(R.id.test_colorbind_option3);
 		option4 = thisView.findViewById(R.id.test_colorbind_option4);
-		swipeRefreshLayout = thisView.findViewById(R.id.eyedata_bar_refresh);
+		swipeRefreshLayout = thisView.findViewById(R.id.test_colorbind_refresh);
 		service = new TestService();
 		//初始化数据
 		try {
