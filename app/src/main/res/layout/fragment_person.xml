@@ -16,7 +16,51 @@
             android:drawableRight="@mipmap/centre_btn_arrow_right"
             android:text="@string/person_centre_info"
             android:drawablePadding="10dip"
-            android:onClick="onClick"
+            android:onClick="doPersonCentreClick"
+            />
+        <Button
+            android:id="@+id/button_person_eye"
+            style="@style/person_centre_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/centre_btn_eye"
+            android:drawableRight="@mipmap/centre_btn_arrow_right"
+            android:text="@string/person_centre_eye"
+            android:drawablePadding="10dip"
+            android:onClick="doPersonCentreClick"
+            />
+        <Button
+            android:id="@+id/button_person_train"
+            style="@style/person_centre_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/centre_btn_train"
+            android:drawableRight="@mipmap/centre_btn_arrow_right"
+            android:text="@string/person_centre_train"
+            android:drawablePadding="10dip"
+            android:onClick="doPersonCentreClick"
+            />
+        <Button
+            android:id="@+id/button_person_communication"
+            style="@style/person_centre_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/centre_btn_communication"
+            android:drawableRight="@mipmap/centre_btn_arrow_right"
+            android:text="@string/person_centre_communication"
+            android:drawablePadding="10dip"
+            android:onClick="doPersonCentreClick"
+            />
+        <Button
+            android:id="@+id/button_person_message"
+            style="@style/person_centre_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/centre_btn_message"
+            android:drawableRight="@mipmap/centre_btn_arrow_right"
+            android:text="@string/person_centre_message"
+            android:drawablePadding="10dip"
+            android:onClick="doPersonCentreClick"
             />
 
 
