@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/AndroidStudioWorkspace.iml" filepath="$PROJECT_DIR$/AndroidStudioWorkspace.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eyeappv1.0.iml" filepath="$PROJECT_DIR$/eyeappv1.0.iml" />
     </modules>
   </component>
 </project>
