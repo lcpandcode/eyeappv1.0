@@ -45,7 +45,7 @@
             android:background="@android:color/transparent"
             android:paddingLeft="5.0dip"
             android:paddingRight="5.0dip"
-            android:src="@drawable/pop_btn_face_selector" />
+            android:src="@drawable/chat_pop_btn_face_selector" />
 
         <EditText
             android:id="@+id/msg_et"

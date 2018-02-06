@@ -7,6 +7,8 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bysj.eyeapp.util.CustomToast;
+
 /**
  * 主界面的父类，用于需要自定义标题栏的类，直接继承即可，具体的用法可参考MainActivity
  */
@@ -67,12 +69,7 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
      * @param backwardView
      */
     protected void onBackward(View backwardView) {
-
-        Toast toast = Toast.makeText(this, "点击返回，可在此处调用finish()", Toast.LENGTH_LONG);
-        View view = toast.getView();
-        view.setBackgroundResource(R.color.title_background);
-        toast.setView(view);
-        toast.show();
+        CustomToast.showToast(getApplicationContext(), "点击返回");
     }
 
     /**
@@ -80,11 +77,7 @@ public class BaseActivity extends FragmentActivity implements View.OnClickListen
      * @param forwardView
      */
     protected void onForward(View forwardView) {
-        Toast toast = Toast.makeText(this, "点击确认，可在此处调用finish()", Toast.LENGTH_LONG);
-        View view = toast.getView();
-        view.setBackgroundResource(R.color.title_background);
-        toast.setView(view);
-        toast.show();
+        CustomToast.showToast(getApplicationContext(), "点击确定按钮");
     }
 
 

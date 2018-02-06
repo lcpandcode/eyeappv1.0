@@ -43,7 +43,7 @@
         android:layout_below="@id/datetime"
         android:layout_marginLeft="5dip"
         android:layout_toRightOf="@id/icon"
-        android:background="@drawable/balloon_l_selector"
+        android:background="@drawable/chat_balloon_l_selector"
         android:clickable="true"
         android:minHeight="44.0dip" >
 
@@ -74,7 +74,7 @@
             android:layout_marginLeft="4.0dip"
             android:layout_marginRight="4.0dip"
             android:max="100"
-            android:progressDrawable="@drawable/progress_receivepic" />
+            android:progressDrawable="@drawable/chat_progress_receivepic" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -28,7 +28,7 @@ import java.util.Map;
  * Created by Administrator on 2018/1/10.
  */
 
-public class PersonCommunication extends BaseActivity{
+public class PersonCommunicationNewMessage extends BaseActivity{
 
     private CustomSwipeRefreshLayout swipeRefreshLayout;
     private ListView expertList;
@@ -40,7 +40,7 @@ public class PersonCommunication extends BaseActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_personcentre_communication);
+        setContentView(R.layout.activity_personcentre_communication_new_msg);
         init();
     }
 
@@ -90,24 +90,24 @@ public class PersonCommunication extends BaseActivity{
     }
 
     private void initExpertData(){
-        List<ExpertCommunicationVO> expertsData = service.getExpertCommunicationList(10,1);
+        List<ExpertCommunicationVO> expertsData = service.getExpertCommunicationNewMsgList(10,1);
         for(ExpertCommunicationVO expert : expertsData){
             Map<String,Object> expertMap = new HashMap<>();
             expertMap.put("name",expert.getName());
             expertMap.put("date",expert.getDate());
             expertMap.put("message",expert.getMessage());
+            expertMap.put("newMsgCount",expert.getNewMsgCount());
             expertMap.put("id",expert.getId());
             experts.add(expertMap);
-
         }
     }
 
     private void initExpertBarList(){
         //设置适配器
-        listViewAdaptor = new SimpleAdapter(getApplication(),experts,R.layout.view_person_center_expert_list,
-                new String[]{"name","message","date","id"},
+        listViewAdaptor = new SimpleAdapter(getApplication(),experts,R.layout.view_person_center_expert_list_new_msg,
+                new String[]{"name","message","date","newMsgCount","id"},
                 new int[]{R.id.person_center_expert_name,R.id.person_center_message,R.id.person_center_date,
-                        R.id.person_center_expert_id});
+                        R.id.person_center_message_center_msg_count,R.id.person_center_expert_id});
         expertList.setAdapter(listViewAdaptor);
         //设置是否显示加载中的状态栏（当滑动到最后一条数据时，显示）
         expertList.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -161,5 +161,6 @@ public class PersonCommunication extends BaseActivity{
     public void titleReturn(View view){
         finish();
     }
+
 
 }

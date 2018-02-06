@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/coversation_bg"
+    android:background="@drawable/chat_coversation_bg"
     android:gravity="bottom" >
 
     <RelativeLayout
@@ -31,7 +31,7 @@
                 android:layout_gravity="center"
                 android:indeterminate="true"
                 android:indeterminateBehavior="repeat"
-                android:indeterminateDrawable="@drawable/common_loading4"
+                android:indeterminateDrawable="@drawable/chat_common_loading4"
                 android:visibility="invisible" />
         </FrameLayout>
 

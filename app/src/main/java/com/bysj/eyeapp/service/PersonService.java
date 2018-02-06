@@ -29,4 +29,18 @@ public class PersonService {
         }
         return experts;
     }
+
+    public List<ExpertCommunicationVO> getExpertCommunicationNewMsgList(int limit,int page){
+        List<ExpertCommunicationVO> experts = new ArrayList<>();
+        for(int i = 0;i<10;i++){
+            ExpertCommunicationVO expert = new ExpertCommunicationVO();
+            expert.setDate("2015-02-02 08:20");
+            expert.setMessage("消息" + i + ":多喝热水");
+            expert.setName("专家" + i);
+            expert.setNewMsgCount(i);
+            expert.setId(i);
+            experts.add(expert);
+        }
+        return experts;
+    }
 }

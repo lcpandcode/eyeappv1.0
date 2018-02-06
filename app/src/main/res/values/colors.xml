@@ -13,6 +13,7 @@
     <color name="global_background">#FFFFFF</color>
     <color name="main_background">#FCFCFC</color><!--主界面的颜色：白色-->
     <color name="global_edittext_frame">#38ADFF</color><!--全局输入区域边框颜色-->
+    <color name="global_new_message_sign">@android:color/holo_red_dark</color><!--全局新消息提示背景颜色：一个红色小红点-->
     <color name="global_hint">#AEAEAE</color>
     <color name="global_edittext_background">#FFFFFF</color>
     <color name="global_cursor">#008000</color>
@@ -88,5 +89,7 @@
     <color name="black">@color/color_hei</color>
     <color name="holo_blue">#FF33E5B5</color>
     <color name="chat_background">#F2F2F2</color>
+    <!--消息中心-->
+    <color name="person_center_message_center_info">#AEAEAE</color>
 
 </resources>

@@ -14,13 +14,14 @@
             android:id="@+id/button_backward"
             style="@style/title_btn"
             android:visibility="visible"
+            android:clickable="true"
             android:onClick="titleReturn"
             android:text="@string/title_btn_return"/>
 
         <TextView
             android:id="@+id/text_title"
             style="@style/title_title"
-            android:text="专家交流记录"
+            android:text="最新消息"
             android:textColor="@color/title_title" />
 
         <TextView

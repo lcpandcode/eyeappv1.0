@@ -9,6 +9,15 @@ public class ExpertCommunicationVO {
     private String date;
     private String message;
     private int id;
+    private int newMsgCount = 0;
+
+    public int getNewMsgCount() {
+        return newMsgCount;
+    }
+
+    public void setNewMsgCount(int newMsgCount) {
+        this.newMsgCount = newMsgCount;
+    }
 
     public String getName() {
         return name;

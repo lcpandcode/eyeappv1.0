@@ -583,7 +583,7 @@
     </style>
 
     <style name="customEditText" parent="@android:style/Widget.EditText">
-        <item name="android:background">@drawable/edit_text</item>
+        <item name="android:background">@drawable/chat_edit_text</item>
     </style>
 
     <style name="customListView" parent="@android:style/Widget.ListView">

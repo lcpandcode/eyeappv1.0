@@ -66,7 +66,7 @@ public class FaceAdapter extends BaseAdapter {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 		if (position == GlobalApplication.NUM) {
-			viewHolder.faceIV.setImageResource(R.drawable.emotion_del_selector);
+			viewHolder.faceIV.setImageResource(R.drawable.chat_emotion_del_selector);
 			viewHolder.faceIV.setBackgroundDrawable(null);
 		} else {
 			int count = GlobalApplication.NUM * currentPage + position;
