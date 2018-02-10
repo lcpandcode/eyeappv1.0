@@ -3,12 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textColor="@color/colorAccent"
-        android:text="用眼情况页面" />
+<fragment
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/fragment_PersoncentreEye"
+    android:name="com.bysj.eyeapp.view.PersoncentreEyeFragment"
+    ></fragment>
 </LinearLayout>
 
