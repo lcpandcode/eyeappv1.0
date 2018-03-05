@@ -112,6 +112,34 @@ public class TestAstigmatismFragment extends Fragment {
 		rbtnsEye = thisView.findViewById(R.id.test_astigmatism_rbtns);
 		rbtnLeftEye = thisView.findViewById(R.id.test_astigmatism_rbtn_eye_left);
 		rbtnRightEye = thisView.findViewById(R.id.test_astigmatism_rbtn_eye_right);
+
+		//设置下拉刷新
+		//初始化下拉刷新功能
+		swipeRefreshLayout = (CustomSwipeRefreshLayout)thisView.findViewById(R.id.test_astigmatism_refresh);
+		//swipeRefreshLayout.setmListView((ListView) thisView.findViewById(R.id.));
+
+		//设置刷新时动画的颜色，可以设置4个
+		swipeRefreshLayout.setColorSchemeResources(R.color.global_refresh_loadbar_color1,
+				R.color.global_refresh_loadbar_color2,R.color.global_refresh_loadbar_color3);
+		//设置下拉刷新事件
+		swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+
+			@Override
+			public void onRefresh() {
+				//tv.setText("正在刷新");
+				// TODO Auto-generated method stub
+				new Handler().postDelayed(new Runnable() {
+
+					@Override
+					public void run() {
+						// TODO Auto-generated method stub
+						//tv.setText("刷新完成");
+						refresh();
+						swipeRefreshLayout.setRefreshing(false);
+					}
+				}, 0);
+			}
+		});
 		service = new TestService();
 		//初始化数据
 		try {
@@ -143,33 +171,6 @@ public class TestAstigmatismFragment extends Fragment {
 			}
 		});
 
-		//设置下拉刷新
-		//初始化下拉刷新功能
-		swipeRefreshLayout = (CustomSwipeRefreshLayout)thisView.findViewById(R.id.test_astigmatism_refresh);
-		//swipeRefreshLayout.setmListView((ListView) thisView.findViewById(R.id.));
-
-		//设置刷新时动画的颜色，可以设置4个
-		swipeRefreshLayout.setColorSchemeResources(R.color.global_refresh_loadbar_color1,
-				R.color.global_refresh_loadbar_color2,R.color.global_refresh_loadbar_color3);
-		//设置下拉刷新事件
-		swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-
-			@Override
-			public void onRefresh() {
-				//tv.setText("正在刷新");
-				// TODO Auto-generated method stub
-				new Handler().postDelayed(new Runnable() {
-
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						//tv.setText("刷新完成");
-						refresh();
-						swipeRefreshLayout.setRefreshing(false);
-					}
-				}, 0);
-			}
-		});
 	}
 
 	/**

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
+    android:layout_width="fill_parent"
+    android:orientation="vertical"
+    android:layout_height="fill_parent">
+
+    <!--自定义的标题栏-->
+    <LinearLayout
+        android:id="@+id/layout_titlebar"
+        style="@style/title">
+        <TextView
+            android:id="@+id/button_backward"
+            style="@style/title_btn"
+            android:visibility="visible"
+            android:clickable="true"
+            android:onClick="titleReturn"
+            android:text="@string/title_btn_return"/>
+
+        <TextView
+            android:id="@+id/text_title"
+            style="@style/title_title"
+            android:text="最新消息"
+            android:textColor="@color/title_title" />
+
+        <TextView
+            android:id="@+id/button_forward"
+            android:visibility="invisible"
+            style="@style/title_btn"
+            android:text="@string/title_btn_confirm"/>
+
+    </LinearLayout>
+
+
+    <com.bysj.eyeapp.util.CustomSwipeRefreshLayout
+        android:id="@+id/person_certer_bar_refresh"
+        style="@style/global_swipeRefreshLayout">
+        <ListView
+            android:id="@+id/person_center_expert_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </com.bysj.eyeapp.util.CustomSwipeRefreshLayout>
+
+</LinearLayout>

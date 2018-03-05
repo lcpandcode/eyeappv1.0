@@ -1,5 +1,6 @@
 package com.bysj.eyeapp.view;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -12,8 +13,13 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.bysj.eyeapp.exception.HttpException;
+import com.bysj.eyeapp.exception.UserException;
+import com.bysj.eyeapp.service.UserService;
 import com.bysj.eyeapp.util.CustomToast;
+import com.bysj.eyeapp.util.GlobalConst;
 import com.bysj.eyeapp.util.RegularUtil;
+import com.bysj.eyeapp.vo.UserVO;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +37,7 @@ public class RegisterActivity extends BaseActivity {
     private static final String REGISTER_REMIND_SEX = "请选择性别";
     private static final String REGISTER_REMIND_PHONE_ILLEGAL = "手机号非法";
     private static final String REGISTER_REMIND_CHECKCODE_ILLEGAL = "验证码非法";
+    private static final String REGISTER_REMIND_SUCCESS = "注册成功，将跳转到登录界面";
 
     //相关控件的变量
     private EditText nickNameEditText;
@@ -38,6 +45,8 @@ public class RegisterActivity extends BaseActivity {
     private EditText pwdEditText;
     private EditText checkCodeEditText;
     private RadioGroup sexRadioGroup;
+
+    private UserService service;
 
 
     @Override
@@ -51,6 +60,7 @@ public class RegisterActivity extends BaseActivity {
      * 初始化方法，主要初始化控件相关变量
      */
     private void init(){
+        service = new UserService();
         nickNameEditText = findViewById(R.id.register_nickName);
         phoneEditText = findViewById(R.id.register_phone);
         pwdEditText = findViewById(R.id.register_pwd);
@@ -94,27 +104,34 @@ public class RegisterActivity extends BaseActivity {
 
         //检验合法性
         if(!RegularUtil.phoneIsTrue(phone)){
-            Toast.makeText(getApplicationContext(),REGISTER_REMIND_PHONE_ILLEGAL,Toast.LENGTH_SHORT).show();
+            CustomToast.showToast(getApplicationContext(),REGISTER_REMIND_PHONE_ILLEGAL);
             return ;
         }else if(!RegularUtil.checkCodeIsTrue(checkCode)){
-            Toast.makeText(getApplicationContext(),REGISTER_REMIND_CHECKCODE_ILLEGAL,Toast.LENGTH_SHORT).show();
+            CustomToast.showToast(getApplicationContext(),REGISTER_REMIND_CHECKCODE_ILLEGAL);
             return ;
         }
-        //通过验证，吧字符组装为json
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("nickName",nickName);
-            jsonObject.put("phone",phone);
-            jsonObject.put("password",pwd);
-            jsonObject.put("checkCode",checkCode);
-            jsonObject.put("sex",sex);
-        } catch (JSONException e) {
-            Log.e("系统错误" , "相关注册字段无法转化为Json数组",e);
-        }
-        String registerInfo = jsonObject.toString();
-        Toast.makeText(getApplicationContext(),registerInfo,Toast.LENGTH_SHORT).show();
-        //下面进行登录验证通讯
 
+        //下面进行注册验证通讯
+        UserVO user = new UserVO();
+        user.setSex(sex);
+        user.setType("用户");
+        user.setNickName(nickName);
+        user.setPassword(pwd);
+        user.setPhone(phone);
+        try {
+            service.register(user);
+        } catch (HttpException e) {
+            e.printStackTrace();
+            CustomToast.showToast(getApplicationContext(), GlobalConst.REMIND_NET_ERROR);
+            return ;
+        } catch (UserException e){
+            e.printStackTrace();
+            CustomToast.showToast(getApplicationContext(), e.getMessage());
+            return ;
+        }
+        CustomToast.showToast(getApplicationContext(), REGISTER_REMIND_SUCCESS);
+        //跳转到登录界面
+        showLogin();
     }
 
     /**
@@ -138,5 +155,21 @@ public class RegisterActivity extends BaseActivity {
      */
     public void serviceRule(View view){
         //待完善
+    }
+
+    /**
+     * 跳转到登录界面
+     */
+    private void showLogin(){
+        Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * 获取验证码
+     */
+    public void getCheckCode(View view){
+        CustomToast.showToast(getApplicationContext(),"验证码短信平台没搞好，随便输个数字吧");
+
     }
 }

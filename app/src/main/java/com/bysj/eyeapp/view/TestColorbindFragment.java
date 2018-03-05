@@ -94,25 +94,6 @@ public class TestColorbindFragment extends Fragment {
 		option3 = thisView.findViewById(R.id.test_colorbind_option3);
 		option4 = thisView.findViewById(R.id.test_colorbind_option4);
 		swipeRefreshLayout = thisView.findViewById(R.id.test_colorbind_refresh);
-		service = new TestService();
-		//初始化数据
-		try {
-			questions = service.getTestQuestions(QUESTION_NUM, GlobalConst.TEST_TYPE_COLORBIND);
-		} catch (HttpException e) {
-			Log.e("网络错误：" ,e.getMessage());
-			CustomToast.showToast(getActivity(),GlobalConst.REMIND_NET_ERROR);
-			return ;
-		}
-		//初始化第一个答题页面
-		showNewQuestion(questions.get(nowAnswerQuestion));
-		//设置监听事件
-		btnNext.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				nextQuestion();
-			}
-		});
-
 		//初始化下拉刷新功能
 		swipeRefreshLayout = (CustomSwipeRefreshLayout)thisView.findViewById(R.id.test_colorbind_refresh);
 		//swipeRefreshLayout.setmListView((ListView) thisView.findViewById(R.id.));
@@ -139,6 +120,26 @@ public class TestColorbindFragment extends Fragment {
 				}, 0);
 			}
 		});
+		service = new TestService();
+		//初始化数据
+		try {
+			questions = service.getTestQuestions(QUESTION_NUM, GlobalConst.TEST_TYPE_COLORBIND);
+		} catch (HttpException e) {
+			Log.e("网络错误：" ,e.getMessage());
+			CustomToast.showToast(getActivity(),GlobalConst.REMIND_NET_ERROR);
+			return ;
+		}
+		//初始化第一个答题页面
+		showNewQuestion(questions.get(nowAnswerQuestion));
+		//设置监听事件
+		btnNext.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				nextQuestion();
+			}
+		});
+
+
 
 	}
 

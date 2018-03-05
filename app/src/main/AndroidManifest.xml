@@ -61,6 +61,8 @@
         <activity android:name=".KnowledgeViewPaperActivity" />
         <activity android:name=".KnowledgeAdvisoryActivity" />
         <activity android:name=".ForgetPassActivity"></activity>
+        <activity android:name=".ChatActivity"></activity>
+        <activity android:name=".PersonCommunicationNewMessage"></activity>
     </application>
 
 </manifest>

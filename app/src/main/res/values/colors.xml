@@ -3,7 +3,7 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    
+
     <!--全局统一颜色属性值定义-->
     <color name="global_label">#0A0A0A</color><!--全局label颜色，用于普通的文本显示-->
     <color name="global_btn">#4A5691</color> <!--全局按钮颜色-->
@@ -13,6 +13,7 @@
     <color name="global_background">#FFFFFF</color>
     <color name="main_background">#FCFCFC</color><!--主界面的颜色：白色-->
     <color name="global_edittext_frame">#38ADFF</color><!--全局输入区域边框颜色-->
+    <color name="global_new_message_sign">@android:color/holo_red_dark</color><!--全局新消息提示背景颜色：一个红色小红点-->
     <color name="global_hint">#AEAEAE</color>
     <color name="global_edittext_background">#FFFFFF</color>
     <color name="global_cursor">#008000</color>
@@ -36,8 +37,8 @@
     <color name="bg_center">#f0f0f0</color>
     <color name="mycenter_item_n">#ffffff</color>
     <color name="mycenter_item_p">#cecece</color>
-    
-    
+
+
     <!--登录界面颜色-->
     <color name="login_btn_register"></color><!--登录界面的注册、忘记密码按钮的字体颜色-->
 
@@ -62,5 +63,33 @@
     <color name="eyedata_bar_line">#AEAEDE</color>
     <color name="eyedata_bar_arc">#A9F5B1</color>
     <color name="eyedata_bar_arc_round">#FFFDC4</color>
+
+    <!--专家列表-->
+    <color name="person_center_expert_list_message">#AEAEAE</color>
+    <color name="person_center_expert_list_detail_background">#F2F2F2</color>
+    <color name="person_center_expert_list_detail_background_myself_font">#4A5691</color>
+    <!--聊天界面相关颜色-->
+    <color name="text_shadow_color">#66000000</color>
+    <drawable name="trans">@color/color_hei_8</drawable>
+    <color name="color_hei">#ff000000</color>
+    <color name="color_hei_8">#00000000</color>
+    <color name="color_cihei">#ff333333</color>
+    <color name="color_bai">#ffffffff</color>
+    <color name="color_bai_8">#ffffffff</color>
+    <color name="semi_transparent_w">#7fffffff</color>
+    <color name="thirty_transparent_black">#4d000000</color>
+    <color name="title_bg">#ff54acea</color>
+    <color name="button_unselected">#ff54acea</color>
+    <color name="transparent">@color/color_hei_8</color>
+    <color name="chat_title_name">@color/color_bai</color>
+    <color name="chat_text">@color/color_cihei</color>
+    <color name="chat_time">@color/color_bai</color>
+    <color name="white">#ffffffff</color>
+    <color name="semi_transparent">#7f000000</color>
+    <color name="black">@color/color_hei</color>
+    <color name="holo_blue">#FF33E5B5</color>
+    <color name="chat_background">#F2F2F2</color>
+    <!--消息中心-->
+    <color name="person_center_message_center_info">#AEAEAE</color>
 
 </resources>
