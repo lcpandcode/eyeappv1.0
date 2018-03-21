@@ -92,4 +92,10 @@
     <!--消息中心-->
     <color name="person_center_message_center_info">#AEAEAE</color>
 
+    <!--蓝光过滤界面-->
+    <color name="blurelayfilter_green">#1afa29</color>
+    <color name="blurelayfilter_yellow">#f4ea2a</color>
+    <color name="blurelayfilter_gray">#9C8E4A</color>
+    <color name="blurelayfilter_black">#2c2c2c</color>
+
 </resources>

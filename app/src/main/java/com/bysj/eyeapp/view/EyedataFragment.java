@@ -3,6 +3,7 @@ package com.bysj.eyeapp.view;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -101,7 +102,10 @@ public class EyedataFragment extends Fragment {
 
 
 
+
+
 	private void init(){
+		Log.e("error","test_error_init");
 		service = new EyedataService();
 		//初始化圆弧数据
 		arcView = getArcView();
@@ -176,9 +180,14 @@ public class EyedataFragment extends Fragment {
 	/**
 	 * 初始化用眼数据
 	 */
+	GlobalApplication application;
 	private void initEyedata(){
+		Log.e("error","test_error_initEyeData");
 		//从application中读取数据，如果没有数据，说明是初次加载
-		GlobalApplication application =  (GlobalApplication)getActivity().getApplication();
+		if(application==null){
+			application =  (GlobalApplication)getActivity().getApplication();
+		}
+
 		eyedata = (EyedataVO) application.getGlobalVar(APPLICATION_EYEDARA_TAG);
 		if(eyedata==null){
 			eyedata = service.getEyedataToday(getActivity());
@@ -278,8 +287,12 @@ public class EyedataFragment extends Fragment {
 	/**
 	 * dp 和 px之间的转换
 	 */
+	Resources rs;
 	private float dpToPx(float dpSize){
-		DisplayMetrics dm = getResources().getDisplayMetrics() ;
+		if(rs==null){
+			rs = getResources();
+		}
+		DisplayMetrics dm = rs.getDisplayMetrics() ;
 		return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpSize, dm);
 	}
 

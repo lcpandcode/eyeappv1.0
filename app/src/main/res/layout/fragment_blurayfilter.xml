@@ -4,9 +4,158 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="蓝光过滤界面1" />
+        android:text="护眼模式选择"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/global_label"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <RadioGroup
+            android:id="@+id/model"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/blurelayfilter_normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/blurelayfilter_selector"
+                android:button="@null"
+                android:textColor="@color/global_label"
+                android:layout_marginLeft="20dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/global_label"
+                android:text="正常"/>
+            <RadioButton
+                android:id="@+id/blurelayfilter_protecteye"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/blurelayfilter_selector"
+                android:button="@null"
+                android:layout_marginLeft="20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/global_label"
+                android:text="护眼"/>
+            <RadioButton
+                android:id="@+id/blurelayfilter_evening"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/blurelayfilter_selector"
+                android:button="@null"
+                android:layout_marginLeft="20dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/global_label"
+                android:text="夜间"/>
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <View
+        android:layout_margin="10dp"
+        style="@style/global_line"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/global_label"
+        android:text="背景颜色自定义"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"/>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center"
+        android:layout_marginRight="10dp">
+        <RadioGroup
+            android:id="@+id/color"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <RadioButton
+                android:id="@+id/blurelayfilter_green"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/blurelayfilter_green_selector"
+                android:button="@null"
+                android:layout_marginLeft="20dp"/>
+
+            <RadioButton
+                android:id="@+id/blurelayfilter_black"
+                android:button="@null"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/blurelayfilter_black_selector"
+                android:layout_marginLeft="20dp" />
+
+
+            <RadioButton
+                android:id="@+id/blurelayfilter_gray"
+                android:button="@null"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/blurelayfilter_gray_selector"
+                android:layout_marginLeft="20dp"/>
+
+            <RadioButton
+                android:id="@+id/blurelayfilter_yellow"
+                android:button="@null"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/blurelayfilter_yellow_selector"
+
+                android:layout_marginLeft="20dp"/>
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/global_label" />
+        <SeekBar
+            android:id="@+id/progress"
+            android:layout_width="0px"
+            android:layout_weight="8"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/text1"
+            android:maxHeight="2dp"
+            android:minHeight="2dp"
+            android:paddingBottom="3dp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="3dp"
+            android:progressDrawable="@drawable/layer_progress"
+            android:thumb="@drawable/shape_circle" />
+        <TextView
+            android:layout_width="0px"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textColor="@color/global_label"
+            android:text="200"/>
+    </LinearLayout>
+
+
+
 
 </LinearLayout>

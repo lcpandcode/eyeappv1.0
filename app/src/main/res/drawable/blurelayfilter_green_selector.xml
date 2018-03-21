@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
+  <!--被选中时（选择大概有以下四种状态）的按钮都统一显示为selected形式-->
+  <item android:state_checked="true"  android:drawable="@mipmap/blurelayfilter_green_select"></item>
+  <!--默认时按钮显示的样式-->
+  <item android:drawable="@mipmap/blurelayfilter_green" />
+</selector>
