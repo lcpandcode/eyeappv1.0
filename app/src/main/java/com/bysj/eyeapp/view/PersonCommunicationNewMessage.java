@@ -16,8 +16,11 @@ import android.widget.TextView;
 import com.bysj.eyeapp.service.PersonService;
 import com.bysj.eyeapp.util.CustomSwipeRefreshLayout;
 import com.bysj.eyeapp.util.CustomToast;
+import com.bysj.eyeapp.util.GlobalApplication;
+import com.bysj.eyeapp.util.GlobalConst;
 import com.bysj.eyeapp.util.RegularUtil;
 import com.bysj.eyeapp.vo.ExpertCommunicationVO;
+import com.bysj.eyeapp.vo.UserVO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -49,7 +52,8 @@ public class PersonCommunicationNewMessage extends BaseActivity{
      */
     private void init(){
         //初始化服务层类
-        service = new PersonService();
+        UserVO user = (UserVO) ((GlobalApplication)getApplication()).getGlobalVar(GlobalConst.TAG_USER);
+        service = new PersonService(user);
 
         expertList = findViewById(R.id.person_center_expert_list);
         swipeRefreshLayout = (CustomSwipeRefreshLayout)findViewById(R.id.person_certer_bar_refresh);
@@ -96,7 +100,7 @@ public class PersonCommunicationNewMessage extends BaseActivity{
             expertMap.put("name",expert.getName());
             expertMap.put("date",expert.getDate());
             expertMap.put("message",expert.getMessage());
-            expertMap.put("newMsgCount",expert.getNewMsgCount());
+            expertMap.put("newMsgCount",expert.getUnReadCount());
             expertMap.put("id",expert.getId());
             experts.add(expertMap);
         }
@@ -104,7 +108,7 @@ public class PersonCommunicationNewMessage extends BaseActivity{
 
     private void initExpertBarList(){
         //设置适配器
-        listViewAdaptor = new SimpleAdapter(getApplication(),experts,R.layout.view_person_center_expert_list_new_msg,
+        listViewAdaptor = new SimpleAdapter(getApplication(),experts,R.layout.view_person_center_expert_list,
                 new String[]{"name","message","date","newMsgCount","id"},
                 new int[]{R.id.person_center_expert_name,R.id.person_center_message,R.id.person_center_date,
                         R.id.person_center_message_center_msg_count,R.id.person_center_expert_id});

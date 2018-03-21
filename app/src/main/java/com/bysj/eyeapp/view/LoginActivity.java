@@ -72,8 +72,8 @@ public class LoginActivity extends BaseActivity {
 
         //通过验证，跳转至主界面
         GlobalApplication application = (GlobalApplication)getApplication();
-        application.putGlobalVar("user",user);
-        CustomToast.showToast(getApplicationContext(),"登录成功，准备跳转页面");
+        application.putGlobalVar(GlobalConst.TAG_USER,user);
+        CustomToast.showToast(getApplicationContext(),"登录成功");
         //判断是否有之前的操作界面，如有，直接跳转到之前的界面
         Intent intentGet = getIntent();
         if(intentGet!=null){

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -37,7 +38,12 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 
+import com.bysj.eyeapp.exception.HttpException;
+import com.bysj.eyeapp.exception.MessageException;
+import com.bysj.eyeapp.service.PersonService;
+import com.bysj.eyeapp.util.CustomToast;
 import com.bysj.eyeapp.util.GlobalApplication;
+import com.bysj.eyeapp.util.GlobalConst;
 import com.bysj.eyeapp.util.chat.adapter.FaceAdapter;
 import com.bysj.eyeapp.util.chat.adapter.FacePageAdeapter;
 import com.bysj.eyeapp.util.chat.adapter.MessageAdapter;
@@ -45,6 +51,9 @@ import com.bysj.eyeapp.util.chat.util.SharePreferenceUtil;
 import com.bysj.eyeapp.util.chat.view.CirclePageIndicator;
 import com.bysj.eyeapp.util.chat.view.JazzyViewPager;
 import com.bysj.eyeapp.util.chat.xlistview.MsgListView;
+import com.bysj.eyeapp.vo.ExpertCommunicationVO;
+import com.bysj.eyeapp.vo.MessageVO;
+import com.bysj.eyeapp.vo.UserVO;
 
 public class ChatActivity extends Activity
 		implements OnClickListener,OnTouchListener,MsgListView.IXListViewListener {
@@ -67,6 +76,11 @@ public class ChatActivity extends Activity
 	private int currentPage = 0;
 	private boolean isFaceShow = false;
 	private static int MsgPagerNum;
+
+	private int expertId;
+	private String expertName;
+	private PersonService service;
+	private UserVO user;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -78,11 +92,20 @@ public class ChatActivity extends Activity
 	}
 
 	private void initData() {
+		GlobalApplication application = (GlobalApplication) getApplication();
+		user = (UserVO) application.getGlobalVar(GlobalConst.TAG_USER);
+		service = new PersonService(user);
+		Intent intent = getIntent();
+		expertId = intent.getIntExtra("expertId",-1);
+		expertName = intent.getStringExtra("expertName");
+		int unreadMsgCount = intent.getIntExtra("unreadMsgCount",0);
 		mApplication = GlobalApplication.getInstance();
 		//SharePreference存储类
 		mSpUtil = new SharePreferenceUtil(this, "message_save");
 		//初始化消息列表适配器
-		mMessageAdapter = new MessageAdapter(this, initMsgData());
+		int limit = GlobalConst.LIMIT>unreadMsgCount?GlobalConst.LIMIT:unreadMsgCount;
+		mMessageAdapter = new MessageAdapter(this, initMsgData(limit));
+
 
 		//加载表情的列表
 		Set<String> keySet = GlobalApplication.getInstance().getFaceMap().keySet();
@@ -112,7 +135,7 @@ public class ChatActivity extends Activity
 
 		//标题栏控件
 		TextView mTitle = (TextView) findViewById(R.id.ivTitleName);
-		mTitle.setText("砖家A");
+		mTitle.setText(expertName);
 		TextView mTitleLeftBtn = (TextView) findViewById(R.id.ivTitleBtnLeft);
 		mTitleLeftBtn.setVisibility(View.VISIBLE);
 		mTitleLeftBtn.setOnClickListener(this);
@@ -183,17 +206,22 @@ public class ChatActivity extends Activity
 	}
 
 	//历史数据，在开始时显示
-	private List<ChatMessageItem> initMsgData() {
+	private List<ChatMessageItem> initMsgData(int limit) {
 		List<ChatMessageItem> msgList = new ArrayList<ChatMessageItem>();// 消息对象数组
+		try {
+			List<MessageVO> msgs = service.getMessageList(expertId,limit,1);
+			for(MessageVO msg : msgs){
+				ChatMessageItem msgItem = new ChatMessageItem();
+				msgItem.setComMeg(msg.isCome());
+				msgItem.setMessage(msg.getContent());
+				msgItem.setDate(msg.getDate());
+				msgList.add(msgItem);
+			}
+		} catch (HttpException e) {
+			Log.e(GlobalConst.REMIND_NET_ERROR,e.getMessage());
 
-		ChatMessageItem item1 = new ChatMessageItem(ChatMessageItem.MESSAGE_TYPE_TEXT,
-				mSpUtil.getNick(), System.currentTimeMillis(), "你好啊哈哈哈",
-				USER_HEAD_ICON, false, 0);
-		ChatMessageItem item2 = new ChatMessageItem(ChatMessageItem.MESSAGE_TYPE_TEXT,
-				mSpUtil.getNick(), System.currentTimeMillis(), "你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好",
-				EXPERT_HEAD_ICON, true, 0);
-		msgList.add(item1);
-		msgList.add(item2);
+		}
+
 		return msgList;
 
 	}
@@ -225,6 +253,12 @@ public class ChatActivity extends Activity
 
 				mMsgListView.setSelection(mMessageAdapter.getCount() - 1);
 				msgEt.setText("");
+				//发送消息
+				boolean isSuccess = sendMessage(msg);
+				if(!isSuccess){
+					CustomToast.showToast(getApplicationContext(),GlobalConst.MESSAGE_SEND_FAIL);
+					//改变颜色，待定
+				}
 				break;
 			case R.id.ivTitleBtnLeft:
 				finish();
@@ -385,7 +419,7 @@ public class ChatActivity extends Activity
 	@Override
 	public void onRefresh() {
 		MsgPagerNum++;
-		List<ChatMessageItem> msgList = initMsgData();
+		List<ChatMessageItem> msgList = initMsgData(GlobalConst.LIMIT);
 		int position = mMessageAdapter.getCount();
 		mMessageAdapter.setMessageList(msgList);
 		mMsgListView.stopRefresh();
@@ -399,6 +433,24 @@ public class ChatActivity extends Activity
 	public void onLoadMore() {
 		// TODO Auto-generated method stub
 
+	}
+
+	/**
+	 * 发送消息
+	 */
+	private boolean sendMessage(String message){
+		try {
+			service.sendMessage(expertId,message);
+		} catch (HttpException e) {
+			Log.e(GlobalConst.REMIND_NET_ERROR,e.getMessage());
+			CustomToast.showToast(getApplicationContext(),GlobalConst.REMIND_NET_ERROR + GlobalConst.MESSAGE_SEND_FAIL);
+			return false;
+		} catch (MessageException e){
+			Log.e(GlobalConst.SYSTEM_ERROR,e.getMessage());
+			CustomToast.showToast(getApplicationContext(),GlobalConst.SYSTEM_ERROR + GlobalConst.MESSAGE_SEND_FAIL);
+			return false;
+		}
+		return true;
 	}
 
 	private JazzyViewPager.TransitionEffect mEffects[] = { JazzyViewPager.TransitionEffect.Standard,

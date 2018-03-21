@@ -16,8 +16,11 @@ import android.widget.TextView;
 import com.bysj.eyeapp.service.PersonService;
 import com.bysj.eyeapp.util.CustomSwipeRefreshLayout;
 import com.bysj.eyeapp.util.CustomToast;
+import com.bysj.eyeapp.util.GlobalApplication;
+import com.bysj.eyeapp.util.GlobalConst;
 import com.bysj.eyeapp.util.RegularUtil;
 import com.bysj.eyeapp.vo.ExpertCommunicationVO;
+import com.bysj.eyeapp.vo.UserVO;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,7 +49,8 @@ public class PersonMessage extends BaseActivity{
      */
     private void init(){
         //初始化服务层类
-        service = new PersonService();
+        UserVO user = (UserVO) ((GlobalApplication)getApplication()).getGlobalVar(GlobalConst.TAG_USER);
+        service = new PersonService(user);
     }
 
 

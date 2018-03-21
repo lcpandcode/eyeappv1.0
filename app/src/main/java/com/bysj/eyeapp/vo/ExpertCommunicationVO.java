@@ -9,15 +9,17 @@ public class ExpertCommunicationVO {
     private String date;
     private String message;
     private int id;
-    private int newMsgCount = 0;
+    private int unReadCount = 0;
 
-    public int getNewMsgCount() {
-        return newMsgCount;
+    public int getUnReadCount() {
+        return unReadCount;
     }
 
-    public void setNewMsgCount(int newMsgCount) {
-        this.newMsgCount = newMsgCount;
+    public void setUnReadCount(int unReadCount) {
+        this.unReadCount = unReadCount;
     }
+
+
 
     public String getName() {
         return name;

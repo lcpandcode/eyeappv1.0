@@ -5,11 +5,23 @@
     android:orientation="vertical" >
     <LinearLayout
         style="@style/person_center_expert_list">
-        <TextView
+        <LinearLayout
+            android:background="@mipmap/expert_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:drawableLeft="@mipmap/expert_img"/>
+            android:layout_marginTop="10dp"
+            android:gravity="right">
+            <TextView
+                android:id="@+id/person_center_message_center_msg_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:paddingLeft="4dp"
+                android:paddingRight="4dp"
+                android:text="2"
+                android:textColor="@color/white"
+                android:background="@drawable/global_new_message_sign_background"/>
+        </LinearLayout>
         <LinearLayout
             android:layout_width="wrap_content"
             android:orientation="vertical"
@@ -19,7 +31,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:id="@+id/person_center_expert_name"
-                android:text="专家111"
+                android:text="梁灿培"
                 android:textColor="@color/global_label"
                 android:layout_height="wrap_content" />
             <TextView

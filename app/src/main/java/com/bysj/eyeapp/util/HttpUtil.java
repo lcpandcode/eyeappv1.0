@@ -39,8 +39,8 @@ public class HttpUtil {
     private static final String HOST = GlobalConst.HOST;//远程主机地址
     public static final String ERROR_IO = "网络IO出错，请检查网络";
     public static final String ERROR_TIMEOUT = "网络超时";
-    public static final int CONNECT_TIME_LIMIT = 3;//连接请求最大时间：默认为3秒为超时
-    public static final int READ_TIME_LIMIT = 5;//读数据请求最大时间：默认为5秒为超时
+    public static final int CONNECT_TIME_LIMIT = 6;//连接请求最大时间：默认为3秒为超时
+    public static final int READ_TIME_LIMIT = 10;//读数据请求最大时间：默认为5秒为超时
 
     private  static String token ="" ;
 
