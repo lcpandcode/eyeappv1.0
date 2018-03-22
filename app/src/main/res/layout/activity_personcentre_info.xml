@@ -21,13 +21,14 @@
 
         <TextView
             style="@style/person_centre_info_label"
-            android:text="昵称" />
+            android:text="手机" />
 
         <EditText
-            android:id="@+id/personcentre_nickname"
+            android:id="@+id/personcentre_phone"
             style="@style/person_centre_info_textEdit"
             android:ems="10"
-            android:inputType="date" />
+            android:focusable="false"
+            android:inputType="text" />
 
     </LinearLayout>
     <View style="@style/global_line"
@@ -47,7 +48,7 @@
             android:id="@+id/personcentre_password"
             style="@style/person_centre_info_textEdit"
             android:ems="10"
-            android:inputType="date" />
+            android:inputType="textPassword" />
 
     </LinearLayout>
     <View style="@style/global_line"
@@ -61,13 +62,13 @@
 
     <TextView
         style="@style/person_centre_info_label"
-        android:text="手机" />
+        android:text="昵称" />
 
     <EditText
-        android:id="@+id/personcentre_phone"
+        android:id="@+id/personcentre_nickname"
         style="@style/person_centre_info_textEdit"
         android:ems="10"
-        android:inputType="date" />
+        android:inputType="text" />
 
     </LinearLayout>
     <View style="@style/global_line"
@@ -87,7 +88,7 @@
         android:id="@+id/personcentre_sex"
         style="@style/person_centre_info_textEdit"
         android:ems="10"
-        android:inputType="date" />
+        android:inputType="text" />
 
     </LinearLayout>
     <View style="@style/global_line"
@@ -98,8 +99,10 @@
         android:id="@+id/btn_changePersonInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/global_btn"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
+        android:onClick="updatePersonInfo"
         android:text="修改个人信息"/>
 
 </LinearLayout>

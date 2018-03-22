@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TabHost;
 import android.widget.Toast;
 
 public class PersonFragment extends Fragment {
@@ -44,8 +45,12 @@ public class PersonFragment extends Fragment {
 					startActivity(intent1);
 					break;
 				case R.id.button_person_eye:
-					Intent intent2 = new Intent(getActivity(),PersonEye.class);
-					startActivity(intent2);
+//					Intent intent2 = new Intent(getActivity(),PersonEye.class);
+//					startActivity(intent2);
+					MainActivity activity = (MainActivity)getActivity();
+					TabHost tabHost = activity.getTabHost();
+					tabHost.setCurrentTabByTag("eyedata");
+					activity.setTitle(R.string.title_eyedata);
 					break;
 				case R.id.button_person_train:
 					Intent intent3 = new Intent(getActivity(),PersonTrain.class);

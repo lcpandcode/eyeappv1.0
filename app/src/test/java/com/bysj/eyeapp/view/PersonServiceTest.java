@@ -20,7 +20,7 @@ public class PersonServiceTest {
     PersonService service = null;
     public void init(){
         try {
-            user = new UserService().login("15521228172","123456");
+            user = new UserService().login("15521228173","123456789");
             service = new PersonService(user);
         } catch (HttpException e) {
             e.printStackTrace();
@@ -61,6 +61,23 @@ public class PersonServiceTest {
         try {
             init();
             service.sendMessage(5,"草拟");
+            int a = 0;
+        } catch (HttpException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Test
+    public void updateInfoTest(){
+        try {
+            init();
+            UserService userService = new UserService();
+            UserVO user = new UserVO();
+            user.setNickName("小培培");
+            user.setPassword("123456");
+            user.setSex("男");
+            userService.updateUserInfo(user);
             int a = 0;
         } catch (HttpException e) {
             e.printStackTrace();

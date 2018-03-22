@@ -76,7 +76,7 @@ public class LoginActivity extends BaseActivity {
         CustomToast.showToast(getApplicationContext(),"登录成功");
         //判断是否有之前的操作界面，如有，直接跳转到之前的界面
         Intent intentGet = getIntent();
-        if(intentGet!=null){
+        if(intentGet!=null && intentGet.getExtras()!=null){
             //判断是否有跳转标记值
             if(intentGet.getExtras().get(GlobalConst.LOGIN_TO_OTHER_UI_TAG)!=null){
                 finish();

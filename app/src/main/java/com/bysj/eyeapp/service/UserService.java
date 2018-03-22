@@ -22,6 +22,8 @@ public class UserService {
     private final static String REMIND_PASS_ERROR = "密码输入不合法";
     private final static String LOGIN_PATH = "/user/login.do";
     private final static  String REGISTER_PATH = "/user/register.do";
+    private final static  String UPDATEINFO_PATH = "/user/update_information.do";
+
 
     public UserVO login(String phone,String password) throws HttpException {
         UserVO user = new UserVO();
@@ -72,6 +74,19 @@ public class UserService {
         int status = (Integer) resultMap.get("status");
         if(status!=0){
             throw new UserException("注册失败：" + resultMap.get("msg").toString());
+        }
+    }
+
+    public void updateUserInfo(UserVO user) throws HttpException {
+        Map<String,String> params = new HashMap<>();
+        params.put("nickName",user.getNickName());
+        params.put("sex",user.getSex());
+        params.put("password",user.getPassword());
+        String result = HttpUtil.synPost(UPDATEINFO_PATH,params);
+        Map<String,Object> resultMap = (Map<String,Object>) JavaBeanUtil.jsonToObj(result);
+        int status = (Integer) resultMap.get("status");
+        if(status!=0){
+            throw new UserException("更新失败：" + resultMap.get("msg").toString());
         }
     }
 

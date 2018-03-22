@@ -271,6 +271,10 @@ public class MainActivity extends BaseActivity {
 		return false;
 	}
 
+	public TabHost getTabHost(){
+		return  this.tabHost;
+	}
+
 
 
 
