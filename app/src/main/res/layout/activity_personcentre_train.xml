@@ -10,5 +10,9 @@
         android:layout_weight="1"
         android:textColor="@color/colorAccent"
         android:text="眼部训练记录页面" />
+    <ListView
+        android:id="@+id/person_center_train_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>
 

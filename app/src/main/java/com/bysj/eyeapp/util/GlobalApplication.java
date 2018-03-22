@@ -6,9 +6,14 @@ package com.bysj.eyeapp.util;
 
 import android.app.Application;
 import android.app.NotificationManager;
+import android.content.Intent;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bysj.eyeapp.util.chat.util.SharePreferenceUtil;
 import com.bysj.eyeapp.view.R;
+import com.bysj.eyeapp.view.TestAstigmatismResultViewActivity;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -194,5 +199,42 @@ public class GlobalApplication extends Application {
 
         mFaceMap.put("[右太极]", R.mipmap.f105);
         mFaceMap.put("[闭嘴]", R.mipmap.f106);
+    }
+
+
+    /**
+     * 为了方便，这里是处理测试记录跳转的方法，后面可能需要重构
+     * @param view
+     */
+    public void viewTrainDetail(View view){
+        LinearLayout linearLayout = (LinearLayout)view.getParent();
+        TextView textViewId = (TextView)linearLayout.getChildAt(1);
+        int id = Integer.parseInt(textViewId.getText().toString());
+        String type = ((TextView)linearLayout.getChildAt(2)).getText().toString();
+        if("色盲".equals(type)){
+            Intent intent = new Intent();
+            intent.putExtra("id",id);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+            intent.setClass(this, TestAstigmatismResultViewActivity.class);
+            startActivity(intent);
+        } else if("视力".equals(type)){
+            Intent intent = new Intent();
+            intent.putExtra("id",id);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+            intent.setClass(this, TestAstigmatismResultViewActivity.class);
+            startActivity(intent);
+        } else if("敏感度".equals(type)){
+            Intent intent = new Intent();
+            intent.putExtra("id",id);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+            intent.setClass(this, TestAstigmatismResultViewActivity.class);
+            startActivity(intent);
+        }else {
+            Intent intent = new Intent();
+            intent.putExtra("id",id);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
+            intent.setClass(this, TestAstigmatismResultViewActivity.class);
+            startActivity(intent);
+        }
     }
 }

@@ -15,6 +15,8 @@ import com.bysj.eyeapp.util.JavaBeanUtil;
 import com.bysj.eyeapp.util.RegularUtil;
 import com.bysj.eyeapp.vo.ExpertCommunicationVO;
 import com.bysj.eyeapp.vo.MessageVO;
+import com.bysj.eyeapp.vo.PersonTrainVO;
+import com.bysj.eyeapp.vo.TestResultVO;
 import com.bysj.eyeapp.vo.UserVO;
 
 import java.text.SimpleDateFormat;
@@ -221,5 +223,38 @@ public class PersonService {
         }
     }
 
+    public List<PersonTrainVO> getTrainList(){
+        List<PersonTrainVO> trains = new ArrayList<>();
+        for(int i=1;i<11;i++){
+            PersonTrainVO t1 = new PersonTrainVO();
+            t1.setTrainDate("2017-08-08 08:20");
+            if(i%4==1){
+                t1.setType("色盲");
+            }else if(i%4==2){
+                t1.setType("散光");
+            }else if(i%4==3){
+                t1.setType("敏感度");
+            }else {
+                t1.setType("视力");
+            }
+            t1.setTrainId(1);
+            trains.add(t1);
+        }
+        return trains;
+    }
+
+    /**
+     * 查询测试记录详情
+     * @param id 测试记录id
+     * @return
+     */
+    public TestResultVO getTrainDetail(int id){
+        TestResultVO result = new TestResultVO();
+        result.setEye("左");
+        result.setType("色盲");
+        result.setCorrectRate(20);
+        result.setTestResult(50.2);
+        return result;
+    }
 
 }

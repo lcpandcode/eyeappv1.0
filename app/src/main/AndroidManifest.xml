@@ -65,6 +65,7 @@
         <activity android:name=".ForgetPassActivity"></activity>
         <activity android:name=".ChatActivity"></activity>
         <activity android:name=".PersonCommunicationNewMessage"></activity>
+        <activity android:name=".TestAstigmatismResultViewActivity"></activity>
     </application>
 
 </manifest>

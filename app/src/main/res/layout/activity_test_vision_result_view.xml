@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_main"
+    android:layout_width="fill_parent"
+    android:orientation="vertical"
+    android:layout_height="fill_parent">
+
+    <!--自定义的标题栏-->
+    <LinearLayout
+        android:id="@+id/layout_titlebar"
+        style="@style/title">
+        <TextView
+            android:id="@+id/button_backward"
+            style="@style/title_btn"
+            android:visibility="visible"
+            android:onClick="titleReturn"
+            android:drawableLeft="@mipmap/title_btn_return"
+            android:text="@string/title_btn_return"/>
+
+        <TextView
+            android:id="@+id/text_title"
+            style="@style/title_title"
+            android:text="@string/test_vision_result"
+            android:textColor="@color/title_title" />
+
+        <TextView
+            android:id="@+id/button_forward"
+            android:visibility="invisible"
+            style="@style/title_btn"
+            android:text="@string/title_btn_confirm"/>
+
+    </LinearLayout>
+    <LinearLayout
+        style="@style/test_result_bar">
+        <TextView
+            style="@style/test_result_bar_content"
+            android:text="@string/test_result_eye"/>
+        <TextView
+            android:id="@+id/test_vision_result_eye"
+            style="@style/test_result_bar_content_num"
+            android:text="左眼"/>
+    </LinearLayout>
+    <View
+        style="@style/test_result_line"/>
+    <LinearLayout
+        style="@style/test_result_bar">
+        <TextView
+            style="@style/test_result_bar_content"
+            android:text="@string/test_result_truerate"/>
+        <TextView
+            android:id="@+id/test_vision_result_truerate"
+            style="@style/test_result_bar_content_num"
+            android:text="95%"/>
+    </LinearLayout>
+    <View
+        style="@style/test_result_line"/>
+    <LinearLayout
+        style="@style/test_result_bar">
+        <TextView
+            style="@style/test_result_bar_content"
+            android:text="@string/test_vision_num"/>
+        <TextView
+            style="@style/test_result_bar_content_num"
+            android:textSize="15dp"
+            android:text="5.0"/>
+    </LinearLayout>
+    <View
+        style="@style/test_result_line"/>
+    <LinearLayout
+        style="@style/test_result_bar">
+        <TextView
+            style="@style/test_result_bar_content"
+            android:text="@string/test_result"/>
+        <TextView
+            android:id="@+id/test_vision_result_result"
+            style="@style/test_result_bar_content_num"
+            android:textSize="15dp"
+            android:text="@string/test_vision_result_normal"/>
+    </LinearLayout>
+    <View
+        style="@style/test_result_line"/>
+    <LinearLayout
+        style="@style/test_result_bar">
+        <TextView
+            style="@style/test_result_bar_content"
+            android:text="您近视可能性："/>
+        <TextView
+            android:id="@+id/test_vision_result_probability"
+            style="@style/test_result_bar_content_num"
+            android:text="1%"/>
+    </LinearLayout>
+    <View
+        style="@style/test_result_line"/>
+
+    <LinearLayout
+        style="@style/test_result_bar">
+        <TextView
+            style="@style/test_result_bar_description_content"
+            android:layout_height="wrap_content"
+            android:text="@string/test_result_sensitivity_description"/>
+    </LinearLayout>
+    <LinearLayout
+        style="@style/test_result_bar_description">
+        <TextView
+            style="@style/test_result_bar_description_content"
+            android:layout_height="wrap_content"
+            android:text="@string/test_result_description"/>
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>
