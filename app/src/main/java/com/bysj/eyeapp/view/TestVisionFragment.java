@@ -237,21 +237,30 @@ public class TestVisionFragment extends Fragment {
 							public void onClick(DialogInterface dialog,int id) {
 								String result = userInput.getText().toString();
 								if(RegularUtil.strIsEmpty(result)){
-									textView.setText(REMIND_INPUT_DISTANCE);
-									textView.setTextColor(getActivity().getResources()
-											.getColor(R.color.test_vision_distance_input_remind));
-									//return;
+//									textView.setText(REMIND_INPUT_DISTANCE);
+//									textView.setTextColor(getActivity().getResources()
+//											.getColor(R.color.test_vision_distance_input_remind));
+									CustomToast.showToast(getActivity(),REMIND_INPUT_DISTANCE);
+									initDistance();
+									return;
 								}else if(!RegularUtil.strCanToFloat(result)){
-									textView.setText(REMIND_INPUT_DISTANCE_NOT_NUM);
-									textView.setTextColor(getActivity().getResources()
-											.getColor(R.color.test_vision_distance_input_remind));
-									//return;
+//									textView.setText(REMIND_INPUT_DISTANCE_NOT_NUM);
+//									textView.setTextColor(getActivity().getResources()
+//											.getColor(R.color.test_vision_distance_input_remind));
+									CustomToast.showToast(getActivity(),REMIND_INPUT_DISTANCE_NOT_NUM);
+									initDistance();
+									return;
+								}else if(Float.parseFloat(result)>100 || Float.parseFloat(result)<50){
+									CustomToast.showToast(getActivity(),"为确保图标显示效果，请输入50-100之间的数字");
+									initDistance();
+									return;
 								}
 								testDistance = Float.parseFloat(result);
 								//初始化数据
 								questions = service.getVisionQuestions(testDistance,VISION_NUM);
 								//初始化第一个答题页面
-								showNewQuestion(questions.get(nowAnswerQuestion));
+								nextQuestion();
+								//showNewQuestion(questions.get(nowAnswerQuestion));
 							}
 						})
 				.setNegativeButton("取消",
@@ -572,7 +581,7 @@ public class TestVisionFragment extends Fragment {
 			screenInches = diagonal/(double)dens;
 		}
 
-		CustomToast.showToast(getActivity(),screenInches + "");
+		//CustomToast.showToast(getActivity(),screenInches + "");
 		return (float)screenInches;
 	}
 

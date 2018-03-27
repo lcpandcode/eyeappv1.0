@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">eyeapp1</string>
+    <string name="app_name">eyeapp2</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
@@ -62,7 +62,7 @@
     <string name="test_vision_result_little">轻微近视</string>
     <string name="test_vision_result_medium">一定程度近视</string>
     <string name="test_vision_result_serious">近视较严重</string>
-    <string name="test_vision_distanceinput">请输入手机和您的距离</string>
+    <string name="test_vision_distanceinput">请输入手机和您的距离(cm),为了保证图标显示效果，请输入50-100之间数字</string>
     <string name="test_result_good">良好</string>
     <string name="test_result_verygood">优秀</string>
     <string name="test_result_btn_submit">提交测试结果</string>
