@@ -230,6 +230,10 @@ public class PersonCommunication extends BaseActivity{
                 int expertId = Integer.parseInt(expertIdStr);
                 boolean readResult = readMessage(expertId,position);
                 if(readResult){
+                    //更新
+                    TextView unreadMsgTextView = (TextView)  view.findViewById(R.id.
+                            person_center_message_center_msg_count);
+                    unreadMsgTextView.setVisibility(View.INVISIBLE);
                     TextView expertName = (TextView)view.findViewById(R.id.person_center_expert_name);
                     showExpertCommunicationDetailActivity(expertId,expertName.getText().toString());
                 } else {
@@ -302,11 +306,12 @@ public class PersonCommunication extends BaseActivity{
      */
 
     private void goToLogin(){
-        Intent intent = new Intent();
-        //设置标志数据，登录完成跳回原来的提问界面
-        intent.putExtra(GlobalConst.LOGIN_TO_OTHER_UI_TAG,"PersonCommunication");
-        intent.setClass(getApplicationContext(),LoginActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent();
+//        //设置标志数据，登录完成跳回原来的提问界面
+//        intent.putExtra(GlobalConst.LOGIN_TO_OTHER_UI_TAG,"PersonCommunication");
+//        intent.setClass(getApplicationContext(),LoginActivity.class);
+//        startActivity(intent);
+        CustomToast.showToast(getApplication(),"您未登录，请先到个人中心登录");
     }
 
     /**
@@ -393,7 +398,7 @@ public class PersonCommunication extends BaseActivity{
             }else {
                 holder.msgCount.setText(count + "");
             }
-
+            holder.msg.setText(data.getMessage());
             return convertView;
         }
         public ViewHolder getHolder(){

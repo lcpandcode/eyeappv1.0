@@ -110,8 +110,8 @@ public class MessageAdapter extends BaseAdapter {
 		holder.time.setText(TimeUtil.getChatTime(item.getDate()));
 		// L.i("time: " + item.getDate());
 		holder.time.setVisibility(View.VISIBLE);
-		holder.head.setBackgroundResource(GlobalApplication.heads[item
-				.getHeadImg()]);
+		int imgHeadIndex = item.isComMeg()?0:1;
+		holder.head.setBackgroundResource(GlobalApplication.heads[imgHeadIndex]);
 		if (!isComMsg && !mSpUtil.getShowHead()) {
 			holder.head.setVisibility(View.GONE);
 		}

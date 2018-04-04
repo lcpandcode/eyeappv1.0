@@ -11,8 +11,8 @@ public class GlobalConst {
     //系统常量
     public static final String DATABASE_NAME = "eyeapp";
     public static final int DATABASE_VERSION = 1;
-    public static final String HOST = "http://120.78.69.141:8080/eyeapp";
-    //public static final String HOST = "http://localhost:8008";
+    //public static final String HOST = "http://120.78.69.141:8080/eyeapp";
+    public static final String HOST = "http://192.168.199.165:8008";
     public static final String DATE_PATTERN = "yyyy-MM-dd";
     public static final String DATETIME_PATTERN = "yyyy-MM-dd HH:mm:ss";
     public static final String EXPERT_LIST_PATH = "/message/specialist.do";

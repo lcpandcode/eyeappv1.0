@@ -197,7 +197,7 @@ public class HttpUtil {
         if("".equals(result.toString())){
             throw new HttpException(ERROR_IO);
         }
-        if ("".equals(token)) {
+        if ("".equals(token)|| (!"".equals(tokenTem.toString())&&!tokenTem.toString().equals(token)) ) {//|| (tokenTem.toString()!=null&&!tokenTem.toString().equals(token))
             token = tokenTem.toString();
         }
         return result.toString();
@@ -249,6 +249,8 @@ public class HttpUtil {
     public static String getToken(){
         return token;
     }
-
+    public static void seToken(String token){
+        token = HttpUtil.token;
+    }
 
 }

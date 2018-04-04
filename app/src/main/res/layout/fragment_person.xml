@@ -63,6 +63,28 @@
             android:onClick="doPersonCentreClick"
             />
 
+        <Button
+            android:id="@+id/button_person_login"
+            style="@style/person_centre_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/login"
+            android:drawableRight="@mipmap/centre_btn_arrow_right"
+            android:text="登录"
+            android:drawablePadding="10dip"
+            />
+
+        <Button
+            android:id="@+id/button_person_logout"
+            style="@style/person_centre_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/logout"
+            android:drawableRight="@mipmap/centre_btn_arrow_right"
+            android:text="注销"
+            android:drawablePadding="10dip"
+            />
+
 
 
 </LinearLayout>

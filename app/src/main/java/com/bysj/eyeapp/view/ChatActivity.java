@@ -221,7 +221,6 @@ public class ChatActivity extends Activity
 			Log.e(GlobalConst.REMIND_NET_ERROR,e.getMessage());
 
 		}
-
 		return msgList;
 
 	}

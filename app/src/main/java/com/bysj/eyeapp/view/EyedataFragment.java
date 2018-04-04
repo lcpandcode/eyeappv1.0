@@ -171,7 +171,6 @@ public class EyedataFragment extends Fragment {
 			timer = new Timer();
 			timer.schedule(timerTask,1000,1000);//每隔一秒更新数据
 
-
 		}
 
 	}

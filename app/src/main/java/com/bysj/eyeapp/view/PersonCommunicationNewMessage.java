@@ -95,6 +95,9 @@ public class PersonCommunicationNewMessage extends BaseActivity{
 
     private void initExpertData(){
         List<ExpertCommunicationVO> expertsData = service.getExpertCommunicationNewMsgList(10,1);
+        if(expertsData.size()==0){
+            CustomToast.showToast(getApplicationContext(),"无专家交流数据！");
+        }
         for(ExpertCommunicationVO expert : expertsData){
             Map<String,Object> expertMap = new HashMap<>();
             expertMap.put("name",expert.getName());
