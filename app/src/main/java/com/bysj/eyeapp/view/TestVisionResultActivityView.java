@@ -14,12 +14,11 @@ import com.bysj.eyeapp.exception.UserException;
 import com.bysj.eyeapp.service.TestService;
 import com.bysj.eyeapp.util.CustomToast;
 import com.bysj.eyeapp.util.GlobalConst;
-import com.bysj.eyeapp.util.RegularUtil;
 import com.bysj.eyeapp.vo.TestResultVO;
 
 import java.io.Serializable;
 
-public class TestVisionResultActivity extends BaseActivity {
+public class TestVisionResultActivityView extends BaseActivity {
 	private static final String REMIND_STRING_EMPTY = "测试结果字符不能为空";
 
 	//控件相关变量
@@ -39,7 +38,7 @@ public class TestVisionResultActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_test_vision_result);
+		setContentView(R.layout.activity_test_vision_result_view);
 
 		init();
 	}

@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.bysj.eyeapp.util.chat.util.SharePreferenceUtil;
 import com.bysj.eyeapp.view.R;
 import com.bysj.eyeapp.view.TestAstigmatismResultViewActivity;
+import com.bysj.eyeapp.view.TestColorbindResultActivity;
+import com.bysj.eyeapp.view.TestColorbindResultActivityView;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -211,27 +213,46 @@ public class GlobalApplication extends Application {
         TextView textViewId = (TextView)linearLayout.getChildAt(1);
         int id = Integer.parseInt(textViewId.getText().toString());
         String type = ((TextView)linearLayout.getChildAt(2)).getText().toString();
+        TextView textViewResult = (TextView)linearLayout.getChildAt(3);
+        TextView textViewCorrectRate = (TextView)linearLayout.getChildAt(4);
+        TextView textViewEye = (TextView)linearLayout.getChildAt(5);
+
+        String result = textViewResult.getText().toString();
+        String eye = textViewEye.getText().toString();
+        String correctRate = textViewCorrectRate.getText().toString();
         if("色盲".equals(type)){
             Intent intent = new Intent();
             intent.putExtra("id",id);
+            intent.putExtra("result",result);
+            intent.putExtra("eye",eye);
+            intent.putExtra("correctRate",correctRate);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
-            intent.setClass(this, TestAstigmatismResultViewActivity.class);
+            intent.setClass(this, TestColorbindResultActivityView.class);
             startActivity(intent);
         } else if("视力".equals(type)){
             Intent intent = new Intent();
             intent.putExtra("id",id);
+            intent.putExtra("result",result);
+            intent.putExtra("eye",eye);
+            intent.putExtra("correctRate",correctRate);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
             intent.setClass(this, TestAstigmatismResultViewActivity.class);
             startActivity(intent);
         } else if("敏感度".equals(type)){
             Intent intent = new Intent();
             intent.putExtra("id",id);
+            intent.putExtra("result",result);
+            intent.putExtra("eye",eye);
+            intent.putExtra("correctRate",correctRate);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
             intent.setClass(this, TestAstigmatismResultViewActivity.class);
             startActivity(intent);
         }else {
             Intent intent = new Intent();
             intent.putExtra("id",id);
+            intent.putExtra("result",result);
+            intent.putExtra("eye",eye);
+            intent.putExtra("correctRate",correctRate);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
             intent.setClass(this, TestAstigmatismResultViewActivity.class);
             startActivity(intent);

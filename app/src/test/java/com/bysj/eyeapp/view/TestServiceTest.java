@@ -1,6 +1,7 @@
 package com.bysj.eyeapp.view;
 
 import com.bysj.eyeapp.exception.HttpException;
+import com.bysj.eyeapp.service.PersonService;
 import com.bysj.eyeapp.service.TestService;
 import com.bysj.eyeapp.util.GlobalConst;
 import com.bysj.eyeapp.util.HttpUtil;
@@ -42,11 +43,12 @@ public class TestServiceTest {
 
     @Test
     public void submitTestResultTest(){
+        new PersonServiceTest().init();
         new HttpUtilTest().synPostTest();
         TestService service = new TestService();
         TestResultVO resultVO = new TestResultVO();
         resultVO.setCorrectRate(50);
-        resultVO.setTestResult(55.2);
+        resultVO.setTestResult("色盲33");
         resultVO.setType(GlobalConst.TEST_TYPE_COLORBIND);
         resultVO.setEye("");
         try {
@@ -64,5 +66,12 @@ public class TestServiceTest {
     }
 
 
+    @Test
+    public void testGetResult() throws HttpException {
+       new PersonServiceTest().init();
+       TestService service = new TestService();
+       service.getTestResult(1,5);
+
+    }
 
 }

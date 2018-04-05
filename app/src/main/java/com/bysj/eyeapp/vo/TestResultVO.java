@@ -15,7 +15,7 @@ public class TestResultVO {
 
     private String eye ;
 
-    private Double testResult ;
+    private String testResult ;
 
     private String type ;
 
@@ -59,11 +59,11 @@ public class TestResultVO {
         this.eye = eye;
     }
 
-    public Double getTestResult() {
+    public String getTestResult() {
         return testResult;
     }
 
-    public void setTestResult(Double testResult) {
+    public void setTestResult(String testResult) {
         this.testResult = testResult;
     }
 

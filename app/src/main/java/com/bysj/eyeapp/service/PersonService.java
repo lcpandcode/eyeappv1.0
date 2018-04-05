@@ -253,7 +253,7 @@ public class PersonService {
         result.setEye("左");
         result.setType("色盲");
         result.setCorrectRate(20);
-        result.setTestResult(50.2);
+        result.setTestResult(50.2 + "");
         return result;
     }
 

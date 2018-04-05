@@ -66,6 +66,9 @@
         <activity android:name=".ChatActivity"></activity>
         <activity android:name=".PersonCommunicationNewMessage"></activity>
         <activity android:name=".TestAstigmatismResultViewActivity"></activity>
+        <activity android:name=".TestColorbindResultActivityView"></activity>
+        <activity android:name=".TestVisionResultActivityView" />
+        <activity android:name=".TestSensitivityResultActivityView" />
     </application>
 
 </manifest>

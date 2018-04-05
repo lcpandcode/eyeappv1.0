@@ -20,7 +20,7 @@ public class PersonServiceTest {
     PersonService service = null;
     public void init(){
         try {
-            user = new UserService().login("15521228173","123456789");
+            user = new UserService().login("15521228172","123456");
             service = new PersonService(user);
         } catch (HttpException e) {
             e.printStackTrace();

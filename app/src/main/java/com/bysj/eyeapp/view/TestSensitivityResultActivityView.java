@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bysj.eyeapp.exception.HttpException;
 import com.bysj.eyeapp.exception.TestException;
@@ -21,7 +20,7 @@ import com.bysj.eyeapp.vo.TestResultVO;
 import java.io.Serializable;
 import java.text.DecimalFormat;
 
-public class TestSensitivityResultActivity extends BaseActivity {
+public class TestSensitivityResultActivityView extends BaseActivity {
     private static final String REMIND_STRING_EMPTY = "提交的字符不能为空";
 
     //控件相关变量
@@ -40,7 +39,7 @@ public class TestSensitivityResultActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_test_sensitivity_result);
+        setContentView(R.layout.activity_test_sensitivity_result_view);
 
         init();
     }

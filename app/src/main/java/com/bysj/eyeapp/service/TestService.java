@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.bysj.eyeapp.exception.BackstageException;
 import com.bysj.eyeapp.exception.HttpException;
+import com.bysj.eyeapp.exception.SystemException;
 import com.bysj.eyeapp.exception.TestException;
 import com.bysj.eyeapp.exception.UserException;
 import com.bysj.eyeapp.util.GlobalConst;
@@ -22,6 +23,7 @@ import com.bysj.eyeapp.vo.TestResultVO;
 import com.bysj.eyeapp.vo.TestSensitivityQuestionVO;
 import com.bysj.eyeapp.vo.TestVisionQuestionVO;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +36,7 @@ import java.util.Map;
 public class TestService {
     private static final String GET_QUESTION_PATH = "/eyetest/randomquestion.do";
     private static final String SUBMIT_TEST_RESULT = "/eyetest/submitquestion.do";
+    private static final String GET_TEST_RESULT = "/eyetest/gettest.do";
 
     /**
      * 获取num个问题并返回问题列表
@@ -210,4 +213,42 @@ public class TestService {
             throw new TestException(GlobalConst.REMIND_BACKSTAGE_ERROR);
         }
     }
+
+    public List<TestResultVO> getTestResult(int page,int limit) throws HttpException {
+        if( page <=0 || limit<=0){
+            throw new SystemException("参数错误");
+        }
+        Map<String,String> params = new HashMap<>();
+        params.put("pageNum",page+"");
+        params.put("pageSize",limit + "");
+        String result = HttpUtil.synGet(GET_TEST_RESULT,params);
+        Map<String,Object> resultMap = (Map<String,Object>)JavaBeanUtil.jsonToObj(result);
+        Integer status = (Integer)resultMap.get("status");
+        if(status==1){
+            //失败，抛异常并设置失败相关信息
+            throw new UserException(GlobalConst.REMIND_NOT_LOGIN);
+        }
+        Map<String,Object> dataMap = (Map<String,Object>)resultMap.get("data");
+        List<Map<String,Object>> dataList = (List<Map<String,Object>>)dataMap.get("list") ;
+        List<TestResultVO> list = new ArrayList<>();
+        for(Map<String,Object> map : dataList){
+            TestResultVO vo = mapToTestResultVO(map);
+            list.add(vo);
+        }
+        return list;
+    }
+
+    private TestResultVO mapToTestResultVO(Map<String,Object> map){
+        TestResultVO result = new TestResultVO();
+        result.setTestResult(map.get("testResult").toString());
+        result.setCorrectRate((Integer) map.get("correctRate"));
+        result.setType((String)map.get("type"));
+        String date = new SimpleDateFormat(GlobalConst.DATE_PATTERN).format(map.get("date"));
+        result.setDate(date);
+        result.setEye((String)map.get("eye"));
+        result.setId((Integer)map.get("id"));
+        return result;
+    }
+
+
 }

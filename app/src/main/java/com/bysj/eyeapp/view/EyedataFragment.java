@@ -181,7 +181,7 @@ public class EyedataFragment extends Fragment {
 	 */
 	GlobalApplication application;
 	private void initEyedata(){
-		Log.e("error","test_error_initEyeData");
+		//Log.e("error","test_error_initEyeData");
 		//从application中读取数据，如果没有数据，说明是初次加载
 		if(application==null){
 			application =  (GlobalApplication)getActivity().getApplication();

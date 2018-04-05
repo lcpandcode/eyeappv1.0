@@ -230,25 +230,25 @@ public class TestVisionFragment extends Fragment {
 	private void initMapVision(){
 		float [] VISION_ARR = new float[]{4.0f,4.1f,4.2f,4.3f,4.4f,4.5f,4.6f,4.7f,4.8f,4.9f,5.0f,5.1f,5.2f};
 		for(float i : VISION_ARR){
-			if(i==4.0){
+			if(i<=4.1){
 				mapVision.put(i,"近视大于650度");
-			}else if(i==4.1){
+			}else if(i<=4.2f){
 				mapVision.put(i,"近视550-600度");
-			}else if(i==4.2){
+			}else if(i<=4.3f){
 				mapVision.put(i,"近视500-550度");
-			}else if(i==4.3){
+			}else if(i<=4.4f){
 				mapVision.put(i,"近视450-500度");
 			}else if(i==4.4){
 				mapVision.put(i,"近视400-450度");
-			}else if(i==4.5){
+			}else if(i<=4.5f){
 				mapVision.put(i,"近视300-350度");
-			}else if(i==4.6){
+			}else if(i<=4.6f){
 				mapVision.put(i,"250-300度");
-			}else if(i==4.7){
+			}else if(i<=4.7f){
 				mapVision.put(i,"近视200-250度");
-			}else if(i==4.8){
+			}else if(i<=4.8f){
 				mapVision.put(i,"近视150-200度");
-			}else if(i==4.9){
+			}else if(i<=4.9f){
 				mapVision.put(i,"近视100-150度");
 			}else{
 				mapVision.put(i,"视力正常，无近视");
@@ -502,9 +502,10 @@ public class TestVisionFragment extends Fragment {
 	 */
 	private TestVisionResult getTestResult(){
 		TestVisionResult result = new TestVisionResult();
-		DecimalFormat df = new DecimalFormat("######0.00");
+
 		double trueRate = nowAnswerTrue/((double) (nowAnswerQuestion + 1)) * 100;
-		trueRate = Float.parseFloat(df.format(trueRate));
+		BigDecimal bg = new BigDecimal(trueRate);
+		trueRate = bg.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
 		result.setTrueRate(trueRate);//计算正确率
 //		if(result.getTrueRate()<SERIOUS){
 //			result.setResult(getResources().getString(R.string.test_result_serious));

@@ -68,18 +68,18 @@
     </LinearLayout>
     <View
         style="@style/test_result_line"/>
-    <LinearLayout
-        style="@style/test_result_bar">
-        <TextView
-            style="@style/test_result_bar_content"
-            android:text="该眼散光可能性："/>
-        <TextView
-            android:id="@+id/test_astigmatism_result_probability"
-            style="@style/test_result_bar_content_num"
-            android:text="1%"/>
-    </LinearLayout>
-    <View
-        style="@style/test_result_line"/>
+    <!--<LinearLayout-->
+        <!--style="@style/test_result_bar">-->
+        <!--<TextView-->
+            <!--style="@style/test_result_bar_content"-->
+            <!--android:text="该眼散光可能性："/>-->
+        <!--<TextView-->
+            <!--android:id="@+id/test_astigmatism_result_probability"-->
+            <!--style="@style/test_result_bar_content_num"-->
+            <!--android:text="1%"/>-->
+    <!--</LinearLayout>-->
+    <!--<View-->
+        <!--style="@style/test_result_line"/>-->
     <LinearLayout
         style="@style/test_result_bar_btn">
         <Button

@@ -33,9 +33,9 @@ public class TestAstigmatismFragment extends Fragment {
 	//控件变量
 	//字符串常量
 	final private static int QUESTION_NUM = 5;//作答个数默认10
-	final private static double SERIOUS = 0.5;//阈值：答题正确率小于SERIOUS判断测试结果为严重
-	final private static double MEDIUM = 0.7;//阈值：答题正确率小于MEDIUM判断测试结果为中等
-	final private static double LITTLE = 0.8;//阈值：答题正确率小于LITTLE判断测试结果为轻微患病
+	final private static double SERIOUS = 50.0;//阈值：答题正确率小于SERIOUS判断测试结果为严重
+	final private static double MEDIUM = 70.0;//阈值：答题正确率小于MEDIUM判断测试结果为中等
+	final private static double LITTLE = 95.0;//阈值：答题正确率小于LITTLE判断测试结果为轻微患病
 	final private static String TEST_RESULT_KEY = "散光测试结果";
 	final private static String REMIND_CANNOT_CHANGE_EYE = "您已开始答题，不能改变选中的眼睛";
 	final private static String REMIDN_CHOSE_EYE = "请先选择您要测试的眼睛！";
@@ -265,11 +265,11 @@ public class TestAstigmatismFragment extends Fragment {
 		TestAstigmatismResult result = new TestAstigmatismResult();
 		result.setTrueRate(nowAnswerTrue/((double) QUESTION_NUM) * 100);//计算正确率
 		if(result.getTrueRate()<SERIOUS){
-			result.setResult(getResources().getString(R.string.test_result_serious));
+			result.setResult("散光" + getResources().getString( R.string.test_result_serious));
 		}else if(result.getTrueRate()<MEDIUM){
-			result.setResult(getResources().getString(R.string.test_result_medium));
+			result.setResult(getResources().getString(R.string.test_result_medium) + "散光" );
 		}else if(result.getTrueRate()<LITTLE){
-			result.setResult(getResources().getString(R.string.test_result_little));
+			result.setResult(getResources().getString(R.string.test_result_little) + "散光");
 		}else {
 			result.setResult(getResources().getString(R.string.test_result_normal));
 		}

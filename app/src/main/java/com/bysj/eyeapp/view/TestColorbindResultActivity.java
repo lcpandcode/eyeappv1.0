@@ -60,10 +60,13 @@ public class TestColorbindResultActivity extends BaseActivity {
 		}else {
 			throw new RuntimeException("对象不可反序列化为TestColorbindResult对象");
 		}
+//		String correctRate = intent.getExtras().getString("correctRate");
+//		String result = intent.getExtras().getString("result");
+//		String probability = (100-Integer.parseInt(correctRate)) + "";
 		//设置数据
 		trueRate.setText(testResult.getTrueRate() + "%");
-		result.setText(testResult.getResult());
-		probability.setText(testResult.getProbability() + "%");
+		this.result.setText(testResult.getResult());
+		this.probability.setText(testResult.getProbability() + "%");
 
 	}
 
@@ -94,10 +97,9 @@ public class TestColorbindResultActivity extends BaseActivity {
 		}
 		//数据转换
 		int trueRateInt =  (int)Double.parseDouble(trueRate);
-		double probabilityDouble = Double.parseDouble(probability);
 		TestResultVO resultVO = new TestResultVO();
 		resultVO.setCorrectRate(trueRateInt);
-		resultVO.setTestResult(probabilityDouble);
+		resultVO.setTestResult(this.result.getText().toString());
 		resultVO.setType(GlobalConst.TEST_TYPE_COLORBIND);
 		resultVO.setEye("");
 		try {
