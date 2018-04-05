@@ -61,6 +61,7 @@
             style="@style/test_result_bar_content"
             android:text="@string/test_vision_num"/>
         <TextView
+            android:id="@+id/test_result_vision"
             style="@style/test_result_bar_content_num"
             android:textSize="15dp"
             android:text="5.0"/>
@@ -80,18 +81,18 @@
     </LinearLayout>
     <View
         style="@style/test_result_line"/>
-    <LinearLayout
-        style="@style/test_result_bar">
-        <TextView
-            style="@style/test_result_bar_content"
-            android:text="您近视可能性："/>
-        <TextView
-            android:id="@+id/test_vision_result_probability"
-            style="@style/test_result_bar_content_num"
-            android:text="1%"/>
-    </LinearLayout>
-    <View
-        style="@style/test_result_line"/>
+    <!--<LinearLayout-->
+        <!--style="@style/test_result_bar">-->
+        <!--<TextView-->
+            <!--style="@style/test_result_bar_content"-->
+            <!--android:text="您近视可能性："/>-->
+        <!--<TextView-->
+            <!--android:id="@+id/test_vision_result_probability"-->
+            <!--style="@style/test_result_bar_content_num"-->
+            <!--android:text="1%"/>-->
+    <!--</LinearLayout>-->
+    <!--<View-->
+        <!--style="@style/test_result_line"/>-->
     <LinearLayout
         style="@style/test_result_bar_btn">
         <Button
@@ -110,7 +111,7 @@
         <TextView
             style="@style/test_result_bar_description_content"
             android:layout_height="wrap_content"
-            android:text="@string/test_result_sensitivity_description"/>
+            android:text="注：视力正常一般为5.0"/>
     </LinearLayout>
     <LinearLayout
         style="@style/test_result_bar_description">

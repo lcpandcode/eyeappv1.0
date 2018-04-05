@@ -43,4 +43,14 @@ public class GlobalConst {
     public static final String VIEW_PAPER_ID_KEY = "文章id";
     public static final String TEST_UI = "测试界面";
     public static final String TAG_USER = "user";
+
+    public static final String COLORBIND_RED = "红色盲";
+    public static final String COLORBIND_BLURE = "蓝色盲";
+    public static final String COLORBIND_GREEN = "绿色盲";
+    public static final String COLORBIND_BLURE_GREEN = "蓝绿色盲";
+    public static final String COLORBIND_RED_GREEN = "红绿色盲";
+    public static final String COLORBIND_RED_BLURE = "红蓝色盲";
+    public static final String COLORBIND_NORMAL = "正常";
+
+
 }

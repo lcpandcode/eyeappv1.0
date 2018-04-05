@@ -27,7 +27,9 @@ import com.bysj.eyeapp.vo.TestColorbindQuestionVO;
 import com.bysj.eyeapp.vo.TestQuestionVO;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 色盲测试页面的Fragment
@@ -56,9 +58,12 @@ public class TestColorbindFragment extends Fragment {
 
 	//类数据相关变量
 	private int nowAnswerQuestion = 0;//当前作答数目
-	private List<TestQuestionVO> questions	;//题目列表
+	private List<TestColorbindQuestionVO> questions	;//题目列表
 	private int nowAnswerTrue = 0;//当前作答正确个数
 	private TestService service;//核心服务类，service层的类
+
+	//这个map用于记录用户答题过程细节：例如用户选了一个错误选项，这个错误选项表明他有红色盲，那么对应红色盲相关题目错误数目加1
+	private Map<String,Integer> mapResultCount = new HashMap<>();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -84,6 +89,7 @@ public class TestColorbindFragment extends Fragment {
 	}
 
 	private void init(){
+		initMapResult();
 		//初始化控件变量
 		btnNext = thisView.findViewById(R.id.test_colorbind_nextbtn);
 		questionImg = thisView.findViewById(R.id.test_question_colorbind_img);
@@ -123,7 +129,8 @@ public class TestColorbindFragment extends Fragment {
 		service = new TestService();
 		//初始化数据
 		try {
-			questions = service.getTestQuestions(QUESTION_NUM, GlobalConst.TEST_TYPE_COLORBIND);
+			questions = service.getColorBindTestQuestions(QUESTION_NUM, GlobalConst.TEST_TYPE_COLORBIND);
+
 		} catch (HttpException e) {
 			Log.e("网络错误：" ,e.getMessage());
 			CustomToast.showToast(getActivity(),GlobalConst.REMIND_NET_ERROR);
@@ -143,6 +150,12 @@ public class TestColorbindFragment extends Fragment {
 
 	}
 
+	private void initMapResult(){
+		mapResultCount.put(GlobalConst.COLORBIND_BLURE,0);
+		mapResultCount.put(GlobalConst.COLORBIND_RED,0);
+		mapResultCount.put(GlobalConst.COLORBIND_GREEN,0);
+	}
+
 	/**
 	 * 下一题按钮对应的事件
 	 */
@@ -158,7 +171,7 @@ public class TestColorbindFragment extends Fragment {
 		nowAnswerQuestion++;
 		if(nowAnswerQuestion<QUESTION_NUM){
 			//获取下一题
-			TestQuestionVO question = questions.get(nowAnswerQuestion);
+			TestColorbindQuestionVO question = questions.get(nowAnswerQuestion);
 			//清除上题的选项
 			options.clearCheck();
 			//更新页面问题
@@ -182,22 +195,30 @@ public class TestColorbindFragment extends Fragment {
 		if(nowAnswerQuestion>=questions.size()){
 			return ;
 		}
-		TestQuestionVO question = questions.get(nowAnswerQuestion);
+		TestColorbindQuestionVO question = questions.get(nowAnswerQuestion);
 		//获取选项值
 		int checkId = options.getCheckedRadioButtonId();
 		int choseOption = 0;
 		switch (checkId) {
 			case R.id.test_colorbind_option1:
 				choseOption = 1;
+				String detail1 = question.getOption1Detail();
+				setMapResultCount(detail1);
 				break;
 			case R.id.test_colorbind_option2:
 				choseOption = 2;
+				String detail2 = question.getOption2Detail();
+				setMapResultCount(detail2);
 				break;
 			case R.id.test_colorbind_option3:
 				choseOption = 3;
+				String detail3 = question.getOption3Detail();
+				setMapResultCount(detail3);
 				break;
 			case R.id.test_colorbind_option4:
 				choseOption = 4;
+				String detail4 = question.getOption4Detail();
+				setMapResultCount(detail4);
 				break;
 		}
 		if(question.getCorrectOption()==choseOption){
@@ -207,11 +228,42 @@ public class TestColorbindFragment extends Fragment {
 
 	}
 
+	private void setMapResultCount(String detail){
+		int greenCount = mapResultCount.get(GlobalConst.COLORBIND_GREEN);
+		int blureCount = mapResultCount.get(GlobalConst.COLORBIND_BLURE);
+		int redCount = mapResultCount.get(GlobalConst.COLORBIND_RED);
+		if(GlobalConst.COLORBIND_BLURE_GREEN.equals(detail)){
+			blureCount++;
+			greenCount++;
+		}else if(GlobalConst.COLORBIND_RED_BLURE.equals(detail)){
+			blureCount++;
+			redCount++;
+		} else if(GlobalConst.COLORBIND_RED_GREEN.equals(detail)){
+			redCount++;
+			greenCount++;
+		} else {
+			if(GlobalConst.COLORBIND_RED.equals(detail)){
+				redCount++;
+			}else if(GlobalConst.COLORBIND_BLURE.equals(detail)){
+				blureCount++;
+			}else if(GlobalConst.COLORBIND_GREEN.equals(detail)){
+				greenCount++;
+			}else {
+				if(!GlobalConst.COLORBIND_NORMAL.equals(detail)){
+					CustomToast.showToast(getActivity(),GlobalConst.SYSTEM_ERROR + ",色盲类型不存在");
+				}
+			}
+		}
+		mapResultCount.put(GlobalConst.COLORBIND_BLURE,blureCount);
+		mapResultCount.put(GlobalConst.COLORBIND_RED,redCount);
+		mapResultCount.put(GlobalConst.COLORBIND_GREEN,greenCount);
+	}
+
 
 	/**
 	 * 更新页面的问题区域（待完善）
 	 */
-	private void showNewQuestion(TestQuestionVO question){
+	private void showNewQuestion(TestColorbindQuestionVO question){
 		//设置图片展示的src属性待完善（需要发起请求获得Bitmap）
 		HttpUtil.getImgAndShow(getActivity(),GlobalConst.HOST + question.getImgUrl(),questionImg);
 		questionTitle.setText(question.getTitle());
@@ -228,15 +280,37 @@ public class TestColorbindFragment extends Fragment {
 	private TestColorbindResult getTestResult(){
 		TestColorbindResult result = new TestColorbindResult();
 		result.setTrueRate(nowAnswerTrue/((double) QUESTION_NUM) * 100);//计算正确率
-		if(result.getTrueRate()<SERIOUS){
-			result.setResult(getResources().getString(R.string.test_result_serious));
-		}else if(result.getTrueRate()<MEDIUM){
-			result.setResult(getResources().getString(R.string.test_result_medium));
-		}else if(result.getTrueRate()<LITTLE){
-			result.setResult(getResources().getString(R.string.test_result_medium));
-		}else {
-			result.setResult(getResources().getString(R.string.test_result_normal));
+//		if(result.getTrueRate()<SERIOUS){
+//			result.setResult(getResources().getString(R.string.test_result_serious));
+//		}else if(result.getTrueRate()<MEDIUM){
+//			result.setResult(getResources().getString(R.string.test_result_medium));
+//		}else if(result.getTrueRate()<LITTLE){
+//			result.setResult(getResources().getString(R.string.test_result_medium));
+//		}else {
+//			result.setResult(getResources().getString(R.string.test_result_normal));
+//		}
+		//统计色盲类型
+		int greenCount = mapResultCount.get(GlobalConst.COLORBIND_GREEN);
+		int blureCount = mapResultCount.get(GlobalConst.COLORBIND_BLURE);
+		int redCount = mapResultCount.get(GlobalConst.COLORBIND_RED);
+
+		StringBuffer sb = new StringBuffer();
+		if(greenCount>=2){
+			sb.append( GlobalConst.COLORBIND_GREEN + "  ");
 		}
+		if(redCount>=2){
+			sb.append(GlobalConst.COLORBIND_RED + "  ");
+		}
+		if(blureCount>=2){
+			sb.append(GlobalConst.COLORBIND_BLURE + "  ");
+		}
+		if(sb.toString().equals("")){
+			result.setResult("眼睛正常，无色盲" );
+		}else {
+			result.setResult("可能患有" + sb.toString());
+		}
+
+
 		//计算患色盲可能性
 		result.setProbability((int)(100-result.getTrueRate()));
 		//科学性，没有百分百事情
@@ -255,15 +329,16 @@ public class TestColorbindFragment extends Fragment {
 		nowAnswerTrue = 0;
 		//清空选中状态
 		options.clearCheck();
+		initMapResult();
 	}
 
 	/**
 	 * 下拉刷新方法
 	 */
 	private void refresh(){
-		List<TestQuestionVO> questionsNew;
+		List<TestColorbindQuestionVO> questionsNew;
 		try {
-			questionsNew = service.getTestQuestions(QUESTION_NUM, GlobalConst.TEST_TYPE_COLORBIND);
+			questionsNew = service.getColorBindTestQuestions(QUESTION_NUM, GlobalConst.TEST_TYPE_COLORBIND);
 		} catch (HttpException e) {
 			Log.e("网络错误：" ,e.getMessage());
 			CustomToast.showToast(getActivity(),GlobalConst.REMIND_NET_ERROR);

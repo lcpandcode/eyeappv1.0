@@ -73,6 +73,39 @@ public class TestService {
         return questions;
     }
 
+    public List<TestColorbindQuestionVO> getColorBindTestQuestions(int num, String type) throws HttpException {
+        if(num<1){
+            num = 1;
+        }
+        if(type==null){
+            throw new RuntimeException("type ：类型不能为空");
+        }
+        if(GlobalConst.TEST_TYPE_VISION.equals(type)){
+            //调用生成视力测试题目的方法。待完善
+
+        }
+
+        //代码待完善，测试需要直接返回
+        List<TestColorbindQuestionVO> questions = new ArrayList<>();
+        Map<String,String> params = new HashMap<>();
+        params.put("type",type);
+        params.put("questionsize",num + "");
+        String result = HttpUtil.synGet(GET_QUESTION_PATH,params);
+        Map<String,Object> resultMap = (Map<String,Object>)JavaBeanUtil.jsonToObj(result);
+        int status = (Integer) resultMap.get("status");
+        if(status==10){
+            throw new UserException(GlobalConst.REMIND_NOT_LOGIN);
+        }
+        if(status==1){
+            throw new BackstageException(GlobalConst.REMIND_BACKSTAGE_ERROR);
+        }
+        List<Map<String,Object>> data = (List<Map<String,Object>>)resultMap.get("data");
+        for(Map<String,Object> m : data){
+            questions.add(mapToTestColorBindQuestion(m));
+        }
+        return questions;
+    }
+
 
 
     /**
@@ -113,6 +146,31 @@ public class TestService {
         question.setOption2((String)map.get("option2"));
         question.setOption3((String)map.get("option3"));
         question.setOption4((String)map.get("option4"));
+        question.setTitle((String)map.get("title"));
+        question.setCorrectOption((Integer) map.get("correctOption"));
+        return question;
+    }
+
+    private TestColorbindQuestionVO mapToTestColorBindQuestion(Map<String,Object> map){
+        TestColorbindQuestionVO question = new TestColorbindQuestionVO();
+        question.setId((Integer)map.get("id"));
+        question.setImgUrl((String)map.get("imgUrl"));
+        question.setCorrectOption((Integer)map.get("correctOption"));
+        //分割option中的说明文字
+        String [] op1 = ((String)map.get("option1")).split("\\|");
+        String [] op2 = ((String)map.get("option2")).split("\\|");
+        String [] op3 = ((String)map.get("option3")).split("\\|");
+        String [] op4 = ((String)map.get("option4")).split("\\|");
+        question.setOption1(op1[0]);
+        question.setOption2(op2[0]);
+        question.setOption3(op3[0]);
+        question.setOption4(op4[0]);
+
+        question.setOption1Detail(op1[1]);
+        question.setOption2Detail(op2[1]);
+        question.setOption3Detail(op3[1]);
+        question.setOption4Detail(op4[1]);
+
         question.setTitle((String)map.get("title"));
         question.setCorrectOption((Integer) map.get("correctOption"));
         return question;

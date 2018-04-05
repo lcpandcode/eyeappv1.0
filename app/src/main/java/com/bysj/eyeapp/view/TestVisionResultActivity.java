@@ -29,6 +29,7 @@ public class TestVisionResultActivity extends BaseActivity {
 	private Button submit;
 	private Button retest;
 	private TextView testEye;
+	private TextView vision;
 
 
 	//数据相关变量
@@ -46,8 +47,9 @@ public class TestVisionResultActivity extends BaseActivity {
 
 	private void init(){
 		//初始化控件
+		vision = findViewById(R.id.test_result_vision);
 		trueRate = findViewById(R.id.test_vision_result_truerate);
-		probability = findViewById(R.id.test_vision_result_probability);
+		//probability = findViewById(R.id.test_vision_result_probability);
 		result = findViewById(R.id.test_vision_result_result);
 		submit = findViewById(R.id.test_vision_result_submit);
 		retest = findViewById(R.id.test_vision_result_retest);
@@ -65,9 +67,9 @@ public class TestVisionResultActivity extends BaseActivity {
 		//设置数据
 		trueRate.setText(testResult.getTrueRate() + "%");
 		result.setText(testResult.getResult());
-		probability.setText(testResult.getProbability() + "%");
+		//probability.setText(testResult.getProbability() + "%");
 		testEye.setText(testResult.getEye() + "");
-
+		vision.setText(testResult.getVision() + "");
 	}
 
 

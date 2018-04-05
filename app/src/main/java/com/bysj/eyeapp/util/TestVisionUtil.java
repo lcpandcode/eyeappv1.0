@@ -23,7 +23,7 @@ public class TestVisionUtil {
      * @param vision 视力值：4.0-5.2
      * @return 问题列表，问题尺寸是单位是毫米
      */
-    public static TestVisionQuestionVO getTestVisionQuestionVO(float distance,float vision){
+    public static TestVisionQuestionVO getTestVisionQuestionVO(float distance,float vision,List<Character> list){
         boolean visionIsContain = false;
         for(float i : VISION_ARR){
             if(vision==i){
@@ -35,17 +35,9 @@ public class TestVisionUtil {
         }
         TestVisionQuestionVO question = new TestVisionQuestionVO();
         //随机获取方向
-        int randomInt = (int)(Math.random() * 4);
-        char direction = '左';
-        if(randomInt<1){
-            direction = '左';
-        }else if(randomInt<2){
-            direction = '右';
-        }else if(randomInt<3){
-            direction = '上';
-        }else {
-            direction = '下';
-        }
+        int random = (int)(Math.random() * list.size());
+        char direction = list.get(random);
+        list.remove(random);
         question.setDirection(direction);
         float normalVisionSize = distance * EYE_MIN_ANGLE;//5.0标准分辨大小距离
         int multiple = (int)((5.0-vision)/0.1);//计算vision值和5.0视力值的倍率关系
@@ -65,9 +57,17 @@ public class TestVisionUtil {
             throw new RuntimeException("数据异常：传入的distance和num必须大于0");
         }
         List<TestVisionQuestionVO> questions = new ArrayList<>();
+
+        List<Character> listTem = new ArrayList<>(4);
         for(float i : VISION_ARR){
+            listTem.clear();
+            listTem.add('左');
+            listTem.add('右');
+            listTem.add('上');
+            listTem.add('下');
             for(int j=0;j<num;j++){
-                TestVisionQuestionVO question = getTestVisionQuestionVO(distance,i);
+                TestVisionQuestionVO question = getTestVisionQuestionVO(distance,i,listTem);
+                question.setVisionVal(i);
                 questions.add(question);
             }
         }

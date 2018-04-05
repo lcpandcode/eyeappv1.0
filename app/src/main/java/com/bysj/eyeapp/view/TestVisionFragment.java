@@ -46,7 +46,9 @@ import com.bysj.eyeapp.vo.TestVisionQuestionVO;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class TestVisionFragment extends Fragment {
 	//字符串常量
@@ -75,6 +77,10 @@ public class TestVisionFragment extends Fragment {
 	private int nowCheckedId = -1;//由于自定义线性布局嵌套radioButton，用RadioGroup的getCheckedId无法获取对应id，所以设置该全局变量存储当前选中的选项的id
 	private float testDistance = 0.0f;
 
+	private float visionValResult = 4.0f;//视力测试结果存储变量
+	private int visionValFalseCount = 0;//当前视力值下大体错误个数，超过两个图标错误则视为用户最大视力只能到达该值
+
+	private Map<Float,String> mapVision = new HashMap<>();
 	//控件相关变量
 	private View thisView;
 	private Button btnNext ;
@@ -126,7 +132,7 @@ public class TestVisionFragment extends Fragment {
 //			CustomToast.showToast(getActivity(),REMIND_BIND_SENSOR_FAIL);
 //			return;
 //		}
-
+		initMapVision();
 		//初始化控件变量
 		btnNext = thisView.findViewById(R.id.test_vision_nextbtn);
 		questionImg = thisView.findViewById(R.id.test_question_vision_img);
@@ -184,8 +190,7 @@ public class TestVisionFragment extends Fragment {
 				isChoseEye = true;
 			}
 		});
-		//初始化测试距离
-		initDistance();
+
 
 		//设置下拉刷新
 		//初始化下拉刷新功能
@@ -214,6 +219,41 @@ public class TestVisionFragment extends Fragment {
 				}, 0);
 			}
 		});
+
+		//初始化测试距离
+		initDistance();
+	}
+
+	/**
+	 * 初始化mapVision:主要记录视力值和近视度数的大概关系
+	 */
+	private void initMapVision(){
+		float [] VISION_ARR = new float[]{4.0f,4.1f,4.2f,4.3f,4.4f,4.5f,4.6f,4.7f,4.8f,4.9f,5.0f,5.1f,5.2f};
+		for(float i : VISION_ARR){
+			if(i==4.0){
+				mapVision.put(i,"近视大于650度");
+			}else if(i==4.1){
+				mapVision.put(i,"近视550-600度");
+			}else if(i==4.2){
+				mapVision.put(i,"近视500-550度");
+			}else if(i==4.3){
+				mapVision.put(i,"近视450-500度");
+			}else if(i==4.4){
+				mapVision.put(i,"近视400-450度");
+			}else if(i==4.5){
+				mapVision.put(i,"近视300-350度");
+			}else if(i==4.6){
+				mapVision.put(i,"250-300度");
+			}else if(i==4.7){
+				mapVision.put(i,"近视200-250度");
+			}else if(i==4.8){
+				mapVision.put(i,"近视150-200度");
+			}else if(i==4.9){
+				mapVision.put(i,"近视100-150度");
+			}else{
+				mapVision.put(i,"视力正常，无近视");
+			}
+		}
 	}
 
 	/**
@@ -259,8 +299,8 @@ public class TestVisionFragment extends Fragment {
 								//初始化数据
 								questions = service.getVisionQuestions(testDistance,VISION_NUM);
 								//初始化第一个答题页面
-								nextQuestion();
-								//showNewQuestion(questions.get(nowAnswerQuestion));
+								//nextQuestion();
+ 								showNewQuestion(questions.get(nowAnswerQuestion));
 							}
 						})
 				.setNegativeButton("取消",
@@ -330,8 +370,18 @@ public class TestVisionFragment extends Fragment {
 		}
 		//一旦开始答题，不能改变选中的眼睛
 		setCanChangeChoseEye();
+
 		//判断答题情况，并更新答题状态
 		judgeTest();
+		if(visionValFalseCount>=2){
+			//结束答题
+			//作答完成，获取答题结果
+			TestVisionResult result = getTestResult();
+			Intent intent = new Intent();
+			intent.putExtra(TEST_RESULT_KEY,result);
+			intent.setClass(thisView.getContext(),TestVisionResultActivity.class);
+			startActivity(intent);
+		}
 		nowAnswerQuestion++;
 		if(nowAnswerQuestion<QUESTION_NUM){
 			//获取下一题
@@ -360,6 +410,11 @@ public class TestVisionFragment extends Fragment {
 			return ;
 		}
 		TestVisionQuestionVO question = questions.get(nowAnswerQuestion);
+		//更新对应的视力值记录结果值
+		if(question.getVisionVal()!=visionValResult){
+			visionValResult = question.getVisionVal();
+			visionValFalseCount = 0;//新的视力值，上一个视力值结果计算清零
+		}
 		//获取选项值
 		int checkId = nowCheckedId;
 		int choseOption = 0;
@@ -384,18 +439,20 @@ public class TestVisionFragment extends Fragment {
 				trueOptionId = 1;
 				break;
 			case '下':
-				trueOption = 2;
+				trueOptionId = 2;
 				break;
 			case '左':
 				trueOptionId = 3;
 				break;
 			case '右':
-				trueOption = 4;
+				trueOptionId = 4;
 				break;
 		}
 		if(trueOptionId==choseOption){
 			//正确题目数加1
 			nowAnswerTrue++;
+		}else {
+			visionValFalseCount++;
 		}
 
 	}
@@ -413,12 +470,12 @@ public class TestVisionFragment extends Fragment {
 //		questionImg.setMaxHeight((int)mmToPx(question.getSize()));
 //		questionImg.setMaxWidth((int)mmToPx(question.getSize()));
 		//旋转图片
-		questionImg.setPivotX(questionImg.getWidth()/2);
-		questionImg.setPivotY(questionImg.getHeight()/2);//支点在图片中心
+		questionImg.setPivotX(layoutParams.height/2);
+		questionImg.setPivotY(layoutParams.height/2);//支点在图片中心
 		float rotateAngle = 0.0f;
 		switch (question.getDirection()) {
 			case '右':
-				rotateAngle = 90f;
+				rotateAngle = 0f;
 				break;
 			case '上':
 				rotateAngle = 270f;
@@ -445,16 +502,21 @@ public class TestVisionFragment extends Fragment {
 	 */
 	private TestVisionResult getTestResult(){
 		TestVisionResult result = new TestVisionResult();
-		result.setTrueRate(nowAnswerTrue/((double) QUESTION_NUM) * 100);//计算正确率
-		if(result.getTrueRate()<SERIOUS){
-			result.setResult(getResources().getString(R.string.test_result_serious));
-		}else if(result.getTrueRate()<MEDIUM){
-			result.setResult(getResources().getString(R.string.test_result_medium));
-		}else if(result.getTrueRate()<LITTLE){
-			result.setResult(getResources().getString(R.string.test_result_medium));
-		}else {
-			result.setResult(getResources().getString(R.string.test_result_normal));
-		}
+		DecimalFormat df = new DecimalFormat("######0.00");
+		double trueRate = nowAnswerTrue/((double) (nowAnswerQuestion + 1)) * 100;
+		trueRate = Float.parseFloat(df.format(trueRate));
+		result.setTrueRate(trueRate);//计算正确率
+//		if(result.getTrueRate()<SERIOUS){
+//			result.setResult(getResources().getString(R.string.test_result_serious));
+//		}else if(result.getTrueRate()<MEDIUM){
+//			result.setResult(getResources().getString(R.string.test_result_medium));
+//		}else if(result.getTrueRate()<LITTLE){
+//			result.setResult(getResources().getString(R.string.test_result_medium));
+//		}else {
+//			result.setResult(getResources().getString(R.string.test_result_normal));
+//		}
+		result.setResult(mapVision.get(visionValResult));
+		result.setVision(visionValResult + "");
 		//获取测试的眼睛
 		char eye = rbtnsEye.getCheckedRadioButtonId()==R.id.test_vision_rbtn_eye_left?LEFT_EYE:RIGHT_EYE;
 		result.setEye(eye);
@@ -499,6 +561,8 @@ public class TestVisionFragment extends Fragment {
 	 * 清楚页面数据
 	 */
 	private void clearData(){
+		visionValFalseCount = 0;
+		visionValResult = 4.0f;
 		testDistance = 0.0f;
 		nowAnswerQuestion = 0;
 		questions.clear();
@@ -599,6 +663,15 @@ class TestVisionResult implements Serializable {
 	private int probability;//患该病概率
 	private String result;//测试结果
 	private char eye;//测试的眼睛:取值左或者右
+	private String vision;
+
+	public String getVision() {
+		return vision;
+	}
+
+	public void setVision(String vision) {
+		this.vision = vision;
+	}
 
 	public char getEye() {
 		return eye;

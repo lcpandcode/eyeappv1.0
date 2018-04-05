@@ -16,8 +16,8 @@
                 android:gravity="center">
                 <ImageView
                     android:id="@+id/test_question_vision_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:src="@mipmap/test_vision_icon" />
             </LinearLayout>
             <TextView
@@ -25,7 +25,7 @@
                 android:text="在平放好手机后，点击选择您要测试的眼睛"/>
             <TextView
                 style="@style/test_question_title"
-                android:text="当提示您调整完毕时，您便可以进行测试操作！"/>
+                android:text="若在某个视力值内答错两道题，将停止答题！"/>
             <RadioGroup
                 android:id="@+id/test_vision_rbtns"
                 android:layout_height="wrap_content"

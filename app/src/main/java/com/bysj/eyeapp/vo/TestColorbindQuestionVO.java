@@ -5,20 +5,65 @@ package com.bysj.eyeapp.vo;
  */
 
 public class TestColorbindQuestionVO {
+    private int id;
     private String imgUrl;
     private String title;
     private String option1;
     private String option2;
     private String option3;
     private String option4;
-    private int trueOption;
+    private int correctOption;
+    private String option1Detail;//选择各个选项代表的具体意义：例如选了A有可能是红色盲，选了B可能是蓝色盲等说明
+    private String option2Detail;
+    private String option3Detail;
+    private String option4Detail;
 
-    public int getTrueOption() {
-        return trueOption;
+    public int getId() {
+        return id;
     }
 
-    public void setTrueOption(int trueOption) {
-        this.trueOption = trueOption;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getOption1Detail() {
+        return option1Detail;
+    }
+
+    public void setOption1Detail(String option1Detail) {
+        this.option1Detail = option1Detail;
+    }
+
+    public String getOption2Detail() {
+        return option2Detail;
+    }
+
+    public void setOption2Detail(String option2Detail) {
+        this.option2Detail = option2Detail;
+    }
+
+    public String getOption3Detail() {
+        return option3Detail;
+    }
+
+    public void setOption3Detail(String option3Detail) {
+        this.option3Detail = option3Detail;
+    }
+
+    public String getOption4Detail() {
+        return option4Detail;
+    }
+
+    public void setOption4Detail(String option4Detail) {
+        this.option4Detail = option4Detail;
+    }
+
+    public int getCorrectOption() {
+        return correctOption;
+    }
+
+    public void setCorrectOption(int correctOption) {
+        this.correctOption = correctOption;
     }
 
     public String getImgUrl() {
