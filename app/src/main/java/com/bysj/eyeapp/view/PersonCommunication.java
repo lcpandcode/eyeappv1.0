@@ -153,51 +153,7 @@ public class PersonCommunication extends BaseActivity{
         return true;
     }
 
-    /*
-    private boolean initExpertBarList(){
-        //设置适配器
-        listViewAdaptor = new SimpleAdapter(getApplication(),experts,R.layout.view_person_center_expert_list,
-                new String[]{"name","message","date","id","count"},
-                new int[]{R.id.person_center_expert_name,R.id.person_center_message,R.id.person_center_date,
-                        R.id.person_center_expert_id,R.id.person_center_message_center_msg_count});
-        expertList.setAdapter(listViewAdaptor);
-        //设置是否显示加载中的状态栏（当滑动到最后一条数据时，显示）
-        expertList.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                //设置itemCount的值
-                if(swipeRefreshLayout!=null){
-                    Log.d("itemCountSet","------>设置了itemCount");
-                    swipeRefreshLayout.setItemCount(totalItemCount);
-                }
-            }
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
 
-            }
-        });
-        //设置item监听事件
-        expertList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String expertIdStr = ((TextView)view.findViewById(R.id.person_center_expert_id)).getText().toString();
-                if(!RegularUtil.numberIsTrue(expertIdStr)){
-                    CustomToast.showToast(getApplication(),"当前id非法！");
-                    return ;
-                }
-                //更新消息状态
-                int expertId = Integer.parseInt(expertIdStr);
-                boolean readResult = readMessage(expertId);
-                if(readResult){
-                    showExpertCommunicationDetailActivity(expertId);
-                } else {
-                    CustomToast.showToast(getApplication(),GlobalConst.REMIND_NET_ERROR);
-                    return ;
-                }
-            }
-        });
-        return true;
-    }*/
     private boolean initExpertBarList(){
         //设置适配器
         listViewAdaptor = new MyAdapter(this,experts);
@@ -255,6 +211,7 @@ public class PersonCommunication extends BaseActivity{
         pageNow = 1;
         experts.clear();
 
+
         List<ExpertCommunicationVO> expertsData = null;
         try {
             experts = service.getExpertCommunicationList(limit,pageNow);
@@ -279,6 +236,8 @@ public class PersonCommunication extends BaseActivity{
                 return ;
             }
         }
+
+
         //刷新页面
         listViewAdaptor.notifyDataSetChanged();
         //回到顶部
